@@ -1,0 +1,40 @@
+.app-wrapper {
+    display: grid;
+
+    grid-template-areas: "h h"
+    "n c";
+
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-gap: 1em;
+
+}
+
+.header {
+    grid-area: h;
+    background-color: rgb(190, 113, 113);
+}
+    .header img {
+        width: 60px;
+    }
+
+.nav {
+    grid-area: n;
+    background-color: rgb(169, 209, 137);
+
+}
+
+.content {
+    grid-area: c;
+    background-color: rgb(137, 150, 209);
+    background-image: url(./bck-image.jpg);
+
+}
+    .content .bck-image {
+        margin: auto;
+        width: 100%;
+        height: 100px;
+    }
+    .content .user-logo {
+        background-image: url(./user-logo.png);
+    }
