@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Profile.css';
 
 const Profile = () => {
     return (
@@ -13,7 +13,10 @@ const Profile = () => {
                 
                 <div className="my-post">my-post
                     <div className="new-post">new-post</div>
-                    <div className="posts">posts</div>
+                    <div className="posts">
+                        <div></div>
+                        <div></div>
+                    </div>
                 </div>
             </div>
             
