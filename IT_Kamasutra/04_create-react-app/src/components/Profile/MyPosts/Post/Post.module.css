@@ -1,0 +1,24 @@
+.item {
+    color: Black;
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    grid-template-rows: auto;
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+    margin-bottom: 5px;
+
+}
+
+.message {
+    align-self: center;
+    overflow-wrap: normal;
+    font-family: Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+.logo {
+    background-image: url(./avatar.jpg);
+    width: 25px;
+    height: 25px;
+    background-size: 25px;
+}

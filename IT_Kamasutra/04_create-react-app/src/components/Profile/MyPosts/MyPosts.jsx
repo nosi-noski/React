@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './MyPosts.module.css';
+import Post from './Post/Post';
 
 const MyPosts = () => {
     return (
@@ -11,11 +12,9 @@ const MyPosts = () => {
                 <button>Remove Post</button>
             </div>
             <div className="posts">
-                <div className={classes.item}>
-                    <div className={classes.logo}></div>
-                    Post one
-                </div>
-                <div className={classes.item}> Post two</div>
+               <Post message="Hi, how are you?"/>
+               <Post message="It\'s my first post"/>
+               <Post/>
             </div>
         </div>
                

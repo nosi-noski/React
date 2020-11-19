@@ -1,13 +1,15 @@
 .content {
     grid-area: c; 
     background-color: rgb(137, 150, 209);
-    background-image: url(../../bck-image.jpg);
+   
 
 }
     .image {
         margin: auto;
         width: 100%;
         height: 100px;
+        background-image: url(../../bck-image.jpg);
+        background-size: cover;
     }
     .logo {
         background-image: url(../../user-logo.png);
