@@ -5,8 +5,14 @@ const Post = (props) => {
     return (
         <div className={classes.item}>
             <div className={classes.logo}></div>
-    <div className={classes.message}><span>{props.message}</span></div>
-            <span>Like</span>
+            <div className={classes.message}>
+                <span>{props.message}</span>
+            </div>
+            <div className={classes.like}>
+                <span>Like </span>
+                <span>{props.likescount}</span>
+            </div>
+            
         </div>
     );
 }
