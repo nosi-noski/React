@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 import classes from'./NavBar.module.css';
 
 const NavBar = () => {
@@ -6,27 +7,51 @@ const NavBar = () => {
         <nav className={classes.nav}>
 
             <div className={classes.item}>
-                <a href="/profile">Profile</a>
+                <NavLink 
+                    to="/profile"
+                    activeClassName={classes.activeLink}>
+                        Profile 
+                </NavLink>
             </div>
 
             <div className={classes.item}>
-                <a href="/dialogs">Dialogs</a>
-            </div>
-
-            <div className={ `${classes.item} ${classes.active}` }>
-                <a href="/messages">Messages</a>
-            </div>
-
-            <div className={classes.item}>
-                <a href="/news">News</a>
+                <NavLink 
+                    to="/dialogs" 
+                    activeClassName={classes.activeLink}>
+                        Dialogs
+                </NavLink>
             </div>
 
             <div className={classes.item}>
-                <a href="/music">Music</a>
+                <NavLink 
+                    to="/messages"                    
+                    activeClassName={classes.activeLink}>
+                        Messages
+                </NavLink>
             </div>
 
             <div className={classes.item}>
-                <a href="/settings">Settings</a>
+                <NavLink 
+                    to="/news"
+                    activeClassName={classes.activeLink}>
+                        News
+                </NavLink>
+            </div>
+
+            <div className={classes.item}>
+                <NavLink 
+                    to="/music"
+                    activeClassName={classes.activeLink}>
+                        Music
+                    </NavLink>
+            </div>
+
+            <div className={classes.item}>
+                <NavLink 
+                    to="/settings"
+                    activeClassName={classes.activeLink}>
+                    Settings
+                </NavLink>
             </div>
             
         </nav>
