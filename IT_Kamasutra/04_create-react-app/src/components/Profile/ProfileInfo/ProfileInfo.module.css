@@ -1,0 +1,14 @@
+.image {
+    margin: auto;
+    width: 100%;
+    height: 100px;
+    background-image: url(./bck-image.jpg);
+    background-size: cover;
+}
+.logo {
+    background-image: url(./user-logo.png);
+}
+
+.descriptionBlock{
+    padding: 10px;
+}

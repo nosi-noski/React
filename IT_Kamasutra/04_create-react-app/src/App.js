@@ -21,7 +21,7 @@ function App(props) {
                 <NavBar/>
                 <div className="app-wrapper-content">
                     <Route path="/profile" component={Profile}/>
-                    <Route exact path="/dialogs" component={Dialogs}/>
+                    <Route path="/dialogs" component={Dialogs}/>
                     <Route path="/messages" component={Messages}/>
                     <Route path="/music" component={Music}/>
                     <Route path="/settings" component={Settings}/>

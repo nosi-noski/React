@@ -1,0 +1,33 @@
+.myPostsWrapper {
+    padding: 10px;
+}
+    .newPostArea {
+        display: grid;
+        grid-template-areas: "t"
+        "a";
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+    }
+
+    .newTextArea {
+        grid-area: t; 
+        width: 50vw;
+    }
+        .newTextArea>textarea {
+            width: inherit;
+        }
+        .buttons {
+            grid-area: a;
+        }
+            .textAdd {
+                display: flex;
+            }
+            
+            .textRemove {
+                display: flex;
+            }
+
+    .posts {
+        margin-top: 10px;
+    }
+
