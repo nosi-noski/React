@@ -2,6 +2,13 @@ import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 
+let postsData = [
+    {id: 1, likescount: 1, post: 'Hi, how are you?'},
+    {id: 2, likescount: 11, post: 'It\'s my first post'}
+];
+
+let postElements = postsData.map((p)=><Post message={p.post} likescount={p.likescount} key={p.id}/>)
+
 const MyPosts = () => {
     return (
         <div className={classes.myPostsWrapper}>
@@ -21,9 +28,9 @@ const MyPosts = () => {
                 </div>
             </div>
             <div className={classes.posts}>
-               <Post message="Hi, how are you?" likescount="1"/>
-               <Post message="It\'s my first post" likescount="2"/>
-               <Post/>
+               {/* <Post message={postsData[0].post} likescount={postsData[0].likescount}/>
+               <Post message={postsData[1].post} likescount={postsData[1].likescount}/> */}
+                { postElements }
             </div>
         </div>
                
