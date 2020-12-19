@@ -11,18 +11,21 @@ import News from "./components/News/News";
 
 import {BrowserRouter, Route} from "react-router-dom";
 
-
+let getMessages = () => <Messages/> 
  
-function App(props) {
+function App ( props ) {
+    debugger
     return (
         <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <NavBar/>
                 <div className="app-wrapper-content">
-                    <Route path="/profile" component={Profile}/>
-                    <Route path="/dialogs" component={Dialogs}/>
-                    <Route path="/messages" component={Messages}/>
+                    {/* <Route path="/profile" component={Profile}/> */}
+                    {/* <Route path="/dialogs" component={Dialogs} /> */}
+                    <Route path="/profile" render={ () => <Profile posts={props.data.posts}/> }/>
+                    <Route path="/dialogs" render={ () => <Dialogs dialogs={props.data.dialogs} messages={props.data.messages}/> }/>
+                    <Route path="/messages" component={getMessages}/>
                     <Route path="/music" component={Music}/>
                     <Route path="/settings" component={Settings}/>
                     <Route path="/news" component={News}/>

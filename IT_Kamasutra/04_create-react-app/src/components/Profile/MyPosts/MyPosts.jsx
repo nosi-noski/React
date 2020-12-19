@@ -2,14 +2,12 @@ import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
 
-let postsData = [
-    {id: 1, likescount: 1, post: 'Hi, how are you?'},
-    {id: 2, likescount: 11, post: 'It\'s my first post'}
-];
 
-let postElements = postsData.map((p)=><Post message={p.post} likescount={p.likescount} key={p.id}/>)
 
-const MyPosts = () => {
+const MyPosts = (props) => {
+
+    let postElements = props.posts.map((p)=><Post message={p.post} likescount={p.likescount} key={p.id}/>)
+
     return (
         <div className={classes.myPostsWrapper}>
             <h3>my-post</h3>
