@@ -8,20 +8,30 @@ const MyPosts = (props) => {
 
     let postElements = props.posts.map((p)=><Post message={p.post} likescount={p.likescount} key={p.id}/>)
 
+    let addPost = () => {
+        let text = newPostElement.current.value;
+        props.addPost(text);
+        newPostElement.current.value = '';
+    };
+    
+    let removePost = () => {alert("Remove post")};
+
+    let newPostElement = React.createRef();
+
     return (
         <div className={classes.myPostsWrapper}>
             <h3>my-post</h3>
             <div className = {classes.newPostArea}>
                 <div className={classes.newTextArea}>
-                    <textarea></textarea>
+                    <textarea ref={newPostElement}></textarea>
                 </div> 
                 <div className={classes.buttons}>
                     <div className={classes.textAdd}>
-                        <button>Add Post</button>
+                        <button  onClick={ addPost }>Add Post</button>
                         
                     </div> 
                     <div className={classes.textRemove}>
-                        <button>Remove Post</button> 
+                        <button onClick={ removePost }>Remove Post</button> 
                     </div> 
                 </div>
             </div>

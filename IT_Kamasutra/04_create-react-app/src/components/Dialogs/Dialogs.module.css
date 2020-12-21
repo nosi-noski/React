@@ -2,10 +2,13 @@
     font-family:  Helvetica, sans-serif;
     display: grid;
     grid-template-columns: 2fr 10fr;
+    grid-template-areas: "a b" "c d";
 }
     .dialogsItems {
+        grid-area: a;
         padding: 10px;
         display: grid;
+        border: 1px solid #000;
     }
         .dialogsItems .active {
             display: flex;
@@ -19,6 +22,7 @@
             text-decoration-line: none;
             margin: 5px;
             height: 25px;
+            border: 1px solid #000;
            
         }
         .dialog a:hover {
@@ -36,10 +40,42 @@
         }
 
     .messages {
+        grid-area: b;
         padding: 10px;
-
+        display: grid;
+        border: 1px solid #000;
     }
 
-        .message {
-            
+  
+        .newPostArea {
+            grid-area: d;
+            margin-top: 10px;
+            border: 1px solid #000;
         }
+    
+        .newTextArea {
+            width: 100%;
+            margin: 10px;
+        }
+            .newTextArea>textarea {
+                width: 100%;
+            }
+
+            .buttons {
+                margin-left: 10px;
+            }
+                .textAdd {
+                    display: flex;
+                    margin-bottom: 10px;
+                }
+                
+                .textRemove {
+                    display: flex;
+                    margin-bottom: 10px;
+                }
+    
+        .posts {
+            margin-top: 10px;
+        }
+    
+    

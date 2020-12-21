@@ -1,0 +1,22 @@
+.message {
+  
+}
+
+.messageAlignLeft {
+    display: grid;
+    align-items: start;
+    justify-items: start;
+}
+
+.messageAlignRight {
+    display: grid;
+    align-items: end;
+    justify-items: end;
+}
+
+.logo {
+        /* background-image: url(./user1.png); */
+        width: 25px;
+        height: 25px;
+        background-size: 25px;
+}

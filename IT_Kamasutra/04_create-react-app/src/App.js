@@ -14,24 +14,30 @@ import {BrowserRouter, Route} from "react-router-dom";
 let getMessages = () => <Messages/> 
  
 function App ( props ) {
-    debugger
+    
     return (
-        <BrowserRouter>
             <div className="app-wrapper">
                 <Header/>
                 <NavBar/>
                 <div className="app-wrapper-content">
                     {/* <Route path="/profile" component={Profile}/> */}
                     {/* <Route path="/dialogs" component={Dialogs} /> */}
-                    <Route path="/profile" render={ () => <Profile posts={props.data.posts}/> }/>
-                    <Route path="/dialogs" render={ () => <Dialogs dialogs={props.data.dialogs} messages={props.data.messages}/> }/>
+                    <Route path="/profile" 
+                        render={ () => <Profile 
+                            state={props.state.profilePage}
+                            addPost={props.addPost}/>}
+                    />
+                    <Route path="/dialogs" 
+                        render={ () => <Dialogs 
+                            state={props.state.dialogsPage}/>}
+                    />
                     <Route path="/messages" component={getMessages}/>
                     <Route path="/music" component={Music}/>
                     <Route path="/settings" component={Settings}/>
                     <Route path="/news" component={News}/>
                 </div>
             </div>
-        </BrowserRouter>
+      
     );
 }
 
