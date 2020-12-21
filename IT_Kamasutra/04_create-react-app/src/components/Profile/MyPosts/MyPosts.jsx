@@ -9,11 +9,15 @@ const MyPosts = (props) => {
     let postElements = props.posts.map((p)=><Post message={p.post} likescount={p.likescount} key={p.id}/>)
 
     let addPost = () => {
-        let text = newPostElement.current.value;
-        props.addPost(text);
-        newPostElement.current.value = '';
+        props.addPost();
+
     };
-    
+
+    let onPostChange = () => {
+        let text = newPostElement.current.value;
+        props.updateNewPostText(text);
+    };
+
     let removePost = () => {alert("Remove post")};
 
     let newPostElement = React.createRef();
@@ -23,7 +27,10 @@ const MyPosts = (props) => {
             <h3>my-post</h3>
             <div className = {classes.newPostArea}>
                 <div className={classes.newTextArea}>
-                    <textarea ref={newPostElement}></textarea>
+                    <textarea 
+                        onChange={onPostChange} 
+                        ref={newPostElement} 
+                        value={props.newPostText}/>
                 </div> 
                 <div className={classes.buttons}>
                     <div className={classes.textAdd}>

@@ -6,7 +6,8 @@ let state  = {
         posts : [
             { id: 1, likescount: 1, post: 'Hi, how are you?' },
             { id: 2, likescount: 11, post: 'It\'s my first post' }
-        ]
+        ],
+        newPostText: 'default text'
     },
 
     dialogsPage : {
@@ -33,19 +34,26 @@ let state  = {
     sitebar: {
 
     }
-
 };
 
-export let addPost = (postMessage) => {
+window.state = state;
+export let addPost = () => {
     
     let newPost =  { 
         id: state.profilePage.posts.length + 1, 
-        post: postMessage,
+        post: state.profilePage.newPostText,
         likescount: 0  
     };
 
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
+    renderEntireTree(state); 
+};
 
+
+export let updateNewPostText = (postMessage) => {
+    
+    state.profilePage.newPostText = postMessage;
     renderEntireTree(state); 
 };
 
