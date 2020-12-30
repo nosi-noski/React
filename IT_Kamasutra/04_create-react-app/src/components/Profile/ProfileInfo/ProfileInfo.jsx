@@ -8,7 +8,7 @@ const ProfileInfo = (props) => {
             <div className={classes.image}></div>
             <div>
                 <div className={classes.logo}></div>
-                <div className="user-description">description</div>
+                <div className={classes.userDescription}>Profile info description</div>
             </div>
             
         </div>

@@ -23,19 +23,18 @@ function App ( props ) {
                     {/* <Route path="/profile" component={Profile}/> */}
                     {/* <Route path="/dialogs" component={Dialogs} /> */}
                     <Route path="/profile" 
-                        render={ () => <Profile 
+                           render={ () => <Profile 
                             profilePage={props.state.profilePage}
-                            addPost={props.addPost}
-                            updateNewPostText={props.updateNewPostText}/>}
+                            dispatch={props.dispatch} />}
                     />
                     <Route path="/dialogs" 
                         render={ () => <Dialogs 
-                            state={props.state.dialogsPage}/>}
+                            state={props.state.dialogsPage} />}
                     />
                     <Route path="/messages" component={getMessages}/>
-                    <Route path="/music" component={Music}/>
+                    <Route path="/music"    component={Music}/>
                     <Route path="/settings" component={Settings}/>
-                    <Route path="/news" component={News}/>
+                    <Route path="/news"     component={News}/>
                 </div>
             </div>
       

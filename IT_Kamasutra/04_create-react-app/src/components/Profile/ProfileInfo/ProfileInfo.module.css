@@ -5,10 +5,15 @@
     background-image: url(./bck-image.jpg);
     background-size: cover;
 }
+
 .logo {
     background-image: url(./user-logo.png);
 }
 
-.descriptionBlock{
+.descriptionBlock {
     padding: 10px;
+}
+
+.userDescription {
+    font-weight: bold;
 }

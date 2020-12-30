@@ -5,20 +5,30 @@ import Post from './Post/Post';
 
 
 const MyPosts = (props) => {
-
+  
     let postElements = props.posts.map((p)=><Post message={p.post} likescount={p.likescount} key={p.id}/>)
 
     let addPost = () => {
-        props.addPost();
+        let action = { 
+            type:'ADD-POST' 
+        };
 
+        props.dispatch( action );
     };
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        props.updateNewPostText(text);
+        let action = { 
+            type:'UPDATE-NEW-POST-TEXT', 
+            postMessage: text 
+        };
+
+        props.dispatch( action );
     };
 
-    let removePost = () => {alert("Remove post")};
+    let removePost = () => {
+        alert("Remove post");
+    };
 
     let newPostElement = React.createRef();
 
@@ -28,7 +38,7 @@ const MyPosts = (props) => {
             <div className = {classes.newPostArea}>
                 <div className={classes.newTextArea}>
                     <textarea 
-                        onChange={onPostChange} 
+                        onChange={ onPostChange } 
                         ref={newPostElement} 
                         value={props.newPostText}/>
                 </div> 
@@ -43,8 +53,6 @@ const MyPosts = (props) => {
                 </div>
             </div>
             <div className={classes.posts}>
-               {/* <Post message={postsData[0].post} likescount={postsData[0].likescount}/>
-               <Post message={postsData[1].post} likescount={postsData[1].likescount}/> */}
                 { postElements }
             </div>
         </div>
