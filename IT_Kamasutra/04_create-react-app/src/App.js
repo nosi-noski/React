@@ -29,12 +29,13 @@ function App ( props ) {
                     />
                     <Route path="/dialogs" 
                         render={ () => <Dialogs 
-                            state={props.state.dialogsPage} />}
+                            state={props.state.dialogsPage}
+                            dispatch={props.dispatch} />}
                     />
-                    <Route path="/messages" component={getMessages}/>
-                    <Route path="/music"    component={Music}/>
-                    <Route path="/settings" component={Settings}/>
-                    <Route path="/news"     component={News}/>
+                    <Route path="/messages" component={getMessages} />
+                    <Route path="/music"    component={Music} />
+                    <Route path="/settings" component={Settings} />
+                    <Route path="/news"     component={News} />
                 </div>
             </div>
       

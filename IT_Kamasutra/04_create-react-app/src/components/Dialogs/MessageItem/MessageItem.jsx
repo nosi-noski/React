@@ -1,15 +1,28 @@
 import React from 'react';
 import classes from'./MessageItem.module.css';
-
+import {getAuthorName} from '../../../redux/state'
 
 const MessageItem = (props) => {
     
-    let myId = 1;
+
+
+    let myId = 0;
+    let myCloudColorClass = props.userid === myId ? "blueCloud" : "greenCloud";
     let alignText =  props.userid === myId ? 'messageAlignLeft': 'messageAlignRight';
+  
+    let authorName =  getAuthorName( props.userid, props.props.state.dialogs );
+   
+    let messageWasHovered = (e) => {
+        debugger
+        e.currentTarget.parentElement.children[1].classList.add('authorHovered')
+    };
     return (
-        <div className={classes.message +' '+ classes[alignText]} >
-            <div>{props.message}</div>
-            <div className={classes.logo}/>
+        <div className={classes.messages}>
+            <div className={classes.message +' '+ classes[alignText]}>
+                <div className={classes[myCloudColorClass] + ' ' + classes.messageCloud} onMouseOver={messageWasHovered}> {props.message}</div>
+                {/* <div className={classes.logo}/> */}
+                <div className={classes.author}>{authorName}</div>
+            </div>
         </div>
 	);
 }

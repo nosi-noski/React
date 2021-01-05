@@ -1,17 +1,23 @@
+.messages {
+    grid-template-areas: "l r";
+    grid-template-columns: 50% 50%;
+}
 .message {
-  
+    display: grid;
 }
 
 .messageAlignLeft {
-    display: grid;
+    grid-area: l; 
     align-items: start;
     justify-items: start;
+    
 }
 
 .messageAlignRight {
-    display: grid;
+    grid-area: r; 
     align-items: end;
     justify-items: end;
+   
 }
 
 .logo {
@@ -19,4 +25,35 @@
         width: 25px;
         height: 25px;
         background-size: 25px;
+}
+
+.author {
+    font-size: 11px;
+    padding: 0px 0px 5px 0px;
+    height: 15px;
+    opacity: 0;
+    
+}
+.authorHovered {
+    opacity: 1 !important;
+}
+
+.author {
+
+}
+
+.messageCloud {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.blueCloud {
+    background-color: rgb(145, 173, 209);
+    border-radius: 10px 10px 10px 0px;
+
+}
+
+.greenCloud {
+    background-color: rgb(177, 209, 145);
+    border-radius: 10px 10px 0px 10px;
 }
