@@ -10,6 +10,7 @@
     grid-area: l; 
     align-items: start;
     justify-items: start;
+    padding-right: 20%;
     
 }
 
@@ -17,6 +18,7 @@
     grid-area: r; 
     align-items: end;
     justify-items: end;
+    padding-left: 20%;
    
 }
 

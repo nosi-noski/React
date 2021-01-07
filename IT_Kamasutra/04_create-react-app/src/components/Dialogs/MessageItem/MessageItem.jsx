@@ -13,7 +13,7 @@ const MessageItem = (props) => {
     let authorName =  getAuthorName( props.userid, props.props.state.dialogs );
    
     let messageWasHovered = (e) => {
-        debugger
+        
         e.currentTarget.parentElement.children[1].classList.add('authorHovered')
     };
     return (

@@ -96,7 +96,7 @@ let store = {
             
             action.addButton.disabled = true;
             action.removeButton.disabled = true;
-            debugger;
+  
             
 
             this._callSubscriber(this._state); 
