@@ -93,4 +93,4 @@ export const getAuthorName = (authorId, array) => {
 };
 
 export default store;
-window.store = store;
+//window.store = store;

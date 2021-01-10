@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from'./MessageItem.module.css';
-import {getAuthorName} from '../../../redux/state'
+import {getAuthorName} from '../../../redux/store'
 
 const MessageItem = (props) => {
     
