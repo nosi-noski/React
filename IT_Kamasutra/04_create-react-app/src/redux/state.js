@@ -1,3 +1,9 @@
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_MESSAGE = "ADD-MESSAGE";
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+
 let store = {
     _state: {
         profilePage: {
@@ -22,7 +28,7 @@ let store = {
                 { id: 4, userid: 2, message: 'Have you ever coded in React?' },
                 { id: 5, userid: 2, message: 'I have special offer for you)) Text me back, please)' }
             ],
-            newMessageText: 'default mesage text'
+            newMessageText: ''
         },
         friends: {
         },
@@ -63,7 +69,7 @@ let store = {
 
     dispatch( action ){
         
-        if (action.type === "ADD-POST" ){
+        if (action.type === ADD_POST ){
 
             let newPost =  { 
                 id: this._state.profilePage.posts.length + 1, 
@@ -76,14 +82,14 @@ let store = {
         }
 
 
-        if ( action.type === "UPDATE-NEW-POST-TEXT" ){
+        if ( action.type === UPDATE_NEW_POST_TEXT ){
 
             this._state.profilePage.newPostText = action.postMessage;
             this._callSubscriber(this._state); 
         }
 
 
-        if ( action.type === 'ADD-MESSAGE' ){
+        if ( action.type === ADD_MESSAGE ){
             
             let newMessage = {
                 id: this._state.dialogsPage.messages.length + 1, 
@@ -104,7 +110,7 @@ let store = {
         }
 
 
-        if( action.type === 'UPDATE-NEW-MESSAGE-TEXT' ){
+        if( action.type === UPDATE_NEW_MESSAGE_TEXT ){
             this._state.dialogsPage.newMessageText = action.newMessageText;
             
             var isDisabled = action.newMessageText.length > 0 ? false : true;
@@ -132,20 +138,20 @@ export const getAuthorName = (authorId, array) => {
 
 export const addPostActionCreator = () => {
     return {
-        type:'ADD-POST' 
+        type: ADD_POST
     }
 };
 
 export const updateNewPostTextActionCreator = ( postMessage ) => {
     return {
-        type:'UPDATE-NEW-POST-TEXT', 
+        type: UPDATE_NEW_POST_TEXT, 
         postMessage: postMessage 
     }
 };
 
-export const addMessageActionCreator = (action) => {
+export const sendNewMessageCreator = (action) => {
     return {
-        type:'ADD-MESSAGE',
+        type: ADD_MESSAGE,
         userid: action.userid,
         addButton: action.addButton,
         removeButton: action.removeButton,
@@ -153,10 +159,9 @@ export const addMessageActionCreator = (action) => {
     }
 };
 
-export const updateNewMessageTextActionCreator = ( action ) => {
-    
+export const updateNewMessageBodyCreator = ( action ) => {
     return {
-        type:'UPDATE-NEW-MESSAGE-TEXT', 
+        type: UPDATE_NEW_MESSAGE_TEXT, 
         newMessageText: action.newMessageText,
         addButton: action.addButton,
         removeButton: action.removeButton

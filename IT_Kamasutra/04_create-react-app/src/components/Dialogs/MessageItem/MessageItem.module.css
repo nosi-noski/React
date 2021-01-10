@@ -4,13 +4,14 @@
 }
 .message {
     display: grid;
+    
 }
 
 .messageAlignLeft {
     grid-area: l; 
     align-items: start;
     justify-items: start;
-    padding-right: 20%;
+    padding-right: 25%;
     
 }
 
@@ -18,7 +19,7 @@
     grid-area: r; 
     align-items: end;
     justify-items: end;
-    padding-left: 20%;
+    padding-left: 25%;
    
 }
 
@@ -47,6 +48,7 @@
 .messageCloud {
     padding: 10px;
     border-radius: 10px;
+    word-break: break-all;
 }
 
 .blueCloud {
