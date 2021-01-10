@@ -1,8 +1,7 @@
+import dialogsReducer from './dialogsReducer';
+import profileReducer from './profileReducer';
+import sidebarReducer from './sidebarReducer';
 
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
-const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 
 let store = {
     _state: {
@@ -31,8 +30,10 @@ let store = {
             newMessageText: ''
         },
         friends: {
+
         },
-        sitebar: {
+        sidebar: {
+            
         }
     },
 
@@ -69,56 +70,11 @@ let store = {
 
     dispatch( action ){
         
-        if (action.type === ADD_POST ){
+        profileReducer(this._state.profilePage, action);
+        dialogsReducer(this._state.dialogsPage, action);
+        sidebarReducer(this._state.sidebar, action);
 
-            let newPost =  { 
-                id: this._state.profilePage.posts.length + 1, 
-                post: this._state.profilePage.newPostText,
-                likescount: 0  
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state); 
-        }
-
-
-        if ( action.type === UPDATE_NEW_POST_TEXT ){
-
-            this._state.profilePage.newPostText = action.postMessage;
-            this._callSubscriber(this._state); 
-        }
-
-
-        if ( action.type === ADD_MESSAGE ){
-            
-            let newMessage = {
-                id: this._state.dialogsPage.messages.length + 1, 
-                userid: action.userid, 
-                message: this._state.dialogsPage.newMessageText
-            };
-
-            this._state.dialogsPage.messages.push(newMessage);
-            this._state.dialogsPage.newMessageText = '';
-            
-            action.addButton.disabled = true;
-            action.removeButton.disabled = true;
-  
-            
-
-            this._callSubscriber(this._state); 
-            // action.messagesElement.scrollTo(0, action.messagesElement.scrollHeight);
-        }
-
-
-        if( action.type === UPDATE_NEW_MESSAGE_TEXT ){
-            this._state.dialogsPage.newMessageText = action.newMessageText;
-            
-            var isDisabled = action.newMessageText.length > 0 ? false : true;
-            action.addButton.disabled = isDisabled;
-            action.removeButton.disabled = isDisabled;
-            this._callSubscriber(this._state);
-
-        }
+        this._callSubscriber(this._state);
     }
    
 
@@ -135,39 +91,6 @@ export const getAuthorName = (authorId, array) => {
         }
         
 };
-
-export const addPostActionCreator = () => {
-    return {
-        type: ADD_POST
-    }
-};
-
-export const updateNewPostTextActionCreator = ( postMessage ) => {
-    return {
-        type: UPDATE_NEW_POST_TEXT, 
-        postMessage: postMessage 
-    }
-};
-
-export const sendNewMessageCreator = (action) => {
-    return {
-        type: ADD_MESSAGE,
-        userid: action.userid,
-        addButton: action.addButton,
-        removeButton: action.removeButton,
-        messagesElement: action.messagesElement
-    }
-};
-
-export const updateNewMessageBodyCreator = ( action ) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_TEXT, 
-        newMessageText: action.newMessageText,
-        addButton: action.addButton,
-        removeButton: action.removeButton
-    }
-};
-
 
 export default store;
 window.store = store;
