@@ -2,39 +2,38 @@ import React, { useState, useEffect }  from 'react';
 import classes from'./Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem'
 import MessageItem from './MessageItem/MessageItem'
-import {sendNewMessageCreator, updateNewMessageBodyCreator} from '../../redux/dialogsReducer';
-
 
 const Dialogs = (props) => {
     
-    let dialogsElements = props.state.dialogs.map( (d) => <DialogItem name={d.name} dialogId={d.id} key={d.id}/>);
-    let messagesElements = props.state.messages.map( (m) => <MessageItem props = {props} message={m.message} userid={m.userid} key={m.id}/>);
+    let state = props.dialogsPage;
+     
+    let dialogsElements = state.dialogs.map( (d) => <DialogItem name={d.name} dialogId={d.id} key={d.id}/>);
+    let messagesElements = state.messages.map( (m) => <MessageItem props={props} message={m.message} userid={m.userid} key={m.id}/>);
     
-    let addMessage = () => {
-        
+    let onAddMessage = () => {
         let action = { 
             userid: 0,
             addButton: addMessageElement.current,
             removeButton: removeMessageElement.current,
             messagesElement : messagesElement.current
         };
-
-        props.dispatch( sendNewMessageCreator(action))
+        props.addMessage(action)
+     
     };
 
-    let onMessageChange = () => {
-        
-        let text = newMessageElement.current.value;
-        console.log( text);
+    let onChangeMessage = () => {
+        //let text = newMessageElement.current.value;
         let action = { 
-            newMessageText: text,
+            newMessageText: newMessageElement.current.value,
             addButton: addMessageElement.current,
             removeButton: removeMessageElement.current
         };
-        props.dispatch( updateNewMessageBodyCreator(action))
+        props.changeNewMessage(action);
     }; 
 
-    let removeMessage = () => {alert("Remove post")};
+    let onRemoveMessage = () => {
+        props.removeMessage();
+    };
     
     let messagesElement = React.createRef();
     let newMessageElement = React.createRef();
@@ -59,8 +58,8 @@ const Dialogs = (props) => {
             <div className = {classes.newPostArea}>
                 <div className={classes.newTextArea}>
                     <textarea   ref={ newMessageElement } 
-                                value={ props.state.newMessageText }
-                                onChange={ onMessageChange }
+                                value={ state.newMessageText }
+                                onChange={ onChangeMessage }
                                 placeholder="new message">
                                 
                                 </textarea>
@@ -68,12 +67,12 @@ const Dialogs = (props) => {
                 <div className={classes.buttons}>
                     <div className={classes.textAdd}>
                         <button ref={addMessageElement} 
-                                onClick={ addMessage }>Add message</button>
+                                onClick={ onAddMessage }>Add message</button>
                         
                     </div> 
                     <div className={classes.textRemove}>
                         <button ref={removeMessageElement}  
-                                onClick={ removeMessage }>Remove message</button> 
+                                onClick={ onRemoveMessage }>Remove message</button> 
                     </div> 
                 </div>
             </div>

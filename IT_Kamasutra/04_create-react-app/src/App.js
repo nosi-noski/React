@@ -3,7 +3,7 @@ import './App.css';
 import Header from "./components/Header/Header"; 
 import NavBar from "./components/NavBar/NavBar"; 
 import Profile from "./components/Profile/Profile"; 
-import Dialogs from "./components/Dialogs/Dialogs";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Messages from "./components/Messages/Messages";
 import Music from "./components/Music/Music";
 import Settings from "./components/Params/Params";
@@ -23,14 +23,10 @@ function App ( props ) {
                     {/* <Route path="/profile" component={Profile}/> */}
                     {/* <Route path="/dialogs" component={Dialogs} /> */}
                     <Route path="/profile" 
-                           render={ () => <Profile 
-                            profilePage={props.state.profilePage}
-                            dispatch={props.dispatch} />}
+                           render={ () => <Profile store={props.store} />}
                     />
                     <Route path="/dialogs" 
-                        render={ () => <Dialogs 
-                            state={props.state.dialogsPage}
-                            dispatch={props.dispatch} />}
+                        render={ () => <DialogsContainer store={props.store} />}
                     />
                     <Route path="/messages" component={getMessages} />
                     <Route path="/music"    component={Music} />

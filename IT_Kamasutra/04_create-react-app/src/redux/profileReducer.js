@@ -1,12 +1,14 @@
 const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const CHOSE_POST_TEXT = "CHOSE-POST-TEXT";
 
 let initialState =  {
     posts : [
         { id: 1, likescount: 1, post: 'Hi, how are you?' },
         { id: 2, likescount: 11, post: 'It\'s my first post' }
     ],
-    newPostText: 'default post text'
+    newPostText: 'default post text',
+    chosenPostId: []
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -25,6 +27,10 @@ const profileReducer = (state = initialState, action) => {
         case UPDATE_NEW_POST_TEXT: 
             state.newPostText = action.postMessage;
             return state;
+        
+        case CHOSE_POST_TEXT: 
+            state.chosenPostId = [action.id];
+            return state;
 
         default :
             return state;
@@ -36,6 +42,14 @@ export const addPostActionCreator = () => {
         type: ADD_POST
     }
 };
+
+export const chosePostActionCreator = (id) => {
+    return {
+        type: CHOSE_POST_TEXT, 
+        id: id
+    }
+
+}
 
 export const updateNewPostTextActionCreator = ( postMessage ) => {
     return {

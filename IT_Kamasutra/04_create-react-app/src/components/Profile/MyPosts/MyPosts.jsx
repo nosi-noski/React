@@ -1,35 +1,34 @@
 import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post';
-import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profileReducer';
-
-
-
 
 const MyPosts = (props) => { 
   
-    let postElements = props.posts.map((p)=><Post message={p.post} likescount={p.likescount} key={p.id}/>)
-    let addPost = () => {
-        // let action = { 
-        //     type:'ADD-POST' 
-        // };
-        props.dispatch( addPostActionCreator() );
+   
+    
+    let onAddPost = () => {
+        props.addPost();
     };
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        // let action = { 
-        //     type:'UPDATE-NEW-POST-TEXT', 
-        //     postMessage: text 
-        // };
-        props.dispatch( updateNewPostTextActionCreator(text) );
+        props.updateNewPostText(text)
     };
 
-    let removePost = () => {
-        alert("Remove post");
+    let onChosePost = (id) => {
+        debugger
+        props.chosePost(id);
+    };
+
+    let onRemovePost = () => {
+        props.removePost();
     };
 
     let newPostElement = React.createRef();
+    let postElements = props.posts.map((p)=><Post message={p.post} 
+                                                  likescount={p.likescount} 
+                                                  key={p.id.toString()} 
+                                                  chosePost={()=>{onChosePost(p.id)} }/>)
 
     return (
         <div className={classes.myPostsWrapper}>
@@ -43,11 +42,11 @@ const MyPosts = (props) => {
                 </div> 
                 <div className={classes.buttons}>
                     <div className={classes.textAdd}>
-                        <button  onClick={ addPost }>Add Post</button>
+                        <button  onClick={ onAddPost }>Add Post</button>
                         
                     </div> 
                     <div className={classes.textRemove}>
-                        <button onClick={ removePost }>Remove Post</button> 
+                        <button onClick={ onRemovePost }>Remove Post</button> 
                     </div> 
                 </div>
             </div>
