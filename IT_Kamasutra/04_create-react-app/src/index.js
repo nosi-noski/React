@@ -4,25 +4,25 @@ import './index.css';
 import App from './App';
 import store from './redux/redux-store'
 import {BrowserRouter, Route} from "react-router-dom";
+import {Provider} from './StoreContext'
 
 import reportWebVitals from './reportWebVitals';
 
 
-let renderEntireTree = (state) => {
+let renderEntireTree = () => {
     ReactDOM.render(
         <BrowserRouter>
-        <React.StrictMode>
-            <App 
-                state={state} 
-                dispatch={ store.dispatch.bind(store) }
-                store={ store }/>
-        </React.StrictMode>
+            <Provider store={store}>
+                <React.StrictMode>
+                    <App/>
+                </React.StrictMode>
+            </Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );
 }; 
 
-renderEntireTree( store.getState() ); 
+renderEntireTree(  ); 
 store.subscribe( () => {
     let state = store.getState() 
     renderEntireTree( state );

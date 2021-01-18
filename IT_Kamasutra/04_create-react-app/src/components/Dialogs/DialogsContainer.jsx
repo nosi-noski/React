@@ -1,28 +1,35 @@
 
 import Dialogs from './Dialogs'
 import {sendNewMessageCreator, updateNewMessageBodyCreator} from '../../redux/dialogsReducer';
-
+import StoreContext from '../../StoreContext'
 
 const DialogsContainer = (props) => {
     
-    let state = props.store.getState().dialogsPage;
-
-    let addMessage = (body) => {
-        props.store.dispatch( sendNewMessageCreator(body))
-    };
-
-    let changeMessage = (body) => {
-        props.store.dispatch( updateNewMessageBodyCreator(body))
-    }; 
-
-    let removeMessage = () => {alert("Remove post1")};
-
 	return (
-        <Dialogs changeNewMessage={changeMessage} 
-                 addMessage={addMessage} 
-                 removeMessage={removeMessage}
-                 dialogsPage={state}
-                 />
+        <StoreContext.Consumer>
+            {
+                (store) => {
+                    let state = store.getState().dialogsPage;
+
+                    let addMessage = (body) => {
+                        store.dispatch( sendNewMessageCreator(body))
+                    };
+                
+                    let changeMessage = (body) => {
+                        store.dispatch( updateNewMessageBodyCreator(body))
+                    }; 
+                
+                    let removeMessage = () => {alert("Remove post")};
+
+                    return <Dialogs changeNewMessage={changeMessage} 
+                    addMessage={addMessage} 
+                    removeMessage={removeMessage}
+                    dialogsPage={state}
+                    />
+                }
+            }
+        </StoreContext.Consumer>
+        
 	);
 }
 

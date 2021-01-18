@@ -38,7 +38,8 @@ const MyPosts = (props) => {
                     <textarea 
                         onChange={ onPostChange } 
                         ref={newPostElement} 
-                        value={props.newPostText}/>
+                        value={props.newPostText}
+                        placeholder="New post"/>
                 </div> 
                 <div className={classes.buttons}>
                     <div className={classes.textAdd}>

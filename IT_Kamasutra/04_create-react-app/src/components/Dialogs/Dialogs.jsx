@@ -57,12 +57,12 @@ const Dialogs = (props) => {
 
             <div className = {classes.newPostArea}>
                 <div className={classes.newTextArea}>
-                    <textarea   ref={ newMessageElement } 
-                                value={ state.newMessageText }
-                                onChange={ onChangeMessage }
-                                placeholder="new message">
-                                
-                                </textarea>
+                    <textarea   
+                        ref={ newMessageElement } 
+                        value={ state.newMessageText }
+                        onChange={ onChangeMessage }
+                        placeholder="New message">     
+                    </textarea>
                 </div> 
                 <div className={classes.buttons}>
                     <div className={classes.textAdd}>

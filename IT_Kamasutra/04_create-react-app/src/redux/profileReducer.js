@@ -7,7 +7,7 @@ let initialState =  {
         { id: 1, likescount: 1, post: 'Hi, how are you?' },
         { id: 2, likescount: 11, post: 'It\'s my first post' }
     ],
-    newPostText: 'default post text',
+    newPostText: '',
     chosenPostId: []
 };
 

@@ -5,7 +5,7 @@ import {getAuthorName} from '../../../redux/store'
 const MessageItem = (props) => {
     
 
-    debugger
+    
     let myId = 0;
     let myCloudColorClass = props.userid === myId ? "blueCloud" : "greenCloud";
     let alignText =  props.userid === myId ? 'messageAlignLeft': 'messageAlignRight';

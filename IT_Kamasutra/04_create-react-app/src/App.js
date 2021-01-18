@@ -23,10 +23,10 @@ function App ( props ) {
                     {/* <Route path="/profile" component={Profile}/> */}
                     {/* <Route path="/dialogs" component={Dialogs} /> */}
                     <Route path="/profile" 
-                           render={ () => <Profile store={props.store} />}
+                           render={ () => <Profile/>}
                     />
                     <Route path="/dialogs" 
-                        render={ () => <DialogsContainer store={props.store} />}
+                        render={ () => <DialogsContainer/>}
                     />
                     <Route path="/messages" component={getMessages} />
                     <Route path="/music"    component={Music} />
