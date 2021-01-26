@@ -4,7 +4,7 @@ const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 let initialState =  {
             
     dialogs : [
-        { id: 1, name: 'Ivan' },
+        { id: 1, name: 'Ivan1111111111111111111111' },
         { id: 2, name: 'Sergey' },
         { id: 3, name: 'Stas' },
         { id: 4, name: 'Nataliya' }
@@ -20,28 +20,37 @@ let initialState =  {
 }
 
 const dialogsReducer = (state = initialState, action) => {
+    let stateCopy;
+    
     switch (action.type){
-        case ADD_MESSAGE:
+        case ADD_MESSAGE: {
             let newMessage = {
                 id: state.messages.length + 1, 
                 userid: action.userid, 
                 message: state.newMessageText
             };
-    
-            state.messages.push(newMessage);
-            state.newMessageText = '';
-            
             action.addButton.disabled = true;
             action.removeButton.disabled = true;
-            return state;
 
-        case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.newMessageText;
-        
+            return {
+                ...state,
+                messages: [...state.messages, newMessage],
+                newMessageText: ''
+            };
+        }
+
+        case UPDATE_NEW_MESSAGE_TEXT: {
+            
+            
             var isDisabled = action.newMessageText.length > 0 ? false : true;
             action.addButton.disabled = isDisabled;
             action.removeButton.disabled = isDisabled;
-            return state;
+        return {
+                ...state,
+                newMessageText: action.newMessageText
+            };
+
+        }
 
         default :
             return state;

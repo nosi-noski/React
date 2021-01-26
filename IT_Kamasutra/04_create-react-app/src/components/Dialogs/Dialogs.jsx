@@ -8,7 +8,15 @@ const Dialogs = (props) => {
     let state = props.dialogsPage;
      
     let dialogsElements = state.dialogs.map( (d) => <DialogItem name={d.name} dialogId={d.id} key={d.id}/>);
-    let messagesElements = state.messages.map( (m) => <MessageItem props={props} message={m.message} userid={m.userid} key={m.id}/>);
+    let messagesElements = state.messages.map( (m, i, arr) => {
+    debugger
+    let order= {
+        samePrevUserId: i > 0 && m.userid === arr[i-1].userid ? true : false,
+        sameNextUserId: i < arr.length-1 && m.userid === arr[i+1].userid ? true : false
+    } 
+   
+    return <MessageItem props={props} order={order} message={m.message} userid={m.userid} key={m.id}/>
+    } );
     
     let onAddMessage = () => {
         let action = { 

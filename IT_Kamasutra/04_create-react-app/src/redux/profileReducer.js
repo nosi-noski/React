@@ -2,7 +2,7 @@ const ADD_POST = "ADD-POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const CHOSE_POST_TEXT = "CHOSE-POST-TEXT";
 
-let initialState =  {
+let initialState = {
     posts : [
         { id: 1, likescount: 1, post: 'Hi, how are you?' },
         { id: 2, likescount: 11, post: 'It\'s my first post' }
@@ -11,26 +11,36 @@ let initialState =  {
     chosenPostId: []
 };
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = ( state = initialState, action ) => {
 
-    switch (action.type) {
-        case ADD_POST: 
+    switch ( action.type ) {
+        case ADD_POST: {
             let newPost =  { 
                 id: state.posts.length + 1, 
                 post: state.newPostText,
                 likescount: 0  
             };
-            state.posts.push(newPost);
-            state.newPostText = '';
-            return state;
 
-        case UPDATE_NEW_POST_TEXT: 
-            state.newPostText = action.postMessage;
-            return state;
-        
-        case CHOSE_POST_TEXT: 
-            state.chosenPostId = [action.id];
-            return state;
+            return {
+                ...state,
+                posts: [...state.posts, newPost],
+                newPostText: ''
+            };
+        }
+
+        case UPDATE_NEW_POST_TEXT: {
+            return {
+                ...state,
+                newPostText: action.postMessage
+            };
+        }
+
+        case CHOSE_POST_TEXT: {
+            return {
+                ...state,
+                chosenPostId: [action.id]
+            };
+        }
 
         default :
             return state;

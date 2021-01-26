@@ -37,6 +37,11 @@
     opacity: 0;
     
 }
+.hiddenAuthor{
+    height: 0px;
+    padding: 0px 0px 1px 0px;
+}
+
 .authorHovered {
     opacity: 1 !important;
 }
@@ -51,13 +56,31 @@
     word-break: break-word;
 }
 
-.blueCloud {
-    background-color: rgb(145, 173, 209);
-    border-radius: 10px 10px 10px 0px;
+    .blueCloud {
+        background-color: rgb(145, 173, 209);
+        border-radius: 10px 10px 10px 0px;
+    }
 
-}
+    .blueCloud.radiusBottomNone {
+        border-bottom-left-radius : 0px;
+       
+    }
+    .blueCloud.radiusTopRightNone {
+        /* color: white; */
+        border-top-left-radius : 0px;
+    }
 
-.greenCloud {
-    background-color: rgb(177, 209, 145);
-    border-radius: 10px 10px 0px 10px;
-}
+
+    .greenCloud {
+        background-color: rgb(177, 209, 145);
+        border-radius: 10px 10px 0px 10px;
+    }
+    
+    .greenCloud.radiusBottomNone {
+        border-bottom-right-radius : 0px;
+       
+    }
+    .greenCloud.radiusTopRightNone {
+        /* color: white; */
+        border-top-right-radius : 0px;
+    }
