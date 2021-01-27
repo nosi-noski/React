@@ -8,20 +8,17 @@ import {Provider} from 'react-redux'
 import reportWebVitals from './reportWebVitals';
 
 
-let renderEntireTree = () => {
+
     ReactDOM.render(
         <BrowserRouter>
             <Provider store={store}>
-                <React.StrictMode>
-                    <App/>
-                </React.StrictMode>
+                <App/>
+               
             </Provider>
         </BrowserRouter>,
         document.getElementById('root')
     );
-}; 
 
-renderEntireTree(); 
 // store.subscribe( () => {
 //     let state = store.getState() 
 //     renderEntireTree( state );

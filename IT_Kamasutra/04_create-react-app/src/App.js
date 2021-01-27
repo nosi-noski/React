@@ -8,6 +8,7 @@ import Messages from "./components/Messages/Messages";
 import Music from "./components/Music/Music";
 import Settings from "./components/Params/Params";
 import News from "./components/News/News";
+import UsersContainer from "./components/Users/UsersContainer";
 
 import {BrowserRouter, Route} from "react-router-dom";
 
@@ -27,6 +28,9 @@ function App ( props ) {
                     />
                     <Route path="/dialogs" 
                         render={ () => <DialogsContainer/>}
+                    />
+                    <Route path="/users" 
+                        render={ () => <UsersContainer/>}
                     />
                     <Route path="/messages" component={getMessages} />
                     <Route path="/music"    component={Music} />

@@ -4,10 +4,10 @@ const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 let initialState =  {
             
     dialogs : [
-        { id: 1, name: 'Ivan1111111111111111111111' },
-        { id: 2, name: 'Sergey' },
-        { id: 3, name: 'Stas' },
-        { id: 4, name: 'Nataliya' }
+        { id: 1, name: 'Ivanov Ivan Ivanovich'},
+        { id: 2, name: 'Sergey'},
+        { id: 3, name: 'Stas'},
+        { id: 4, name: 'Nataliya'}
     ],
     messages : [
         { id: 1, userid: 2, message: 'Hi' },
@@ -20,7 +20,7 @@ let initialState =  {
 }
 
 const dialogsReducer = (state = initialState, action) => {
-    let stateCopy;
+
     
     switch (action.type){
         case ADD_MESSAGE: {
