@@ -67,12 +67,16 @@ const initialState = {
 const usersReducer = ( state = initialState, action ) => {
     switch (action.type) {
         case FOLLOW:
+            
             return {
                 ...state,
                 users: state.users.map( elem => {
-                    if ( elem.userid === action.userid ){
-                        return {...elem, isfollow: true}
+                    
+                    if ( elem.id === action.id ){
+                        
+                        return {...elem, followed: true}
                     }
+                    
                     return elem;
                 })
             } 
@@ -81,8 +85,8 @@ const usersReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 users: state.users.map( elem => {
-                    if ( elem.userid === action.userid ){
-                        return { ...elem, isfollow: false }
+                    if ( elem.id === action.id ){
+                        return { ...elem, followed: false }
                     }
                     return elem;
                 })
@@ -100,17 +104,17 @@ const usersReducer = ( state = initialState, action ) => {
     }
 }
 
-export const followAC = (userid) => { 
+export const followAC = (id) => { 
     return {
         type: FOLLOW,
-        userid
+        id
     };
 }
 
-export const unfollowAC = (userid) => { 
+export const unfollowAC = (id) => { 
     return {
         type: UNFOLLOW,
-        userid
+        id
     };
 }
 
