@@ -50,24 +50,17 @@ let Users1 = (props) => {
 
 class Users extends React.Component {
     constructor(props){
-        super(props);
-        // if ( this.props.users.length === 0 ) {
-            let users = 'https://social-network.samuraijs.com/api/1.0/users'
-            axios.get(users).then(response => {
-                
-                this.props.setUsers( [...response.data.items] );
-            });
-        // }
+        super(props)
     }
-    // getUsers = () => {
-    //     if ( this.props.users.length === 0 ) {
-    //         let users = 'https://social-network.samuraijs.com/api/1.0/users'
-    //         axios.get(users).then(response => {
+    
+    componentDidMount(){
+        let users = 'https://social-network.samuraijs.com/api/1.0/users';
+        axios.get(users).then(response => {
                 
-    //             this.props.setUsers( [...response.data.items] );
-    //         });
-    //     }
-    // }
+            this.props.setUsers( [...response.data.items] );
+        });
+    }
+
     render = () => {
         return (
            
