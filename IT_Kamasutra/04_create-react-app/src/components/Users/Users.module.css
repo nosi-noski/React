@@ -1,4 +1,17 @@
 .photoUrl {
-    width: 64px; 
-    height: 64px;
+    width: 50px; 
+    height: 50px;
+}
+
+.selectedPage {
+    font-weight: bold;
+}
+
+.pageNumber {
+    cursor: pointer;
+    margin: 5px;
+}
+.pageNumber:hover {
+    background-color: rgb(235, 235, 235);
+    box-shadow: 2px 2px 10px 2px rgb(225, 225, 225);
 }

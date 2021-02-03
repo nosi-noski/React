@@ -48,13 +48,25 @@ let Users1 = (props) => {
     </div>
 } 
 
+
 class Users extends React.Component {
     constructor(props){
         super(props)
     }
     
     componentDidMount(){
-        let users = 'https://social-network.samuraijs.com/api/1.0/users';
+        let users = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`;
+        axios.get(users).then(response => {
+                
+            this.props.setUsers( [...response.data.items] );
+            
+            this.props.setUsersTotalCount( response.data.totalCount );
+        });
+    }
+
+    setCurrentPage = (currentPage) => { 
+        this.props.setUsersTotalCountAC(currentPage);
+        let users = `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`;
         axios.get(users).then(response => {
                 
             this.props.setUsers( [...response.data.items] );
@@ -62,37 +74,55 @@ class Users extends React.Component {
     }
 
     render = () => {
-        return (
-           
-                this.props.users.map(u => {
-                      
-                    return <div key={u.id}>
-                        <span>
-                            <div src={u.photoUrl}>
-                                <img src={u.photos.small != null ? u.photos.small: lightbulb} alt="#" className={classes.photoUrl}/>
-                            </div>
-                            <div>
-                                { u.followed 
-                                    ? <button onClick = { () => { this.props.unfollow ( u.id ) } }> Unfollow </button> 
-                                    : <button onClick = { () => { this.props.follow ( u.id ) } }> Follow </button>}
-                            </div>
-            
-                        </span>
-                        <span>
-                            <span>
-                                <div>{u.name}</div>
-                                <div>{u.status}</div>
-                            </span>
-                            <span>
-                                {/* <div>{ u.location.city.name }</div> */}
-                                {/* <div>{ u.location.country }</div> */}
-                            </span>
-                        </span>
-                    </div>
-                    })
-                    
-                
+        let pagesCount = Math.ceil( this.props.usersTotalCount / this.props.pageSize) ;
+        let pages = [];
+
+        for ( let i = 1; i <= pagesCount; i++ ){
+            pages.push(i)
+        }
         
+
+        return  (
+            <div>
+                <div>
+                    { pages.map( (elem) => {
+                        let bold = this.props.currentPage === elem ?  'selectedPage' : '';
+                        return <span onClick={ (e)=> { this.setCurrentPage(elem) }}
+                                     key={elem}
+                                     className={ classes.pageNumber + ' ' + classes[bold] }>{elem}</span>
+                    })
+                     }
+             
+                </div>  
+                {
+                    this.props.users.map(u => {
+                        
+                        return <div key={u.id}>
+                            <span>
+                                <div src={u.photoUrl}>
+                                    <img src={u.photos.small != null ? u.photos.small: lightbulb} alt="#" className={classes.photoUrl}/>
+                                </div>
+                                <div>
+                                    { u.followed 
+                                        ? <button onClick = { () => { this.props.unfollow ( u.id ) } }> Unfollow </button> 
+                                        : <button onClick = { () => { this.props.follow ( u.id ) } }> Follow </button>}
+                                </div>
+                
+                            </span>
+                            <span>
+                                <span>
+                                    <div>{u.name}</div>
+                                    <div>{u.status}</div>
+                                </span>
+                                <span>
+                                    {/* <div>{ u.location.city.name }</div> */}
+                                    {/* <div>{ u.location.  }</div> */}
+                                </span>
+                            </span>
+                        </div>
+                    })
+                }    
+            </div>
         )
     }
 

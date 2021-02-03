@@ -1,67 +1,15 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
+const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT';
+
 
 const initialState = {
-    users: [
-        // { 
-        //     userid: 1,
-        //     photourl: 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-64.png',
-        //     name: 'Ivanov Ivan Ivanovich', 
-        //     isfollow: true, 
-        //     status: 'Hello everyone!',
-        //     location: { 
-        //         country: 'RU',
-        //         city: {
-        //             cityid: 100000,
-        //             name:'MSK'  
-        //         }
-        //     } 
-        // },
-        // { 
-        //     userid: 2,
-        //     photourl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678128-social-facebook-64.png',
-        //     name: 'Sergey', 
-        //     isfollow: false, 
-        //     status: 'Hi, i am Sergey!',
-        //     location: { 
-        //         country: 'UA', 
-        //         city: {
-        //             cityid: 100101,
-        //             name:'Kiev'  
-        //         } 
-        //     } 
-        // },
-        // { 
-        //     userid: 3,
-        //     photourl: 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png',
-        //     name: 'Stas', 
-        //     isfollow: true,
-        //     status: 'Maybe later.',
-        //     location: { 
-        //         country: 'US',
-        //         city: {
-        //             cityid: 100100,
-        //             name: 'Washington'   
-        //         }
-        //     } 
-        // },
-        // { 
-        //     userid: 4, 
-        //     photourl: 'https://cdn0.iconfinder.com/data/icons/small-n-flat/24/678078-light-bulb-512.png',
-        //     name: 'Nataliya', 
-        //     isfollow: false,
-        //     status: 'Natalia ready to kill))',
-        //     location: { 
-        //         country: 'UK',
-        //         city: {
-        //             cityid: 100102,
-        //             name: 'London'   
-        //         } 
-                
-        //     } 
-        // }
-    ]
+    users: [],
+    pageSize: 5,
+    usersTotalCount: 0,
+    currentPage: 1
 };
 
 const usersReducer = ( state = initialState, action ) => {
@@ -96,9 +44,23 @@ const usersReducer = ( state = initialState, action ) => {
              
             return {
                 ...state, 
-                users: [...state.users, ...action.users]
+                users: action.users
             }
+        
+        case SET_CURRENT_PAGE :
+          
+            return {
+                ...state,
+                currentPage: action.currentPage
+            }
+
+        case SET_USERS_TOTAL_COUNT :
             
+            return {
+                ...state,
+                usersTotalCount: action.count
+            } 
+
         default: 
             return state;
     }
@@ -124,4 +86,21 @@ export const serUsersAC = (users) => {
         users
     };
 }
+
+export const serCurrentPageAC = (currentPage) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        currentPage: currentPage
+    };
+}
+
+export const setUsersTotalCountAC = ( usersTotalCount ) => {
+    
+    return {
+        type: SET_USERS_TOTAL_COUNT,
+        count: usersTotalCount
+    };
+}
+
+
 export default usersReducer;
