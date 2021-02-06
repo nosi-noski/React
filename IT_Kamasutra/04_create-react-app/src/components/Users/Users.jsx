@@ -65,7 +65,7 @@ class Users extends React.Component {
     }
 
     setCurrentPage = (currentPage) => { 
-        this.props.setUsersTotalCountAC(currentPage);
+        this.props.setCurrentPage(currentPage);
         let users = `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`;
         axios.get(users).then(response => {
                 
