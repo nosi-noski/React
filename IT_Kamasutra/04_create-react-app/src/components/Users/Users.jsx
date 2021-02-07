@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Users.module.css'
 import lightbulb from  '../../assets/img/light-bulb-64.png'
+import Loader from './../Common/Loader/Loader'
 
 let Users = (props) => {
 
@@ -10,9 +11,10 @@ let Users = (props) => {
     for ( let i = 1; i <= pagesCount; i++ ) {
         pages.push(i)
     }
-    debugger
+    
     return (
-        <div>
+        <>
+            {  props.isFetching ? <Loader props={props}/> : null}
             <div>
                 { 
                     
@@ -54,7 +56,7 @@ let Users = (props) => {
                     </div>
                 })
             }    
-        </div>
+        </>
     )
 }
     
