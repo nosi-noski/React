@@ -74,35 +74,42 @@ const usersReducer = ( state = initialState, action ) => {
     }
 }
 
-export const followAC = (id) => { 
+// export const followAC = (id) => { 
+//     return {
+//         type: FOLLOW,
+//         id
+//     };
+// }
+
+export const follow = (id) => { 
     return {
         type: FOLLOW,
         id
     };
 }
 
-export const unfollowAC = (id) => { 
+export const unfollow = (id) => { 
     return {
         type: UNFOLLOW,
         id
     };
 }
 
-export const serUsersAC = (users) => {
+export const setUsers = (users) => {
     return {
         type: SET_USERS,
         users
     };
 }
 
-export const serCurrentPageAC = (currentPage) => {
+export const setCurrentPage = (currentPage) => {
     return {
         type: SET_CURRENT_PAGE,
         currentPage: currentPage
     };
 }
 
-export const setUsersTotalCountAC = ( usersTotalCount ) => {
+export const setUsersTotalCount = ( usersTotalCount ) => {
     
     return {
         type: SET_USERS_TOTAL_COUNT,

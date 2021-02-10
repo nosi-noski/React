@@ -1,19 +1,129 @@
+
+
+
+.descriptionBlock {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 2fr 3fr 5fr;
+    grid-template-rows: auto ;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-template-areas: 
+    "h h h"
+    "a b c ";
+}
+
+.photo {
+    grid-area: a;
+    grid-row-start: 2;
+    grid-row-end: 10;   
+}
+.photo>img {
+    object-fit: cover;
+    width: 100%;
+    max-height: 100%;
+}
+
+.mainInformation {
+ 
+}
+
 .image {
+    grid-area: h;
     margin: auto;
     width: 100%;
     height: 100px;
     background-image: url(./bck-image.jpg);
     background-size: cover;
+    
 }
 
-.logo {
-    background-image: url(./user-logo.png);
+.userName,
+.aboutMe,
+.lookingForAJob,
+.lookingForAJobDescr,
+.facebook,
+.github,
+.instagram,
+.twitter,
+.vk {
+    grid-area: b;
+    object-fit: cover;
+    width: 100%;
+    word-break: break-all;
 }
 
-.descriptionBlock {
-    padding: 10px;
+.userNameVal,
+.aboutMeVal,
+.lookingForAJobVal,
+.lookingForAJobDescrVal,
+.facebookVal,
+.githubVal,
+.instagramVal,
+.twitterVal,
+.vkVal {
+    grid-area: c;
+    object-fit: cover;
+    width: 100%;
+    word-break: break-all;
+}
+
+.userName, 
+.userNameVal  {
+    grid-row-start: 2;
+    grid-row-end: 2;
+}
+
+
+.aboutMe, 
+.aboutMeVal {
+    grid-row-start: 3;
+    grid-row-end: 3;
+}
+
+.lookingForAJob, 
+.lookingForAJobVal {
+    grid-row-start: 4;
+    grid-row-end: 4;
+}
+
+.lookingForAJobDescr, 
+.lookingForAJobDescrVal {
+    grid-row-start: 5;
+    grid-row-end: 5;
+}
+
+.facebook, 
+.facebookVal {
+    grid-row-start: 6;
+    grid-row-end: 6;
+}
+
+.github, 
+.githubVal {
+    grid-row-start: 7;
+    grid-row-end: 7;
+}
+
+.instagram, 
+.instagramVal {
+    grid-row-start: 8;
+    grid-row-end: 8;
+}
+
+.twitter, 
+.twitterVal {
+    grid-row-start: 9;
+    grid-row-end: 9;
+}
+
+.vk, 
+.vkVal {
+    grid-row-start: 10;
+    grid-row-end: 10;
 }
 
 .userDescription {
     font-weight: bold;
 }
+

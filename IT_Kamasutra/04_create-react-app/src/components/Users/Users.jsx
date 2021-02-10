@@ -1,7 +1,9 @@
 import React from 'react';
 import classes from './Users.module.css'
 import lightbulb from  '../../assets/img/light-bulb-64.png'
+import undefinedUser from '../../assets/img/undefined-user.svg'
 import Loader from './../Common/Loader/Loader'
+import { NavLink, withRouter, RouteProps } from 'react-router-dom';
 
 let Users = (props) => {
 
@@ -15,7 +17,7 @@ let Users = (props) => {
     return (
         <>
             {  props.isFetching ? <Loader props={props}/> : null}
-            <div>
+            <div className={classes.paginator}>
                 { 
                     
                     pages.map( (elem) => {
@@ -31,19 +33,21 @@ let Users = (props) => {
             {
                 props.users.map(u => {
                     
-                    return <div key={u.id}>
-                        <span>
-                            <div src={u.photoUrl}>
-                                <img src={u.photos.small != null ? u.photos.small: lightbulb} alt="#" className={classes.photoUrl}/>
-                            </div>
-                            <div>
+                    return <div className={classes.userContainer} key={u.id}>
+                        <div className={classes.follow}>
                                 { u.followed 
                                     ? <button onClick = { () => { props.unfollow ( u.id ) } }> Unfollow </button> 
                                     : <button onClick = { () => { props.follow ( u.id ) } }> Follow </button>}
+                        </div>
+                       
+                        <div className={classes.userIcon}>
+                            <div src={u.photoUrl}>
+                                <NavLink to={'/profile/' + u.id}>
+                                    <img src={u.photos.small != null ? u.photos.small: undefinedUser} alt="#" className={classes.photoUrl}/>
+                                </NavLink>
                             </div>
-            
-                        </span>
-                        <span>
+                        </div>
+                        <div className={classes.userName}>
                             <span>
                                 <div>{u.name}</div>
                                 <div>{u.status}</div>
@@ -51,8 +55,10 @@ let Users = (props) => {
                             <span>
                                 {/* <div>{ u.location.city.name }</div> */}
                                 {/* <div>{ u.location.  }</div> */}
+
+                                
                             </span>
-                        </span>
+                        </div>
                     </div>
                 })
             }    

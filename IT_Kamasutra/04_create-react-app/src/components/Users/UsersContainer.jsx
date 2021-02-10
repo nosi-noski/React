@@ -2,11 +2,11 @@ import React from 'react';
 // import UsersAPIComponent from './UsersAPIComponent'
 import Users from './Users'
 import * as axios from 'axios';
-import { followAC, 
-         unfollowAC, 
-         serUsersAC, 
-         serCurrentPageAC, 
-         setUsersTotalCountAC, 
+import { follow, 
+         unfollow, 
+         setUsers, 
+         setCurrentPage, 
+         setUsersTotalCount, 
          setIsFetching } from '../../redux/userReducer';
 import { connect } from 'react-redux';
 
@@ -17,11 +17,11 @@ class UsersAPIContainer extends React.Component {
     }
     
     componentDidMount(){
-        this.props.toggleIsFetching(true);
+        this.props.setIsFetching(true);
         
         let users = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`;
         axios.get(users).then(response => {
-            this.props.toggleIsFetching(false);
+            this.props.setIsFetching(false);
               
             this.props.setUsers( [...response.data.items] );
             
@@ -31,11 +31,11 @@ class UsersAPIContainer extends React.Component {
     }
 
     setCurrentPage = (currentPage) => { 
-        this.props.toggleIsFetching(true);
+        this.props.setIsFetching(true);
         this.props.setCurrentPage(currentPage);
         let users = `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`;
         axios.get(users).then(response => {
-            this.props.toggleIsFetching(false);
+            this.props.setIsFetching(false);
             this.props.setUsers( [...response.data.items] );
         });
     }
@@ -44,13 +44,14 @@ class UsersAPIContainer extends React.Component {
         
         return <Users 
             users={this.props.users}
-            isFetching={this.props.isFetching}
-            usersTotalCount={this.props.usersTotalCount}
             pageSize={this.props.pageSize}
             currentPage={this.props.currentPage}
-            setCurrentPage={this.setCurrentPage}
-            unfollow={this.props.unfollow}
+            usersTotalCount={this.props.usersTotalCount}
+            isFetching={this.props.isFetching}
+                    
             follow={this.props.follow}
+            unfollow={this.props.unfollow}
+            setCurrentPage={this.setCurrentPage}
         />
     }
 };
@@ -67,33 +68,42 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = ( dispatch ) => {
-    return {
-        follow: ( userid ) => {
-            dispatch( followAC( userid ) );
-        },
+// const mapDispatchToProps = ( dispatch ) => {
+    
+//        return {
+//         follow: ( userid ) => {
+//             dispatch( followAC( userid ) );
+//         },
 
-        unfollow: ( userid ) => {
-          dispatch( unfollowAC( userid ) );
-        },
+//         unfollow: ( userid ) => {
+//           dispatch( unfollowAC( userid ) );
+//         },
 
-        setUsers: ( users ) => {
-            dispatch( serUsersAC( users ) )
-        },
+//         setUsers: ( users ) => {
+//             dispatch( serUsersAC( users ) )
+//         },
 
-        setCurrentPage: ( currentPage )=>{
-            dispatch( serCurrentPageAC( currentPage ) )
-        },
+//         setCurrentPage: ( currentPage )=>{
+//             dispatch( serCurrentPageAC( currentPage ) )
+//         },
 
-        setUsersTotalCount: ( totalCount ) => {
-            dispatch( setUsersTotalCountAC( totalCount ) )
-        },
+//         setUsersTotalCount: ( totalCount ) => {
+//             dispatch( setUsersTotalCountAC( totalCount ) )
+//         },
 
-        toggleIsFetching: ( isFetching ) => {
-            dispatch( setIsFetching( isFetching ) )
-        }
+//         toggleIsFetching: ( isFetching ) => {
+//             dispatch( setIsFetching( isFetching ) )
+//         }
 
-    }
-};
+//     }
+// };
 
-export default connect( mapStateToProps, mapDispatchToProps )( UsersAPIContainer ) 
+export default connect( mapStateToProps, {
+        //follow: followAC,
+        follow,
+        unfollow,
+        setUsers,
+        setCurrentPage,
+        setUsersTotalCount,
+        setIsFetching
+    } )( UsersAPIContainer );
