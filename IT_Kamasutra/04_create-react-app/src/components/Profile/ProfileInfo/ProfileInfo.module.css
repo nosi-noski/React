@@ -10,7 +10,7 @@
     grid-row-gap: 10px;
     grid-template-areas: 
     "h h h"
-    "a b c ";
+    "a b c";
 }
 
 .photo {
@@ -42,11 +42,7 @@
 .aboutMe,
 .lookingForAJob,
 .lookingForAJobDescr,
-.facebook,
-.github,
-.instagram,
-.twitter,
-.vk {
+.socialMediaRow {
     grid-area: b;
     object-fit: cover;
     width: 100%;
@@ -56,12 +52,8 @@
 .userNameVal,
 .aboutMeVal,
 .lookingForAJobVal,
-.lookingForAJobDescrVal,
-.facebookVal,
-.githubVal,
-.instagramVal,
-.twitterVal,
-.vkVal {
+.lookingForAJobDescrVal
+{
     grid-area: c;
     object-fit: cover;
     width: 100%;
@@ -93,37 +85,15 @@
     grid-row-end: 5;
 }
 
-.facebook, 
-.facebookVal {
-    grid-row-start: 6;
-    grid-row-end: 6;
-}
-
-.github, 
-.githubVal {
-    grid-row-start: 7;
-    grid-row-end: 7;
-}
-
-.instagram, 
-.instagramVal {
-    grid-row-start: 8;
-    grid-row-end: 8;
-}
-
-.twitter, 
-.twitterVal {
-    grid-row-start: 9;
-    grid-row-end: 9;
-}
-
-.vk, 
-.vkVal {
-    grid-row-start: 10;
-    grid-row-end: 10;
-}
-
 .userDescription {
     font-weight: bold;
 }
 
+
+.socialMediaRow {
+    grid-row-start: 6;
+    grid-row-end: 6;
+    grid-column: 2/4;
+    display: flex;
+    
+}
