@@ -5,17 +5,18 @@ import { connect } from 'react-redux';
 import { withRouter }  from 'react-router-dom';
 import { setUserProfile } from './../../redux/profileReducer'
 class ProfileContainer extends React.Component {
+
     componentDidMount(){
-        debugger
+         
         let userId = this.props.match && this.props.match.params && this.props.match.params.userId || 2;
         let users = "https://social-network.samuraijs.com/api/1.0/profile/" + userId;
         axios.get(users).then(response => {
-            
             this.props.setUserProfile( response.data );
         });
     }
+
     render () { 
-        debugger
+     
         return (
             <div>
                 <Profile { ...this.props }  profile={this.props.profile}/>

@@ -4,6 +4,7 @@ import lightbulb from  '../../assets/img/light-bulb-64.png'
 import undefinedUser from '../../assets/img/undefined-user.svg'
 import Loader from './../Common/Loader/Loader'
 import { NavLink, withRouter, RouteProps } from 'react-router-dom';
+import * as axios from 'axios';
 
 let Users = (props) => {
 
@@ -36,8 +37,44 @@ let Users = (props) => {
                     return <div className={classes.userContainer} key={u.id}>
                         <div className={classes.follow}>
                                 { u.followed 
-                                    ? <button onClick = { () => { props.unfollow ( u.id ) } }> Unfollow </button> 
-                                    : <button onClick = { () => { props.follow ( u.id ) } }> Follow </button>}
+                                    ? <button onClick = { 
+                                        () => { 
+                                            
+                                            let unfollow = `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`;
+                                            axios.delete(
+                                                unfollow, 
+                                                {}, 
+                                                {
+                                                    withCredentials: true, 
+                                                    headers: {
+                                                        "API-KEY": '281833bb-2ecf-4416-a0dc-dfa4fdba3f29' 
+                                                    }
+                                                } ).then(response => {
+                                                if( response.data.resultCode === 0) {
+                                                    props.unfollow ( u.id );
+                                                }
+                                            });
+                                        } 
+                                    }> Unfollow </button> 
+                                    : <button onClick = { 
+                                        () => { 
+                                            let follow = `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`;
+                                            axios.post(
+                                                follow, 
+                                                {}, 
+                                                {
+                                                    withCredentials: true, 
+                                                    headers: {
+                                                        "API-KEY": '281833bb-2ecf-4416-a0dc-dfa4fdba3f29' 
+                                                    }
+                                                } ).then(response => {
+                                                if( response.data.resultCode === 0) {
+                                                    props.follow ( u.id )  
+                                                }
+                                            });
+                                            
+                                        } 
+                                    }> Follow </button>}
                         </div>
                        
                         <div className={classes.userIcon}>

@@ -45,6 +45,7 @@ const profileReducer = ( state = initialState, action ) => {
         }
 
         case SET_USER_PROFILE: 
+        
         return {
             ...state,
             profile: action.profile
@@ -76,6 +77,7 @@ export const updateNewPostTextActionCreator = ( postMessage ) => {
 };
 
 export const setUserProfile = (profile)=> {
+    
     return {
         type: SET_USER_PROFILE,
         profile: profile
