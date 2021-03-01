@@ -9,6 +9,7 @@ import { follow,
          setUsersTotalCount, 
          setIsFetching } from '../../redux/userReducer';
 import { connect } from 'react-redux';
+import { userAPI } from './../../api/api'
 
 
 class UsersAPIContainer extends React.Component {
@@ -19,24 +20,29 @@ class UsersAPIContainer extends React.Component {
     componentDidMount(){
         this.props.setIsFetching(true);
         
-        let users = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`;
-        axios.get(users, {withCredentials: true} ).then(response => {
-            this.props.setIsFetching(false);
-              
-            this.props.setUsers( [...response.data.items] );
-            
-            this.props.setUsersTotalCount( response.data.totalCount );
+        // let users = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`;
+        // axios.get(users, {withCredentials: true} )
+        
+        userAPI.getUsers( this.props.currentPage, this.props.pageSize )
+        .then( response => {
+            this.props.setIsFetching( false );
+            this.props.setUsers( [...response.items] );
+            this.props.setUsersTotalCount( response.totalCount );
            
         });
     }
 
-    setCurrentPage = (currentPage) => { 
-        this.props.setIsFetching(true);
-        this.props.setCurrentPage(currentPage);
-        let users = `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`;
-        axios.get(users, {withCredentials: true}).then(response => {
-            this.props.setIsFetching(false);
-            this.props.setUsers( [...response.data.items] );
+    setCurrentPage = ( currentPage ) => { 
+        this.props.setIsFetching( true );
+        this.props.setCurrentPage( currentPage );
+
+        // let users = `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`;
+        // axios.get(users, {withCredentials: true})
+  
+        userAPI.getUsers( currentPage, this.props.pageSize )
+        .then( response => {
+            this.props.setIsFetching( false );
+            this.props.setUsers( [...response.items] );
         });
     }
 

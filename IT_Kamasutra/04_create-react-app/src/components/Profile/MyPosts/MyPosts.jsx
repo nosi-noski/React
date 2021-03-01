@@ -16,7 +16,7 @@ const MyPosts = (props) => {
     };
 
     let onChosePost = (id) => {
-        debugger
+        
         props.chosePost(id);
     };
 

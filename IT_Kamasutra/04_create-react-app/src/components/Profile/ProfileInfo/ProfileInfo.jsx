@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './ProfileInfo.module.css'
-import userLogo from './../../../assets/img/user-logo.png'
+import undefinedUser from './../../../assets/img/undefined-user.svg'
+
 import Preloader from './../../Common/Loader/Loader'
 import SocialMediaIcon from './../../Common/SocialMediaIcon/SocialMediaIcon'
 import vk from './../../../assets/img/vk.png'
@@ -19,7 +20,7 @@ const ProfileInfo = (props) => {
         return <Preloader/>
     } 
     
-    let photo = ( props.profile && props.profile.photos && props.profile.photos.large ) || userLogo;
+    let photo = ( props.profile && props.profile.photos && props.profile.photos.large ) || undefinedUser;
     
 
     return (
