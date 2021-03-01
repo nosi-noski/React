@@ -15,10 +15,12 @@ let Users = (props) => {
     for ( let i = 1; i <= pagesCount; i++ ) {
         pages.push(i)
     }
+    console.log("props.toggleIsFollowingProgress", props.toggleIsFollowingProgress)
     
     return (
         <>
-            {  props.isFetching ? <Loader props={props}/> : null}
+            {  props.isFetching ? <Loader props={props}/> : null
+            }
             <div className={classes.paginator}>
                 { 
                     
@@ -38,52 +40,33 @@ let Users = (props) => {
                     return <div className={classes.userContainer} key={u.id}>
                         <div className={classes.follow}>
                                 { u.followed 
-                                    ? <button onClick = { 
+                                    ? <button 
+                                    disabled={ props.followingInProgress.some( (id) => id === u.id) }    
+                                    onClick = { 
                                         () => { 
                                             
+                                            props.toggleIsFollowingProgress(true, u.id);
                                             userAPI.unfollowUser(u.id).then(response => {
                                                 if( response.data.resultCode === 0) {
                                                     props.unfollow ( u.id );
+                                                   
                                                 }
+                                                props.toggleIsFollowingProgress(false, u.id);
                                             });
-
-                                            // let unfollow = `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`;
-                                            // axios.delete(
-                                            //     unfollow, 
-                                            //     {}, 
-                                            //     {
-                                            //         withCredentials: true, 
-                                            //         headers: {
-                                            //             "API-KEY": '281833bb-2ecf-4416-a0dc-dfa4fdba3f29' 
-                                            //         }
-                                            //     } ).then(response => {
-                                            //     if( response.data.resultCode === 0) {
-                                            //         props.unfollow ( u.id );
-                                            //     }
-                                            // });
                                         } 
                                     }> Unfollow </button> 
-                                    : <button onClick = { 
+                                    : <button 
+                                        disabled={props.followingInProgress.some( (id) => id === u.id)}
+                                        onClick = { 
                                         () => { 
+                                            
+                                            props.toggleIsFollowingProgress(true, u.id);
                                             userAPI.followUser(u.id).then(response => {
                                                 if( response.data.resultCode === 0) {
                                                     props.follow ( u.id );
                                                 }
+                                                props.toggleIsFollowingProgress(false, u.id);
                                             });
-                                            // let follow = `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`;
-                                            // axios.post(
-                                            //     follow, 
-                                            //     {}, 
-                                            //     {
-                                            //         withCredentials: true, 
-                                            //         headers: {
-                                            //             "API-KEY": '281833bb-2ecf-4416-a0dc-dfa4fdba3f29' 
-                                            //         }
-                                            //     } ).then(response => {
-                                            //     if( response.data.resultCode === 0) {
-                                            //         props.follow ( u.id )  
-                                            //     }
-                                            // });   
                                         } 
                                     }> Follow </button>}
                         </div>
