@@ -41,30 +41,6 @@ const ProfileInfo = (props) => {
             <div className={classes.lookingForAJobDescr}>lookingForAJobDescription</div>
             <div className={classes.lookingForAJobDescrVal}>{props.profile.lookingForAJobDescription}</div>
             
-            {/* <div className={classes.facebook}>facebook</div>
-            <div className={classes.facebookVal}>
-                <a href={props.profile.contacts.facebook}>{props.profile.contacts.facebook}</a>
-            </div>
-           
-            <div className={classes.github}>github</div>
-            <div className={classes.githubVal}>
-                <a href={props.profile.contacts.github}>{props.profile.contacts.github}</a>
-            </div>
-           
-            <div className={classes.instagram}>instagram</div>
-            <div className={classes.instagramVal}>
-                <a href={props.profile.contacts.instagram}>{props.profile.contacts.instagram}</a>
-            </div>
-            
-            <div className={classes.twitter}>twitter</div>
-            <div className={classes.twitterVal}>
-                <a href={props.profile.contacts.twitter}>{props.profile.contacts.twitter}</a>
-            </div> */}
-            
-            {/* <div className={classes.vk}>vk</div>
-            <div className={classes.vkVal}>
-                <a target="_blank" href={props.profile.contacts.vk}>{props.profile.contacts.vk}</a>
-            </div> */}
             <div className={classes.socialMediaRow}>
                 <SocialMediaIcon props={ { 
                                             icon: props.profile.contacts.vk ?  vk : vkBlank,

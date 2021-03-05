@@ -15,21 +15,20 @@ let Users = (props) => {
     for ( let i = 1; i <= pagesCount; i++ ) {
         pages.push(i)
     }
-    console.log("props.toggleIsFollowingProgress", props.toggleIsFollowingProgress)
+    //console.log("props.toggleIsFollowingProgress", props.toggleIsFollowingProgress)
     
     return (
         <>
-            {  props.isFetching ? <Loader props={props}/> : null
-            }
+            {  props.isFetching ? <Loader props={props}/> : null   }
             <div className={classes.paginator}>
                 { 
                     
                     pages.map( (elem) => {
                         let bold = props.currentPage === elem ?  'selectedPage' : '';
-                        return <span 
-                                    onClick={ (e)=> { props.setCurrentPage(elem) }}
-                                    key={elem}
-                                    className={ classes.pageNumber + ' ' + classes[bold] }>{elem}</span>
+                        return <span onClick={ (e)=> { props.setCurrentPage(elem) }}
+                                     key={elem}
+                                     className={ classes.pageNumber + ' ' + classes[bold] 
+                                }>{elem}</span>
                     })
                 }
             
@@ -37,60 +36,42 @@ let Users = (props) => {
             {
                 props.users.map(u => {
                     
-                    return <div className={classes.userContainer} key={u.id}>
-                        <div className={classes.follow}>
-                                { u.followed 
-                                    ? <button 
-                                    disabled={ props.followingInProgress.some( (id) => id === u.id) }    
-                                    onClick = { 
-                                        () => { 
-                                            
-                                            props.toggleIsFollowingProgress(true, u.id);
-                                            userAPI.unfollowUser(u.id).then(response => {
-                                                if( response.data.resultCode === 0) {
-                                                    props.unfollow ( u.id );
-                                                   
-                                                }
-                                                props.toggleIsFollowingProgress(false, u.id);
-                                            });
-                                        } 
-                                    }> Unfollow </button> 
-                                    : <button 
-                                        disabled={props.followingInProgress.some( (id) => id === u.id)}
-                                        onClick = { 
-                                        () => { 
-                                            
-                                            props.toggleIsFollowingProgress(true, u.id);
-                                            userAPI.followUser(u.id).then(response => {
-                                                if( response.data.resultCode === 0) {
-                                                    props.follow ( u.id );
-                                                }
-                                                props.toggleIsFollowingProgress(false, u.id);
-                                            });
-                                        } 
-                                    }> Follow </button>}
-                        </div>
-                       
-                        <div className={classes.userIcon}>
-                            <div src={u.photoUrl}>
-                                <NavLink to={'/profile/' + u.id}>
-                                    <img src={u.photos.small != null ? u.photos.small: undefinedUser} alt="#" className={classes.photoUrl}/>
-                                </NavLink>
+                    return (
+                        <div className={classes.userContainer} key={u.id}>
+
+                            <div className={classes.userIcon}>
+                                <div src={u.photoUrl}>
+                                    <NavLink to={'/profile/' + u.id}>
+                                        <img src={u.photos.small != null ? u.photos.small: undefinedUser} alt="#" className={classes.photoUrl}/>
+                                    </NavLink>
+                                </div>
+                            </div>
+                            <div className={classes.userName}>
+                                
+                                    <div>Name: {u.name}</div>
+                                    <div>Status: {u.status}</div>
+                                    <div>Id: {u.id}</div>
+                            </div>
+                            <div className={classes.follow}>
+                                    { u.followed 
+                                        ? <button disabled={ props.followingInProgress.some( (id) => id === u.id) }    
+                                                onClick = { () => { props.unfollow(u.id); } }>Unfollow</button> 
+
+                                        : <button disabled={props.followingInProgress.some( (id) => id === u.id)}
+                                            onClick = { () => { 
+                                                props.follow(u.id);
+                                                // props.toggleIsFollowingProgress(true, u.id);
+                                                // userAPI.followUser(u.id).then(response => {
+                                                //     if( response.data.resultCode === 0) {
+                                                //         props.follow ( u.id );
+                                                //     }
+                                                //     props.toggleIsFollowingProgress(false, u.id);
+                                                // });
+                                            } 
+                                        }>Follow</button>}
                             </div>
                         </div>
-                        <div className={classes.userName}>
-                            <span>
-                                <div>{u.name}</div>
-                                <div>{u.status}</div>
-                            </span>
-                            <span>
-                                {/* <div>{ u.location.city.name }</div> */}
-                                {/* <div>{ u.location.  }</div> */}
-
-                                
-                            </span>
-                        </div>
-                    </div>
+                    )
                 })
             }    
         </>

@@ -1,6 +1,6 @@
 .photoUrl {
-    width: 32px; 
-    height: 32px;
+    width: 70px; 
+    height: 70px;
 }
 
 .selectedPage {
@@ -17,18 +17,27 @@
 }
 
 .paginator {
-    width: 200px;
+    min-width: 100px;
+    width: 70vw;
     overflow-x: scroll;
+    margin-bottom: 15px;
+
 }
 .userContainer {
     display: grid;
-    grid-template-columns: 60px 32px 1fr;
-    grid-template-rows: 42px;
+    grid-template-columns: 70px 1fr 1fr;
+    grid-template-rows: 80px;
 
-    grid-template-areas: "follow usericon username";
-    grid-gap: 10px;
+    grid-template-areas: "usericon username follow";
+    grid-gap: 15px;
     align-items: center;
+    /* background-color:rgb(245, 245, 245); */
+    box-shadow: 0 4px 8px 0 rgb(225, 225, 225);
 }
+.userContainer:hover {
+    box-shadow: 0 8px 16px 0 rgb(215, 215, 215);
+}
+
     .followBTN{
         grid-area: follow; 
         -ms-grid-column-align: center;
@@ -40,5 +49,8 @@
         grid-area: usericon; 
     }
     .userName {
-        grid-area: username; 
+        grid-area: username;
+        /* display: grid; */
+        /* grid-template-columns: minmax(50px, 4fr) minmax(50px, 4fr) minmax(50px, 4fr); */
+
     }

@@ -2,13 +2,16 @@ import React from 'react';
 // import UsersAPIComponent from './UsersAPIComponent'
 import Users from './Users'
 import * as axios from 'axios';
-import { follow, 
-         unfollow, 
+import { followSuccess, 
+         unfollowSuccess, 
          setUsers, 
          setCurrentPage, 
          setUsersTotalCount, 
          setIsFetching,
-         toggleIsFollowingProgress } from '../../redux/userReducer';
+         toggleIsFollowingProgress,
+         getUsersThunkCreator, 
+         followThunkCreator,
+         unfollowThunkCreator } from '../../redux/userReducer';
 import { connect } from 'react-redux';
 import { userAPI } from './../../api/api'
 
@@ -20,32 +23,42 @@ class UsersAPIContainer extends React.Component {
     }
     
     componentDidMount(){
-        this.props.setIsFetching(true);
         
+        //================ 1 - Сначала был просто axios ================
+        // this.props.setIsFetching(true);
         // let users = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`;
         // axios.get(users, {withCredentials: true} )
-        
-        userAPI.getUsers( this.props.currentPage, this.props.pageSize )
-        .then( response => {
-            this.props.setIsFetching( false );
-            this.props.setUsers( [...response.items] );
-            this.props.setUsersTotalCount( response.totalCount );
-           
-        });
+        //--============================================================
+
+        //--================ 2 - Затем вынесли axios в api ================
+        // userAPI.getUsers( this.props.currentPage, this.props.pageSize )
+        // .then( response => {
+        //     this.props.setIsFetching( false );
+        //     this.props.setUsers( [...response.items] );
+        //     this.props.setUsersTotalCount( response.totalCount );
+        // });
+        //--===============================================================
+
+        //--================ 3 - Затем вынесли api и action creators в thunk
+        this.props.getUsers( this.props.currentPage, this.props.pageSize );
     }
 
     setCurrentPage = ( currentPage ) => { 
-        this.props.setIsFetching( true );
-        this.props.setCurrentPage( currentPage );
+
+        //this.props.setIsFetching( true );
+        //this.props.setCurrentPage( currentPage );
 
         // let users = `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`;
         // axios.get(users, {withCredentials: true})
   
-        userAPI.getUsers( currentPage, this.props.pageSize )
-        .then( response => {
-            this.props.setIsFetching( false );
-            this.props.setUsers( [...response.items] );
-        });
+        // userAPI.getUsers( currentPage, this.props.pageSize )
+        // .then( response => {
+        //     this.props.setIsFetching( false );
+        //     this.props.setUsers( [...response.items] );
+        // });
+
+        this.props.getUsers( currentPage, this.props.pageSize );
+
     }
 
     render = () => {
@@ -53,14 +66,21 @@ class UsersAPIContainer extends React.Component {
         return <Users 
             users={this.props.users}
             pageSize={this.props.pageSize}
-            currentPage={this.props.currentPage}
+           
             usersTotalCount={this.props.usersTotalCount}
             isFetching={this.props.isFetching}
-            followingInProgress={this.props.followingInProgress}        
+            followingInProgress={this.props.followingInProgress} 
             follow={this.props.follow}
             unfollow={this.props.unfollow}
             setCurrentPage={this.setCurrentPage}
-            toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
+            
+            currentPage={this.props.currentPage}       
+            // followSuccess={this.props.followSuccess}
+            // unfollowSuccess={this.props.unfollowSuccess}
+            // toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
+            
+            
+            
         />
     }
 };
@@ -109,12 +129,15 @@ const mapStateToProps = (state) => {
     };
 */
 export default connect( mapStateToProps, {
-        //follow: followAC,
-        follow,
-        unfollow,
-        setUsers,
-        setCurrentPage,
-        setUsersTotalCount,
-        setIsFetching,
-        toggleIsFollowingProgress
+        // follow: followAC,
+        // followSuccess, 
+        // unfollowSuccess,
+        // setUsers, 
+        // setCurrentPage,
+        // setUsersTotalCount,
+        // setIsFetching,
+        // toggleIsFollowingProgress, 
+        getUsers: getUsersThunkCreator,
+        follow: followThunkCreator,
+        unfollow: unfollowThunkCreator
     } )( UsersAPIContainer );
