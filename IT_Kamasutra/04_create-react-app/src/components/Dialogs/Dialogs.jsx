@@ -2,6 +2,7 @@ import React, { useState, useEffect }  from 'react';
 import classes from'./Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem'
 import MessageItem from './MessageItem/MessageItem'
+import {Redirect} from 'react-router-dom'
 
 const Dialogs = (props) => {
     
@@ -49,8 +50,14 @@ const Dialogs = (props) => {
     let removeMessageElement = React.createRef();
     
     useEffect(() => {
-        messagesElement.current.scrollTo(0, messagesElement.current.scrollHeight);
-      });
+        if ( props.isAuth === true ) {
+            messagesElement.current.scrollTo(0, messagesElement.current.scrollHeight);
+        }
+    });
+
+    if ( props.isAuth === false ) {
+        return <Redirect to={"/login"} />
+    }
 
 	return (
 		<div className={classes.dialogs}>

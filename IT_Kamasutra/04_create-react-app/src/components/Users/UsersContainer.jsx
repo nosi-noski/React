@@ -14,6 +14,8 @@ import { followSuccess,
          unfollowThunkCreator } from '../../redux/userReducer';
 import { connect } from 'react-redux';
 import { userAPI } from './../../api/api'
+import {Redirect} from 'react-router-dom'
+
 
 
 class UsersAPIContainer extends React.Component {
@@ -62,7 +64,9 @@ class UsersAPIContainer extends React.Component {
     }
 
     render = () => {
-        
+        if (this.props.isAuth === false) {
+            return <Redirect to={"/login"} />
+        }
         return <Users 
             users={this.props.users}
             pageSize={this.props.pageSize}
@@ -78,9 +82,6 @@ class UsersAPIContainer extends React.Component {
             // followSuccess={this.props.followSuccess}
             // unfollowSuccess={this.props.unfollowSuccess}
             // toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
-            
-            
-            
         />
     }
 };
@@ -94,7 +95,8 @@ const mapStateToProps = (state) => {
         usersTotalCount: state.usersPage.usersTotalCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth
     }
 };
 /*
