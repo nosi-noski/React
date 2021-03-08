@@ -2,7 +2,8 @@
 import Dialogs from './Dialogs'
 import {sendNewMessageCreator, updateNewMessageBodyCreator} from '../../redux/dialogsReducer';
 // import StoreContext from '../../StoreContext'
-import {connect} from 'react-redux'
+import {connect}  from 'react-redux'
+import  {compose} from 'redux';
 import { withAuthRedirect } from './../../hoc/WithAuthRedirect'
 
 
@@ -26,11 +27,15 @@ let mapDispatchToProps = (dispatch) => {
     };
 };
 
+export default compose(
+    connect( mapStateToProps, mapDispatchToProps ),
+    withAuthRedirect
+)(Dialogs);
 
-let DialogsRedirectComponent = withAuthRedirect( Dialogs );
+// let DialogsRedirectComponent = withAuthRedirect( Dialogs );
 
-//const DialogsContainer = connect( mapStateToProps, mapDispatchToProps )( Dialogs );
-const DialogsContainer = connect( mapStateToProps, mapDispatchToProps )( DialogsRedirectComponent );
+// //const DialogsContainer = connect( mapStateToProps, mapDispatchToProps )( Dialogs );
+// const DialogsContainer = connect( mapStateToProps, mapDispatchToProps )( DialogsRedirectComponent );
 
 
 // const DialogsContainer = (props) => {
@@ -64,4 +69,4 @@ const DialogsContainer = connect( mapStateToProps, mapDispatchToProps )( Dialogs
 // }
 
 
-export default DialogsContainer;
+//export default DialogsContainer;

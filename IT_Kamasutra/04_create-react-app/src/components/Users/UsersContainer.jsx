@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 import { userAPI } from './../../api/api'
 import { Redirect } from 'react-router-dom'
 import {withAuthRedirect} from './../../hoc/WithAuthRedirect'
+import { compose } from 'redux';
 class UsersAPIContainer extends React.Component {
     constructor(props){
         super(props)
@@ -94,18 +95,29 @@ const mapStateToProps = (state) => {
     }
 };
 
-//let withAuthRedirect = (UsersAPIContainer)
 
-export default withAuthRedirect ( connect( mapStateToProps, {
-        // follow: followAC,
-        // followSuccess, 
-        // unfollowSuccess,
-        // setUsers, 
-        // setCurrentPage,
-        // setUsersTotalCount,
-        // setIsFetching,
-        // toggleIsFollowingProgress, 
+
+
+export default compose (
+    connect( mapStateToProps, {
         getUsers: getUsersThunkCreator,
         follow: followThunkCreator,
         unfollow: unfollowThunkCreator
-    } )(UsersAPIContainer) ) ;
+    }),
+    withAuthRedirect
+)(UsersAPIContainer);
+
+//let withAuthRedirect = (UsersAPIContainer)
+// export default withAuthRedirect ( connect( mapStateToProps, {
+//         // follow: followAC,
+//         // followSuccess, 
+//         // unfollowSuccess,
+//         // setUsers, 
+//         // setCurrentPage,
+//         // setUsersTotalCount,
+//         // setIsFetching,
+//         // toggleIsFollowingProgress, 
+//         getUsers: getUsersThunkCreator,
+//         follow: followThunkCreator,
+//         unfollow: unfollowThunkCreator
+//     } )(UsersAPIContainer) ) ;
