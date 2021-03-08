@@ -14,10 +14,8 @@ import { followSuccess,
          unfollowThunkCreator } from '../../redux/userReducer';
 import { connect } from 'react-redux';
 import { userAPI } from './../../api/api'
-import {Redirect} from 'react-router-dom'
-
-
-
+import { Redirect } from 'react-router-dom'
+import {withAuthRedirect} from './../../hoc/WithAuthRedirect'
 class UsersAPIContainer extends React.Component {
     constructor(props){
         super(props)
@@ -70,25 +68,21 @@ class UsersAPIContainer extends React.Component {
         return <Users 
             users={this.props.users}
             pageSize={this.props.pageSize}
-           
+    
             usersTotalCount={this.props.usersTotalCount}
             isFetching={this.props.isFetching}
             followingInProgress={this.props.followingInProgress} 
             follow={this.props.follow}
             unfollow={this.props.unfollow}
             setCurrentPage={this.setCurrentPage}
-            
+
             currentPage={this.props.currentPage}       
-            // followSuccess={this.props.followSuccess}
-            // unfollowSuccess={this.props.unfollowSuccess}
-            // toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
         />
     }
 };
 
 const mapStateToProps = (state) => {
-    // console.log(state)
-    
+   
     return {
         users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
@@ -99,38 +93,10 @@ const mapStateToProps = (state) => {
         isAuth: state.auth.isAuth
     }
 };
-/*
-    const mapDispatchToProps = ( dispatch ) => {
-        
-        return {
-            follow: ( userid ) => {
-                dispatch( followAC( userid ) );
-            },
 
-            unfollow: ( userid ) => {
-            dispatch( unfollowAC( userid ) );
-            },
+//let withAuthRedirect = (UsersAPIContainer)
 
-            setUsers: ( users ) => {
-                dispatch( serUsersAC( users ) )
-            },
-
-            setCurrentPage: ( currentPage )=>{
-                dispatch( serCurrentPageAC( currentPage ) )
-            },
-
-            setUsersTotalCount: ( totalCount ) => {
-                dispatch( setUsersTotalCountAC( totalCount ) )
-            },
-
-            toggleIsFetching: ( isFetching ) => {
-                dispatch( setIsFetching( isFetching ) )
-            }
-
-        }
-    };
-*/
-export default connect( mapStateToProps, {
+export default withAuthRedirect ( connect( mapStateToProps, {
         // follow: followAC,
         // followSuccess, 
         // unfollowSuccess,
@@ -142,4 +108,4 @@ export default connect( mapStateToProps, {
         getUsers: getUsersThunkCreator,
         follow: followThunkCreator,
         unfollow: unfollowThunkCreator
-    } )( UsersAPIContainer );
+    } )(UsersAPIContainer) ) ;
