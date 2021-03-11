@@ -13,7 +13,7 @@ const MessageItem = (props) => {
     let radiusBottomNone = props.order.sameNextUserId ? 'radiusBottomNone' : '';
     let radiusTopRightNone = props.order.samePrevUserId ? 'radiusTopRightNone' : '';
     let authorName =  getAuthorName( props.userid, props.props.dialogsPage.dialogs );
-    console.log(hiddenAuthor,radiusBottomNone, props.message)
+    // console.log(hiddenAuthor,radiusBottomNone, props.message)
     let messageWasHovered = (e) => {
         
         e.currentTarget.parentElement.children[1].classList.add('authorHovered')

@@ -17,6 +17,17 @@ class ProfileStatus extends React.Component {
            
     }
 
+    componentDidUpdate(prevProps, prevState){
+       
+        console.log('componentDidUpdate');
+        debugger
+        if ( this.props.statusText !== prevProps.statusText ){
+            this.setState({
+                statusText: this.props.statusText
+            });
+        }
+    }
+
 
     activateEditMode = () => {
         this.setState( {editMode: true} );
@@ -39,6 +50,8 @@ class ProfileStatus extends React.Component {
 
 
     render(){
+        console.log('render');
+
         // this.props.statusText === глобальный state
         // this.state.statusText === локальный state
         return (
