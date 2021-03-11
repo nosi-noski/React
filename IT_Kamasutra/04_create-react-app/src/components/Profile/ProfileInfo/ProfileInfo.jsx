@@ -14,6 +14,8 @@ import github from './../../../assets/img/github.png'
 import githubBlank from './../../../assets/img/github-blank.png'
 import facebook from './../../../assets/img/facebook.png'
 import facebookBlank from './../../../assets/img/facebook-blank.png'
+import ProfileStatus from './ProfileStatus'
+
 const ProfileInfo = (props) => {
     
     if ( !props.profile ) {
@@ -22,13 +24,16 @@ const ProfileInfo = (props) => {
     
     let photo = ( props.profile && props.profile.photos && props.profile.photos.large ) || undefinedUser;
     
-
+    
     return (
         <div className={classes.descriptionBlock}>
             <div className={classes.image}></div>
             <div className={classes.photo}>
                 <img src={ photo } alt="" />
             </div>
+            <ProfileStatus statusText={props.statusText}                             
+                           setUserStatusThunkCreator={props.setUserStatusThunkCreator}
+            />
             <div className={classes.userName}>ФИО</div>
             <div className={classes.userNameVal}>{props.profile.fullName}</div>
 

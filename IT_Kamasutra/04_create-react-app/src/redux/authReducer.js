@@ -32,7 +32,6 @@ const authReducer = (state = initialState, action) => {
             }
         }
 
-
         default :
             return state;
     }
@@ -64,7 +63,7 @@ export const getAuthUserThunkCreator = () => {
         
         authAPI.authMe()
         .then(response => {
-            debugger
+            
             if ( response.data.resultCode === 0 ){
                 let { id, email, login } = response.data.data;
                 dispatch( setAuthUserDataCreator(id, email, login) );
@@ -83,5 +82,7 @@ export const getAuthUserThunkCreator = () => {
         });
     }
 };
+
+
 
 export default authReducer;

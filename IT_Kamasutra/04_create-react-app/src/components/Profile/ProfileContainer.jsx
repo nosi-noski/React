@@ -3,7 +3,7 @@ import Profile from './ProfileInfo/ProfileInfo'
 import * as axios from 'axios'
 import { connect } from 'react-redux';
 import { withRouter }  from 'react-router-dom';
-import { setUserProfile, getUserProfile } from './../../redux/profileReducer'
+import { getUserProfile, getUserStatusThunkCreator, setUserStatusThunkCreator } from './../../redux/profileReducer'
 import { profileAPI } from './../../api/api'
 import { Redirect } from 'react-router-dom'
 import { withAuthRedirect } from './../../hoc/WithAuthRedirect'
@@ -29,6 +29,7 @@ class ProfileContainer extends React.Component {
 
         // --====== 3 Step =======
         this.props.getUserProfile(userId);
+        this.props.getUserStatusThunkCreator(userId);
         
     }
 
@@ -38,20 +39,26 @@ class ProfileContainer extends React.Component {
 
         return (
             <div>
-                <Profile { ...this.props }  profile={this.props.profile}/>
+                <Profile { ...this.props }  
+                         profile={this.props.profile} 
+                         status={this.props.statusText}
+                         setUserStatusThunkCreator={this.props.setUserStatusThunkCreator}
+
+                />
             </div>
         )
     }
 }
 
 let mapStateToProps = (state) => ({
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    statusText: state.profilePage.statusText
 });
 
 
 
 export default compose(
-    connect(mapStateToProps, {getUserProfile} ),
+    connect( mapStateToProps, {getUserProfile, setUserStatusThunkCreator, getUserStatusThunkCreator} ),
     withRouter,
     withAuthRedirect
 )(ProfileContainer);
