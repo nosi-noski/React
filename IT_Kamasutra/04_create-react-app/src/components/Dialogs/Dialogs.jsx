@@ -3,6 +3,7 @@ import classes from'./Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem'
 import MessageItem from './MessageItem/MessageItem'
 import {Redirect} from 'react-router-dom'
+import {Field,reduxForm} from 'redux-form'
 
 const Dialogs = (props) => {
     
@@ -19,35 +20,13 @@ const Dialogs = (props) => {
     return <MessageItem props={props} order={order} message={m.message} userid={m.userid} key={m.id}/>
     } );
     
-    let onAddMessage = () => {
-        let action = { 
-            userid: 0,
-            addButton: addMessageElement.current,
-            removeButton: removeMessageElement.current,
-            messagesElement : messagesElement.current
-        };
-        props.addMessage(action)
-     
-    };
 
-    let onChangeMessage = () => {
-        //let text = newMessageElement.current.value;
-        let action = { 
-            newMessageText: newMessageElement.current.value,
-            addButton: addMessageElement.current,
-            removeButton: removeMessageElement.current
-        };
-        props.changeNewMessage(action);
-    }; 
+    let AddNewMessage = (values) => {
+        props.addMessage(values.newMessageText);  
+    }
 
-    let onRemoveMessage = () => {
-        props.removeMessage();
-    };
-    
     let messagesElement = React.createRef();
-    let newMessageElement = React.createRef();
-    let addMessageElement = React.createRef();
-    let removeMessageElement = React.createRef();
+ 
     
     useEffect(() => {
         if ( props.isAuth === true ) {
@@ -69,30 +48,34 @@ const Dialogs = (props) => {
                  ref={ messagesElement } >
                 { messagesElements }
 			</div>
-
             <div className = {classes.newPostArea}>
-                <div className={classes.newTextArea}>
-                    <textarea   
-                        ref={ newMessageElement } 
-                        value={ state.newMessageText }
-                        onChange={ onChangeMessage }
-                        placeholder="New message">     
-                    </textarea>
-                </div> 
-                <div className={classes.buttons}>
-                    <div className={classes.textAdd}>
-                        <button ref={addMessageElement} 
-                                onClick={ onAddMessage }>Add message</button>
-                        
-                    </div> 
-                    <div className={classes.textRemove}>
-                        <button ref={removeMessageElement}  
-                                onClick={ onRemoveMessage }>Remove message</button> 
-                    </div> 
-                </div>
+                <AddMessageReduxForm onSubmit={AddNewMessage}/>
             </div>
+            
 		</div>
 	);
 }
 
+const AddMessageForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            
+                <div className={classes.newTextArea}>
+                    <Field component={"textarea"} name="newMessageText" placeholder="New message"/>
+                </div>
+
+                <div className={classes.buttons}>
+                    <div className={classes.textAdd}>
+                        <button>Add message</button>
+                    </div> 
+                    <div className={classes.textRemove}>
+                        <button>Remove message</button> 
+                    </div> 
+                </div>
+       
+        </form>
+    )
+};
+
+const AddMessageReduxForm = reduxForm({form: "AddMessageForm"})(AddMessageForm)
 export default Dialogs;

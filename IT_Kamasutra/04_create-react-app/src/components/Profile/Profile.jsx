@@ -1,6 +1,6 @@
 import React from 'react';
 
-import MyPostContainer from '../Profile/MyPosts/MyPostsContainer';
+import MyPostContainer from './MyPosts/MyPostContainer';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 
@@ -11,7 +11,7 @@ const Profile = (props) => {
         <div>
             <ProfileInfo profile={props.profile} 
                          statusText={props.statusText}
-                         setUserStatusThunkCreator={props.setUserStatusThunkCreator}/>
+                         setUserStatusThunkCreator={props.setUserStatusThunkCreator}/> 
             <MyPostContainer/>
         </div>
     );

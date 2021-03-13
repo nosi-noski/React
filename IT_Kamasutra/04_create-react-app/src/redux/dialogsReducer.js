@@ -15,8 +15,7 @@ let initialState =  {
         { id: 3, userid: 2, message: 'How are you?' },
         { id: 4, userid: 2, message: 'Have you ever coded in React?' },
         { id: 5, userid: 2, message: 'I have special offer for you)) Text me back, please)' }
-    ],
-    newMessageText: ''
+    ]
 }
 
 const dialogsReducer = (state = initialState, action) => {
@@ -26,30 +25,12 @@ const dialogsReducer = (state = initialState, action) => {
         case ADD_MESSAGE: {
             let newMessage = {
                 id: state.messages.length + 1, 
-                userid: action.userid, 
-                message: state.newMessageText
+                message: action.newMessageText
             };
-            action.addButton.disabled = true;
-            action.removeButton.disabled = true;
-
             return {
                 ...state,
-                messages: [...state.messages, newMessage],
-                newMessageText: ''
+                messages: [...state.messages, newMessage]
             };
-        }
-
-        case UPDATE_NEW_MESSAGE_TEXT: {
-            
-            
-            var isDisabled = action.newMessageText.length > 0 ? false : true;
-            action.addButton.disabled = isDisabled;
-            action.removeButton.disabled = isDisabled;
-        return {
-                ...state,
-                newMessageText: action.newMessageText
-            };
-
         }
 
         default :
@@ -58,23 +39,12 @@ const dialogsReducer = (state = initialState, action) => {
 
 };
 
-export const sendNewMessageCreator = (action) => {
+export const sendNewMessageCreator = (newMessageText) => {
     return {
         type: ADD_MESSAGE,
-        userid: action.userid,
-        addButton: action.addButton,
-        removeButton: action.removeButton,
-        messagesElement: action.messagesElement
+        newMessageText: newMessageText
     }
 };
 
-export const updateNewMessageBodyCreator = ( action ) => {
-    return {
-        type: UPDATE_NEW_MESSAGE_TEXT, 
-        newMessageText: action.newMessageText,
-        addButton: action.addButton,
-        removeButton: action.removeButton
-    }
-};
 
 export default dialogsReducer;

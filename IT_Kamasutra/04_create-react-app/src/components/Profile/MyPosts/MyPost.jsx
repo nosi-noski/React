@@ -1,19 +1,17 @@
 import React from 'react';
-import classes from './MyPosts.module.css';
+import classes from './MyPost.module.css';
 import Post from './Post/Post';
+import {Field,reduxForm} from 'redux-form'
 
-const MyPosts = (props) => { 
+const MyPost = (props) => { 
   
    
     
-    let onAddPost = () => {
-        props.addPost();
+    let onAddPost = (value) => {
+        props.addPost(value.newPostText);
     };
 
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text)
-    };
+   
 
     let onChosePost = (id) => {
         
@@ -34,30 +32,37 @@ const MyPosts = (props) => {
         <div className={classes.myPostsWrapper}>
             <h3>my-post</h3>
             <div className = {classes.newPostArea}>
-                <div className={classes.newTextArea}>
-                    <textarea 
-                        onChange={ onPostChange } 
-                        ref={newPostElement} 
-                        value={props.newPostText}
-                        placeholder="New post"/>
-                </div> 
-                <div className={classes.buttons}>
-                    <div className={classes.textAdd}>
-                        <button  onClick={ onAddPost }>Add Post</button>
-                        
-                    </div> 
-                    <div className={classes.textRemove}>
-                        <button onClick={ onRemovePost }>Remove Post</button> 
-                    </div> 
-                </div>
+               <MyPostReduxFrom onSubmit={onAddPost}/>
             </div>
             <div className={classes.posts}>
                 { postElements }
             </div>
         </div>
-               
-
     );
 }
 
-export default MyPosts;
+const AddPostForm = (props) => {
+    return (
+        <form action="" onSubmit={props.handleSubmit}>
+             <div className={classes.newTextArea}>
+                    <Field 
+                        component={'textarea'}
+                        name="newPostText" 
+                        placeholder="New post"
+                    />
+                </div> 
+                <div className={classes.buttons}>
+                    <div className={classes.textAdd}>
+                        <button>Add Post</button>
+                    </div> 
+                    <div className={classes.textRemove}>
+                        <button>Remove Post</button> 
+                    </div> 
+                </div>
+        </form>
+    )
+}
+
+const MyPostReduxFrom = reduxForm({form: "AddPostForm"})(AddPostForm)
+
+export default MyPost;

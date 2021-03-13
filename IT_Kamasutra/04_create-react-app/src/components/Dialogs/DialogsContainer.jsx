@@ -15,12 +15,12 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => { 
     return {
-        addMessage: (body) => { 
-            dispatch( sendNewMessageCreator(body) ); 
+        addMessage: (newMessageText) => { 
+            dispatch( sendNewMessageCreator(newMessageText) ); 
         },
-        changeNewMessage: (body) => {  
-            dispatch( updateNewMessageBodyCreator(body) );
-        },
+        // changeNewMessage: (body) => {  
+        //     dispatch( updateNewMessageBodyCreator(body) );
+        // },
         removeMessage:  () => { 
             alert("Remove post")
         }
