@@ -2,10 +2,14 @@ import React, { useState, useEffect }  from 'react';
 import classes from'./Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem'
 import MessageItem from './MessageItem/MessageItem'
-import {Redirect} from 'react-router-dom'
-import {Field,reduxForm} from 'redux-form'
+import { Redirect } from 'react-router-dom'
+import { Field, reduxForm } from 'redux-form'
+import { TextArea } from './../../components/Common/FormControls/FormControls'
+import { required, maxLengthThunkCreator } from './../../utils/validators/validators'
 
-const Dialogs = (props) => {
+const maxLength140 = maxLengthThunkCreator(140);
+
+const Dialogs = (props) => {s
     
     let state = props.dialogsPage;
      
@@ -61,7 +65,10 @@ const AddMessageForm = (props) => {
         <form onSubmit={props.handleSubmit}>
             
                 <div className={classes.newTextArea}>
-                    <Field component={"textarea"} name="newMessageText" placeholder="New message"/>
+                    <Field component={TextArea} 
+                           validate={[required, maxLength140]}
+                           name="newMessageText" 
+                           placeholder="New message"/>
                 </div>
 
                 <div className={classes.buttons}>

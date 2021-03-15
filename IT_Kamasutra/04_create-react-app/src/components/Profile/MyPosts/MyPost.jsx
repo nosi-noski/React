@@ -1,20 +1,18 @@
 import React from 'react';
 import classes from './MyPost.module.css';
 import Post from './Post/Post';
-import {Field,reduxForm} from 'redux-form'
-
+import {Field,reduxForm} from 'redux-form';
+import { required, maxLengthThunkCreator } from './../../../utils/validators/validators'
+import {TextArea} from './../../Common/FormControls/FormControls' 
+const maxLength10 = maxLengthThunkCreator(10);
 const MyPost = (props) => { 
-  
-   
-    
+ 
     let onAddPost = (value) => {
+        console.log('onAddPost')
         props.addPost(value.newPostText);
     };
 
-   
-
     let onChosePost = (id) => {
-        
         props.chosePost(id);
     };
 
@@ -46,9 +44,10 @@ const AddPostForm = (props) => {
         <form action="" onSubmit={props.handleSubmit}>
              <div className={classes.newTextArea}>
                     <Field 
-                        component={'textarea'}
+                        component={TextArea}
                         name="newPostText" 
                         placeholder="New post"
+                        validate={ [required, maxLength10] }
                     />
                 </div> 
                 <div className={classes.buttons}>
