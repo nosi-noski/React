@@ -9,7 +9,7 @@ import { required, maxLengthThunkCreator } from './../../utils/validators/valida
 
 const maxLength140 = maxLengthThunkCreator(140);
 
-const Dialogs = (props) => {s
+const Dialogs = (props) => {
     
     let state = props.dialogsPage;
      
