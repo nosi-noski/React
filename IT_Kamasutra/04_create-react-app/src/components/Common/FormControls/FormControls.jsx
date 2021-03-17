@@ -14,7 +14,7 @@ const FormControl = ({input, meta, ...props}) => {
 }
 
 export const TextArea = (props) => {
-    debugger
+    
     const {input, meta, ...restProps} = props;
 
     return <FormControl {...props}>
@@ -24,7 +24,7 @@ export const TextArea = (props) => {
 } 
 
 export const Input = (props) => {
-    debugger
+    
     const {input, meta, ...restProps} = props;
 
     return <FormControl {...props}>

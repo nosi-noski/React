@@ -4,7 +4,7 @@ import * as axios from 'axios';
 import {setIsFetching, setAuthUserDataCreator} from './../../redux/authReducer';
 import {connect} from 'react-redux';
 import { setUserProfile } from './../../redux/profileReducer'
-import {getAuthUserThunkCreator} from './../../redux/authReducer'
+import {getAuthUserThunkCreator, logout} from './../../redux/authReducer'
 import { authAPI, profileAPI } from './../../api/api'
 class HeaderContainer extends React.Component {
     constructor(props){
@@ -77,4 +77,4 @@ const mapStateToProps = (state) => {
 //         }
 //     }
 // }
-export default connect(mapStateToProps, {getAuthUserThunkCreator} )(HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserThunkCreator, logout} )(HeaderContainer);

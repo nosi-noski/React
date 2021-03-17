@@ -9,14 +9,15 @@ const LoginForm = (props) => {
     return (
         <form action="" onSubmit={ props.handleSubmit }>
             <div>
-                <Field placeholder={"Login"} 
-                       name={"login"} 
+                <Field placeholder={"Email"} 
+                       name={"email"} 
                        component={Input}
                        validate={[required]}/>
             </div>
             <div>
                 <Field placeholder={"Password"} 
-                       name={"password"}  
+                       name={"password"}
+                       type={"password"}
                        component={Input}
                        validate={[required]}/>
             </div>
