@@ -1,5 +1,6 @@
 import { authAPI, profileAPI } from './../api/api';
 import { setUserProfile } from './profileReducer'
+import {stopSubmit} from 'redux-form'
 
 const SET_USER_DATA = "SET-USER-DATA";
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
@@ -92,6 +93,10 @@ export const login = ( email, password, rememberMe, captcha ) => {
                 let { id, email, login } = response.data.data;
                
                 dispatch( getAuthUserThunkCreator() );
+            }else {
+                let message = ( response.data.messages.length > 0 && response.data.messages[0] ) || "Everything is wrong";
+                let action = stopSubmit('login', {_error: message});
+                dispatch(action)
             }   
             return response.data.data;
         })

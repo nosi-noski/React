@@ -2,6 +2,7 @@ import React from 'react';
 import {Field,reduxForm} from 'redux-form'
 import { Input } from './../Common/FormControls/FormControls'
 import { required } from './../../utils/validators/validators'
+import classes from './../Common/FormControls/FormControls.module.css'
 
 
 
@@ -26,6 +27,11 @@ const LoginForm = (props) => {
                        name={"rememberMe"} 
                        component={Input}/>
             </div>
+            {props.error ? 
+             <div className={classes.formSummaryError}>{props.error}</div>
+            :<div></div>
+            }
+           
             <div>
                 <button>Login</button>
             </div>
