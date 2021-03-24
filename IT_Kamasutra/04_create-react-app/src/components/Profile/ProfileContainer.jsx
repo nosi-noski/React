@@ -19,7 +19,7 @@ class ProfileContainer extends React.Component {
             
             userId = this.props.authorizedUserId;
             if( !userId ){
-                //this.props.history.push('/login')
+                this.props.history.push('/login')
             }
         }
         // --====== 1 Step =======
