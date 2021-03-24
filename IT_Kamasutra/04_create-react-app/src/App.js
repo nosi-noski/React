@@ -1,4 +1,8 @@
 import './App.css';
+import React from 'react';
+import {compose} from 'redux';
+import {connect } from 'react-redux'
+import {BrowserRouter, Route, withRouter} from "react-router-dom";
 
 import HeaderContainer from "./components/Header/HeaderContainer"; 
 import NavBar from "./components/NavBar/NavBar"; 
@@ -11,14 +15,26 @@ import News from "./components/News/News";
 import UsersContainer from "./components/Users/UsersContainer";
 import LoginPage from './components/Login/Login'
 
-import {BrowserRouter, Route} from "react-router-dom";
+
+import { initializeApp } from './redux/appReducer'
+import { getAuthUserThunkCreator } from './redux/authReducer'
+import Loader from './components/Common/Loader/Loader';
 
 let getMessages = () => <Messages/> 
  
-function App ( props ) {
-    
-    return (
-            <div className="app-wrapper">
+class  App extends React.Component {
+    componentDidMount(){
+        this.props.initializeApp();
+    }
+
+    render (){
+        
+        if( !this.props.initialized ){
+            return <Loader/>;
+        }
+       
+        return ( 
+           <div className="app-wrapper">
                 <HeaderContainer/>
                 <NavBar/>
                 <div className="app-wrapper-content">
@@ -42,8 +58,15 @@ function App ( props ) {
                     <Route path="/news"     component={News} />
                 </div>
             </div>
-      
-    );
+        )
+    };
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+        initialized: state.app.initialized
+});
+
+export default compose(
+    connect( mapStateToProps, { initializeApp} ),
+    withRouter
+    )(App);

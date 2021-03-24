@@ -12,46 +12,6 @@ class HeaderContainer extends React.Component {
     }
 
     componentDidMount(){
-        // --================ 1 STEP =============
-        // let auth = `https://social-network.samuraijs.com/api/1.0/auth/me`;
-        // axios.get( auth, {withCredentials: true } )
-        // .then(response => {
-        //     if ( response.data.resultCode === 0 ){         
-        //         let { id, email, login } = response.data.data;
-        //         this.props.setAuthUser( id, email, login )
-        //     }
-        //     setIsFetching(false);
-        //     return response.data.data;
-        // }).then( response => {
-        //     let users = "https://social-network.samuraijs.com/api/1.0/profile/" + response.id;
-        //     axios.get(users).then(response => {
-        //         this.props.loadUserProfile( response.data );
-        //     });
-           
-        // });
-
-        // --================ 2 STEP =============
-        // setIsFetching(true);
-        // authAPI.authMe()
-        // .then(response => {    
-        //     if ( response.data.resultCode === 0 ){
-        //         let { id, email, login } = response.data.data;
-        //         this.props.setAuthUser( id, email, login )
-        //     }
-        //     setIsFetching(false);
-        //     return response.data.data;
-        // })
-        // .then( response => {
-            
-        //     profileAPI.getProfile(response.id)
-        //     .then(response => {
-        //         this.props.loadUserProfile( response.data );
-        //     });
-        // });
-        
-        // --================ 3 STEP =============
-        this.props.getAuthUserThunkCreator();
-       
     }
 
     render (){
@@ -77,4 +37,4 @@ const mapStateToProps = (state) => {
 //         }
 //     }
 // }
-export default connect(mapStateToProps, {getAuthUserThunkCreator, logout} )(HeaderContainer);
+export default connect(mapStateToProps, {logout} )(HeaderContainer);

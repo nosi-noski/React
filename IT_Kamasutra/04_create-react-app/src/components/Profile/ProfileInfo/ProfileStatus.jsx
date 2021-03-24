@@ -19,7 +19,7 @@ class ProfileStatus extends React.Component {
 
     componentDidUpdate(prevProps, prevState){
        
-        console.log('componentDidUpdate');
+        // console.log('componentDidUpdate');
         
         if ( this.props.statusText !== prevProps.statusText ){
             this.setState({
@@ -31,13 +31,13 @@ class ProfileStatus extends React.Component {
 
     activateEditMode = () => {
         this.setState( {editMode: true} );
-        this.state.editMode = true;  
+        // this.state.editMode = true;  
     }
 
 
     deactivateEditMode = () => {
         this.setState( {editMode: false} );
-        this.state.editMode = false; 
+        // this.state.editMode = false; 
         this.props.setUserStatusThunkCreator(this.state.statusText);
     }
 
@@ -50,7 +50,7 @@ class ProfileStatus extends React.Component {
 
 
     render(){
-        console.log('render');
+        // console.log('render');
 
         // this.props.statusText === глобальный state
         // this.state.statusText === локальный state

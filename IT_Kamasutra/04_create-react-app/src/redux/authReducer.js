@@ -62,7 +62,7 @@ export const getAuthUserThunkCreator = () => {
     return (dispatch) => {
         dispatch( setIsFetching(true) );
         
-        authAPI.authMe()
+        return authAPI.authMe()
         .then(response => {
             
             if ( response.data.resultCode === 0 ){
@@ -81,6 +81,7 @@ export const getAuthUserThunkCreator = () => {
             });
 
         });
+        
     }
 };
 

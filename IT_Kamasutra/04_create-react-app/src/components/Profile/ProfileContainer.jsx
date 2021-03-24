@@ -13,8 +13,15 @@ class ProfileContainer extends React.Component {
     componentDidMount(){
         
         let match = this.props.match;
-        let userId = match && match.params && ( match.params.userId ||  15264 );
-        
+        let userId = match && match.params && match.params.userId ;
+        debugger
+        if( !userId ) {
+            
+            userId = this.props.authorizedUserId;
+            if( !userId ){
+                //this.props.history.push('/login')
+            }
+        }
         // --====== 1 Step =======
         // let users = "https://social-network.samuraijs.com/api/1.0/profile/" + userId;
         // axios.get(users).then(response => {
@@ -52,7 +59,8 @@ class ProfileContainer extends React.Component {
 
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    statusText: state.profilePage.statusText
+    statusText: state.profilePage.statusText,
+    authorizedUserId: state.auth.userId
 });
 
 
