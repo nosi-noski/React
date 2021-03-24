@@ -17,6 +17,14 @@ import { userAPI } from './../../api/api'
 import { Redirect } from 'react-router-dom'
 import {withAuthRedirect} from './../../hoc/WithAuthRedirect'
 import { compose } from 'redux';
+import { getUsers, 
+         getPageSize,
+         getUsersTotalCount,
+         getCurrentPage,
+         getIsFetching,
+         getFollowingInProgress,
+         getIsAuth
+} from './../../redux/userSelectors'
 class UsersAPIContainer extends React.Component {
     constructor(props){
         super(props)
@@ -41,10 +49,10 @@ class UsersAPIContainer extends React.Component {
         //--===============================================================
 
         //--================ 3 - Затем вынесли api и action creators в thunk
-        this.props.getUsers( this.props.currentPage, this.props.pageSize );
+        this.props.getUsersThunkCreator( this.props.currentPage, this.props.pageSize );
     }
 
-    setCurrentPage = ( currentPage ) => { 
+    setCurrentPage = ( choosedPage ) => { 
 
         //this.props.setIsFetching( true );
         //this.props.setCurrentPage( currentPage );
@@ -58,7 +66,7 @@ class UsersAPIContainer extends React.Component {
         //     this.props.setUsers( [...response.items] );
         // });
 
-        this.props.getUsers( currentPage, this.props.pageSize );
+        this.props.getUsersThunkCreator( choosedPage, this.props.pageSize );
 
     }
 
@@ -76,31 +84,39 @@ class UsersAPIContainer extends React.Component {
             follow={this.props.follow}
             unfollow={this.props.unfollow}
             setCurrentPage={this.setCurrentPage}
-
             currentPage={this.props.currentPage}       
         />
     }
 };
 
-const mapStateToProps = (state) => {
-   
+// const mapStateToProps = (state) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage.pageSize,
+//         usersTotalCount: state.usersPage.usersTotalCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress,
+//         isAuth: state.auth.isAuth
+//     }
+// };
+
+const mapStateToProps = (state) => {  
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        usersTotalCount: state.usersPage.usersTotalCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.auth.isAuth
+        users: getUsers (state),
+        pageSize: getPageSize(state),
+        usersTotalCount: getUsersTotalCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
+        isAuth: getIsAuth(state)
     }
 };
 
 
-
-
 export default compose (
     connect( mapStateToProps, {
-        getUsers: getUsersThunkCreator,
+        getUsersThunkCreator: getUsersThunkCreator,
         follow: followThunkCreator,
         unfollow: unfollowThunkCreator
     }),
