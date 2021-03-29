@@ -17,7 +17,7 @@ import { userAPI } from './../../api/api'
 import { Redirect } from 'react-router-dom'
 import {withAuthRedirect} from './../../hoc/WithAuthRedirect'
 import { compose } from 'redux';
-import { getUsers, 
+import { getUsersSelector,
          getPageSize,
          getUsersTotalCount,
          getCurrentPage,
@@ -71,9 +71,8 @@ class UsersAPIContainer extends React.Component {
     }
 
     render = () => {
-        if (this.props.isAuth === false) {
-            return <Redirect to={"/login"} />
-        }
+        console.log('UserContainer - render');
+        
         return <Users 
             users={this.props.users}
             pageSize={this.props.pageSize}
@@ -102,8 +101,9 @@ class UsersAPIContainer extends React.Component {
 // };
 
 const mapStateToProps = (state) => {  
+    console.log('UserContainer - mapStateToProps');
     return {
-        users: getUsers (state),
+        users: getUsersSelector(state),
         pageSize: getPageSize(state),
         usersTotalCount: getUsersTotalCount(state),
         currentPage: getCurrentPage(state),

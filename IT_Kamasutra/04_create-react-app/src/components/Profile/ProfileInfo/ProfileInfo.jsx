@@ -14,7 +14,7 @@ import github from './../../../assets/img/github.png'
 import githubBlank from './../../../assets/img/github-blank.png'
 import facebook from './../../../assets/img/facebook.png'
 import facebookBlank from './../../../assets/img/facebook-blank.png'
-import ProfileStatus from './ProfileStatus'
+import ProfileStatusWithHooks from './ProfileStatusWithHooks'
 
 const ProfileInfo = (props) => {
     
@@ -31,7 +31,7 @@ const ProfileInfo = (props) => {
             <div className={classes.photo}>
                 <img src={ photo } alt="" />
             </div>
-            <ProfileStatus statusText={props.statusText}                             
+            <ProfileStatusWithHooks statusText={props.statusText}                             
                            setUserStatusThunkCreator={props.setUserStatusThunkCreator}
             />
             <div className={classes.userName}>ФИО</div>

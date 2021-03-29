@@ -1,11 +1,8 @@
 import React from 'react';
 import classes from './Users.module.css'
-import lightbulb from  '../../assets/img/light-bulb-64.png'
 import undefinedUser from '../../assets/img/undefined-user.svg'
 import Loader from './../Common/Loader/Loader'
-import { NavLink, withRouter, RouteProps } from 'react-router-dom';
-import * as axios from 'axios';
-import { userAPI } from './../../api/api'
+import { NavLink } from 'react-router-dom';
 
 let Users = (props) => {
 
