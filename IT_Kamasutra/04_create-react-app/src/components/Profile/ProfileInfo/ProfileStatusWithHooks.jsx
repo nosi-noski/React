@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import classes from './ProfileStatus.module.css'
 
 
 
 const ProfileStatusWithHooks = (props) =>  {
-
+    
     let [editMode, setEditMode] = useState(false);
-    let [statusText, setStatus] = useState(props.status);
+    let [statusText, setStatus] = useState(props.statusText);
+
+    useEffect( () => {
+        // https://habr.com/ru/company/ruvds/blog/445276/
+        console.log('useEffect')
+        setStatus(props.statusText)
+    }, [props.statusText])
 
     let activateEditMode = () => {
         setEditMode( true );
@@ -22,16 +28,8 @@ const ProfileStatusWithHooks = (props) =>  {
         setStatus( e.currentTarget.value );
     }
 
-    // componentDidUpdate(prevProps, prevState){
-       
-    //     // console.log('componentDidUpdate');
-        
-    //     if ( this.props.statusText !== prevProps.statusText ){
-    //         this.setState({
-    //             statusText: this.props.statusText
-    //         });
-    //     }
-    // }
+    
+
 
     return (
         <div> Status: 
