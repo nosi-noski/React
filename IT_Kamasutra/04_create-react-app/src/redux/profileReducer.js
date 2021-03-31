@@ -1,6 +1,8 @@
 import { profileAPI } from './../api/api';
 
 const ADD_POST = "ADD-POST";
+const DELETE_POST = "DELETE-POST";
+
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const CHOSE_POST_TEXT = "CHOSE-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
@@ -33,6 +35,13 @@ const profileReducer = ( state = initialState, action ) => {
             };
         }
 
+        case DELETE_POST : {
+
+            return {
+                ...state,
+                posts: state.posts.filter( (p) => { return p.id != action.postId})
+            }  
+        }
         case CHOSE_POST_TEXT: {
             return {
                 ...state,
@@ -62,6 +71,13 @@ export const addPostActionCreator = (newPostText) => {
     return {
         type: ADD_POST,
         newPostText:newPostText
+    }
+};
+
+export const deletePostActionCreator = (postId) => {
+    return {
+        type: DELETE_POST,
+        postId: postId
     }
 };
 
