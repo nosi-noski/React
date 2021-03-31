@@ -38,7 +38,7 @@
     
 }
 
-.userName,
+.userNameVal,
 .aboutMe,
 .lookingForAJob,
 .lookingForAJobDescr,
@@ -49,12 +49,19 @@
     word-break: break-all;
 }
 
-.userNameVal,
+
+
 .aboutMeVal,
 .lookingForAJobVal,
-.lookingForAJobDescrVal
-{
+.lookingForAJobDescrVal {
     grid-area: c;
+    object-fit: cover;
+    width: 100%;
+    word-break: break-all;
+}
+
+.userStatus {
+    grid-area: b c;
     object-fit: cover;
     width: 100%;
     word-break: break-all;
@@ -66,23 +73,27 @@
     grid-row-end: 2;
 }
 
-
-.aboutMe, 
-.aboutMeVal {
+.userStatus {
     grid-row-start: 3;
     grid-row-end: 3;
 }
 
-.lookingForAJob, 
-.lookingForAJobVal {
+.aboutMe, 
+.aboutMeVal {
     grid-row-start: 4;
     grid-row-end: 4;
 }
 
-.lookingForAJobDescr, 
-.lookingForAJobDescrVal {
+.lookingForAJob, 
+.lookingForAJobVal {
     grid-row-start: 5;
     grid-row-end: 5;
+}
+
+.lookingForAJobDescr, 
+.lookingForAJobDescrVal {
+    grid-row-start: 6;
+    grid-row-end: 6;
 }
 
 .userDescription {
@@ -91,8 +102,8 @@
 
 
 .socialMediaRow {
-    grid-row-start: 6;
-    grid-row-end: 6;
+    grid-row-start: 7;
+    grid-row-end: 7;
     grid-column: 2/4;
     display: flex;
     

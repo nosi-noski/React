@@ -31,14 +31,23 @@ const ProfileInfo = (props) => {
             <div className={classes.photo}>
                 <img src={ photo } alt="" />
             </div>
-            <ProfileStatusWithHooks statusText={props.statusText}                             
-                           setUserStatusThunkCreator={props.setUserStatusThunkCreator}
-            />
-            <div className={classes.userName}>ФИО</div>
-            <div className={classes.userNameVal}>{props.profile.fullName}</div>
-
-            <div className={classes.aboutMe}>aboutMe</div>
-            <div className={classes.aboutMeVal}>{props.profile.aboutMe}</div>
+            
+            {/* <div className={classes.userName}>ФИО</div> */}
+            <h3 style={{margin: 0 + 'px'}}>
+                <div className={classes.userNameVal}>{props.profile.fullName}</div>
+            </h3>
+            <div className={classes.userStatus}>
+                <ProfileStatusWithHooks statusText={props.statusText}                             
+                                        setUserStatusThunkCreator={props.setUserStatusThunkCreator}
+                />
+            <hr/>
+            </div>   
+           
+            {/* <div className={classes.aboutMeContainer}> */}
+                <div className={classes.aboutMe}>aboutMe</div>
+                <div className={classes.aboutMeVal}>{props.profile.aboutMe}</div>
+            {/* </div> */}
+            
 
             <div className={classes.lookingForAJob}>lookingForAJob</div>
             <div className={classes.lookingForAJobVal}>{props.profile.lookingForAJob ? "Да" : "Нет"}</div>

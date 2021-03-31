@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import classes from './ProfileStatus.module.css'
 
 
-
-const ProfileStatusWithHooks = (props) =>  {
+//React.PureComponent для классовых. ПРостая поверхностная проверка изменений props для ComponentShouldUpdate
+const ProfileStatusWithHooks = React.memo((props) =>  {
     
     let [editMode, setEditMode] = useState(false);
     let [statusText, setStatus] = useState(props.statusText);
@@ -32,7 +32,7 @@ const ProfileStatusWithHooks = (props) =>  {
 
 
     return (
-        <div> Status: 
+        <div>
             { !editMode && 
                 <div>
                     <span className={ classes.statusText }
@@ -55,7 +55,7 @@ const ProfileStatusWithHooks = (props) =>  {
             }
         </div>
     )
-}
+});
 
 
 
