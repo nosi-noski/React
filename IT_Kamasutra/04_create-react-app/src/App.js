@@ -14,10 +14,8 @@ import Settings from "./components/Params/Params";
 import News from "./components/News/News";
 import UsersContainer from "./components/Users/UsersContainer";
 import LoginPage from './components/Login/Login'
-
-
 import { initializeApp } from './redux/appReducer'
-import { getAuthUserThunkCreator } from './redux/authReducer'
+
 import Loader from './components/Common/Loader/Loader';
 
 let getMessages = () => <Messages/> 

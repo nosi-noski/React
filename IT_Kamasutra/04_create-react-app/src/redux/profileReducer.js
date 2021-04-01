@@ -109,37 +109,31 @@ export const getUserStatus = (statusText)=> {
 
 // Thunks Creators
 export const getUserProfile = (userId) => {
-    return (dispatch) => {
-        profileAPI.getProfile(userId)
-        .then( (response) => {
-            dispatch( setUserProfile(response.data) );
-        })
+    return async (dispatch) => {
+        
+        let response = await profileAPI.getProfile(userId);
+        dispatch( setUserProfile(response.data) );
     }
 };
 
 
 export const getUserStatusThunkCreator = (userId) => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId)
-        .then( (response) => { 
-            dispatch( getUserStatus(response.data) );
-         } )
+    return async (dispatch) => {
+
+        let response = await profileAPI.getStatus(userId);
+        dispatch( getUserStatus(response.data) );
     }
 }
 
 
 export const setUserStatusThunkCreator = (statusText) => {
-    return (dispatch) => {
-        profileAPI.setStatus(statusText)
-        .then( (response) => {
-            if (response.data.resultCode === 0) {
-                dispatch( getUserStatus(statusText) );
-            }
-            
-        })
+    return async (dispatch) => {
+
+        let response = await profileAPI.setStatus(statusText);
+        if (response.data.resultCode === 0) {
+            dispatch( getUserStatus(statusText) );
+        } 
     }
 }
-
-
 
 export default profileReducer;

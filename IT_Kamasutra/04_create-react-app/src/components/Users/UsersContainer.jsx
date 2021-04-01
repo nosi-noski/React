@@ -49,7 +49,9 @@ class UsersAPIContainer extends React.Component {
         //--===============================================================
 
         //--================ 3 - Затем вынесли api и action creators в thunk
-        this.props.getUsersThunkCreator( this.props.currentPage, this.props.pageSize );
+
+        let {currentPage, pageSize} = this.props;
+        this.props.getUsersThunkCreator( currentPage, pageSize );
     }
 
     setCurrentPage = ( choosedPage ) => { 
@@ -65,13 +67,14 @@ class UsersAPIContainer extends React.Component {
         //     this.props.setIsFetching( false );
         //     this.props.setUsers( [...response.items] );
         // });
+        let {pageSize} = this.props;
 
-        this.props.getUsersThunkCreator( choosedPage, this.props.pageSize );
+        this.props.getUsersThunkCreator( choosedPage, pageSize );
 
     }
 
     render = () => {
-        console.log('UserContainer - render');
+
         
         return <Users 
             users={this.props.users}
@@ -101,7 +104,6 @@ class UsersAPIContainer extends React.Component {
 // };
 
 const mapStateToProps = (state) => {  
-    console.log('UserContainer - mapStateToProps');
     return {
         users: getUsersSelector(state),
         pageSize: getPageSize(state),

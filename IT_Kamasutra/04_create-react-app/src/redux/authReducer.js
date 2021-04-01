@@ -59,59 +59,49 @@ export const setAuthUserDataCreator = (userId, email, login, isAuth) => {
 };
 
 export const getAuthUserThunkCreator = () => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch( setIsFetching(true) );
         
-        return authAPI.authMe()
-        .then(response => {
-            
-            if ( response.data.resultCode === 0 ){
-                let { id, email, login } = response.data.data;
-                dispatch( setAuthUserDataCreator(id, email, login, true) );
-            }
-            dispatch( setIsFetching(false) );
-            return response.data.data;
-
-        })
-        .then( response => {
-            
-            profileAPI.getProfile(response.id)
-            .then(response => {
-                dispatch( setUserProfile(response.data) );
-            });
-
-        });
+        let response =  await authAPI.authMe();
+  
+        if ( response.data.resultCode === 0 ){
+            let { id, email, login } = response.data.data;
+            dispatch( setAuthUserDataCreator(id, email, login, true) );
+        }
+        dispatch( setIsFetching(false) );
         
+
+       
+            // let response  = await profileAPI.getProfile(response.id)
+
+            //     dispatch( setUserProfile(response.data) );
+
+
     }
 };
 
 export const login = ( email, password, rememberMe, captcha ) => {
-    return ( dispatch ) => {
-        authAPI.login( email, password, rememberMe )
-        .then( (response) => {
-            debugger
-            if ( response.data.resultCode === 0 ){
-                let { id, email, login } = response.data.data;
-               
-                dispatch( getAuthUserThunkCreator() );
-            }else {
-                let message = ( response.data.messages.length > 0 && response.data.messages[0] ) || "Everything is wrong";
-                let action = stopSubmit('login', {_error: message});
-                dispatch(action)
-            }   
-            return response.data.data;
-        })
+    return async ( dispatch ) => {
+        
+        let response = await authAPI.login( email, password, rememberMe );
+        
+        if ( response.data.resultCode === 0 ){
+            dispatch( getAuthUserThunkCreator() );
+        } else {
+            let message = ( response.data.messages.length > 0 && response.data.messages[0] ) || "Everything is wrong";
+            let action = stopSubmit('login', {_error: message});
+            dispatch(action)
+        }   
     }
 };
 
 export const logout = () => {
-    return ( dispatch ) => {
-        authAPI.logout( )
-        .then( response => {
-            if ( response.data.resultCode === 0 ){
-                dispatch( setAuthUserDataCreator( null, null, null, false) );
-            }
-        })
+    return async ( dispatch ) => {
+        let response = await authAPI.logout();
+        
+        if ( response.data.resultCode === 0 ){
+            dispatch( setAuthUserDataCreator( null, null, null, false) );
+        }
     }
 };
 

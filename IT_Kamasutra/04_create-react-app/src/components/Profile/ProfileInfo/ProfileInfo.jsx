@@ -37,8 +37,9 @@ const ProfileInfo = (props) => {
                 <div className={classes.userNameVal}>{props.profile.fullName}</div>
             </h3>
             <div className={classes.userStatus}>
-                <ProfileStatusWithHooks statusText={props.statusText}                             
-                                        setUserStatusThunkCreator={props.setUserStatusThunkCreator}
+                <ProfileStatusWithHooks 
+                    statusText={props.statusText}                             
+                    setUserStatusThunkCreator={props.setUserStatusThunkCreator}
                 />
             <hr/>
             </div>   

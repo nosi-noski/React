@@ -1,0 +1,21 @@
+
+
+.selectedPage {
+    font-weight: bold;
+}
+
+.pageNumber {
+    cursor: pointer;
+    margin: 5px;
+}
+.pageNumber:hover {
+    background-color: rgb(235, 235, 235);
+    box-shadow: 2px 2px 10px 2px rgb(225, 225, 225);
+}
+
+.paginator {
+    min-width: 100px;
+    width: 70vw;
+    overflow-x: scroll;
+    margin-bottom: 15px;
+}
