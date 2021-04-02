@@ -17,10 +17,12 @@ import LoginPage from './components/Login/Login'
 import { initializeApp } from './redux/appReducer'
 
 import Loader from './components/Common/Loader/Loader';
+import store from './redux/redux-store'
+import {Provider} from 'react-redux'
 
 let getMessages = () => <Messages/> 
  
-class  App extends React.Component {
+class App extends React.Component {
     componentDidMount(){
         this.props.initializeApp();
     }
@@ -61,10 +63,23 @@ class  App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-        initialized: state.app.initialized
+    initialized: state.app.initialized
 });
 
-export default compose(
+let AppComposed = compose(
     connect( mapStateToProps, { initializeApp} ),
     withRouter
-    )(App);
+)(App);
+
+
+const AppContainer = (props) => {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppComposed/>
+            </Provider>
+        </BrowserRouter>
+    )
+}
+
+export default AppContainer; 

@@ -12,7 +12,6 @@ class ProfileStatus extends React.Component {
         statusText: this.props.statusText
     }
 
-
     componentDidMount (){
            
     }
@@ -83,11 +82,6 @@ class ProfileStatus extends React.Component {
 }
 
 
-let mapStateToProps = (state) => (
-{
-    statusText: state.profilePage.statusText,
-    profile: state.profilePage.profile
-});
 
 
-export default  connect(mapStateToProps, {} )(ProfileStatus) ; ; 
+export default  ProfileStatus ; 
