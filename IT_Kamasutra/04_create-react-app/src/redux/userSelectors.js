@@ -27,6 +27,11 @@ export const getIsAuth = (state) => {
     return state.usersPage.isAuth;
 };
 
+export const getPortionSize = (state) => {
+    
+    return state.usersPage.portionSize ;
+};
+
 
 // selectors [reselect]
 

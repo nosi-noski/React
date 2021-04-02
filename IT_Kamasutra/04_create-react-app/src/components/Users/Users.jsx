@@ -6,10 +6,11 @@ let Users = (props) => {
     return (
         <>
            <Paginator 
-                usersTotalCount = {props.usersTotalCount}
+                totalCount = {props.usersTotalCount}
                 pageSize = {props.pageSize}
                 currentPage ={props.currentPage}
                 setCurrentPage ={props.setCurrentPage}
+                portionSize={props.portionSize}
            />
             { props.users.map(u => { 
                     return (

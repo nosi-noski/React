@@ -23,63 +23,30 @@ import { getUsersSelector,
          getCurrentPage,
          getIsFetching,
          getFollowingInProgress,
-         getIsAuth
+         getIsAuth,
+         getPortionSize
 } from './../../redux/userSelectors'
 class UsersAPIContainer extends React.Component {
     constructor(props){
-        super(props)
-        
+        super(props)  
     }
     
     componentDidMount(){
-        
-        //================ 1 - Сначала был просто axios ================
-        // this.props.setIsFetching(true);
-        // let users = `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`;
-        // axios.get(users, {withCredentials: true} )
-        //--============================================================
-
-        //--================ 2 - Затем вынесли axios в api ================
-        // userAPI.getUsers( this.props.currentPage, this.props.pageSize )
-        // .then( response => {
-        //     this.props.setIsFetching( false );
-        //     this.props.setUsers( [...response.items] );
-        //     this.props.setUsersTotalCount( response.totalCount );
-        // });
-        //--===============================================================
-
-        //--================ 3 - Затем вынесли api и action creators в thunk
-
         let {currentPage, pageSize} = this.props;
         this.props.getUsersThunkCreator( currentPage, pageSize );
     }
 
     setCurrentPage = ( choosedPage ) => { 
-
-        //this.props.setIsFetching( true );
-        //this.props.setCurrentPage( currentPage );
-
-        // let users = `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`;
-        // axios.get(users, {withCredentials: true})
-  
-        // userAPI.getUsers( currentPage, this.props.pageSize )
-        // .then( response => {
-        //     this.props.setIsFetching( false );
-        //     this.props.setUsers( [...response.items] );
-        // });
         let {pageSize} = this.props;
-
         this.props.getUsersThunkCreator( choosedPage, pageSize );
-
     }
 
-    render = () => {
-
-        
+    render = () => {    
+            
         return <Users 
             users={this.props.users}
             pageSize={this.props.pageSize}
-    
+            portionSize={this.props.portionSize}
             usersTotalCount={this.props.usersTotalCount}
             isFetching={this.props.isFetching}
             followingInProgress={this.props.followingInProgress} 
@@ -111,19 +78,10 @@ const mapStateToProps = (state) => {
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         followingInProgress: getFollowingInProgress(state),
-        isAuth: getIsAuth(state)
+        isAuth: getIsAuth(state),
+        portionSize: getPortionSize(state)
     }
 };
-
-
-export default compose (
-    connect( mapStateToProps, {
-        getUsersThunkCreator: getUsersThunkCreator,
-        follow: followThunkCreator,
-        unfollow: unfollowThunkCreator
-    }),
-    withAuthRedirect
-)(UsersAPIContainer);
 
 //let withAuthRedirect = (UsersAPIContainer)
 // export default withAuthRedirect ( connect( mapStateToProps, {
@@ -139,3 +97,13 @@ export default compose (
 //         follow: followThunkCreator,
 //         unfollow: unfollowThunkCreator
 //     } )(UsersAPIContainer) ) ;
+
+export default compose (
+    connect( mapStateToProps, {
+        getUsersThunkCreator: getUsersThunkCreator,
+        follow: followThunkCreator,
+        unfollow: unfollowThunkCreator
+    }),
+    withAuthRedirect
+)(UsersAPIContainer);
+
