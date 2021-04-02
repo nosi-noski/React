@@ -1,6 +1,6 @@
-import React from 'react';
-import Users from './Users'
-import * as axios from 'axios';
+// import React from 'react';
+// import Users from './Users'
+// import * as axios from 'axios';
 
 // class UsersAPIComponent extends React.Component {
 //     constructor(props){

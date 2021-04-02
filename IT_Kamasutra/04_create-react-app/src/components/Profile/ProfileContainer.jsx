@@ -12,7 +12,7 @@ class ProfileContainer extends React.Component {
 
    
     componentDidMount(){
-        debugger
+        
         let match = this.props.match;
         let userId = match && match.params && match.params.userId ;
         

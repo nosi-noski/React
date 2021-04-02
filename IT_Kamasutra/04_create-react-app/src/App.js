@@ -1,24 +1,31 @@
 import './App.css';
-import React from 'react';
+import React, { Suspense } from 'react';
 import {compose} from 'redux';
 import {connect } from 'react-redux'
 import {BrowserRouter, Route, withRouter} from "react-router-dom";
 
-import HeaderContainer from "./components/Header/HeaderContainer"; 
-import NavBar from "./components/NavBar/NavBar"; 
-import ProfileContainer from "./components/Profile/ProfileContainer"; 
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import Messages from "./components/Messages/Messages";
-import Music from "./components/Music/Music";
-import Settings from "./components/Params/Params";
-import News from "./components/News/News";
-import UsersContainer from "./components/Users/UsersContainer";
-import LoginPage from './components/Login/Login'
 import { initializeApp } from './redux/appReducer'
 
 import Loader from './components/Common/Loader/Loader';
 import store from './redux/redux-store'
 import {Provider} from 'react-redux'
+
+import HeaderContainer from "./components/Header/HeaderContainer"; 
+import NavBar from "./components/NavBar/NavBar"; 
+import LoginPage from './components/Login/Login'
+//import ProfileContainer from "./components/Profile/ProfileContainer"; 
+//import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
+import Messages from "./components/Messages/Messages";
+import Music from "./components/Music/Music";
+import News from "./components/News/News";
+import Settings from "./components/Params/Params";
+
+import {WithSuspense} from './hoc/WithSuspense'
+
+const DialogsContainer = React.lazy( () => import("./components/Dialogs/DialogsContainer") );
+const ProfileContainer = React.lazy( () => import("./components/Profile/ProfileContainer") );
+
 
 let getMessages = () => <Messages/> 
  
@@ -41,10 +48,10 @@ class App extends React.Component {
                     {/* <Route path="/profile" component={Profile}/> */}
                     {/* <Route path="/dialogs" component={Dialogs} /> */}
                     <Route path="/profile/:userId?" 
-                           render={ () => <ProfileContainer/> }
+                           render={WithSuspense(ProfileContainer)}
                     />
                     <Route path="/dialogs" 
-                        render={ () => <DialogsContainer/> }
+                        render={ () => <React.Suspense fallback={<div>Loading...</div>}><DialogsContainer/></React.Suspense> }
                     />
                     <Route path="/users" 
                         render={ () => <UsersContainer/> }
@@ -72,7 +79,7 @@ let AppComposed = compose(
 )(App);
 
 
-const AppContainer = (props) => {
+const AppContainer = () => {
     return (
         <BrowserRouter>
             <Provider store={store}>

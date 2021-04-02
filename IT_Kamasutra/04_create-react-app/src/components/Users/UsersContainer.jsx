@@ -1,20 +1,11 @@
 import React from 'react';
 // import UsersAPIComponent from './UsersAPIComponent'
 import Users from './Users'
-import * as axios from 'axios';
-import { followSuccess, 
-         unfollowSuccess, 
-         setUsers, 
-         setCurrentPage, 
-         setUsersTotalCount, 
-         setIsFetching,
-         toggleIsFollowingProgress,
+import { 
          getUsersThunkCreator, 
          followThunkCreator,
          unfollowThunkCreator } from '../../redux/userReducer';
 import { connect } from 'react-redux';
-import { userAPI } from './../../api/api'
-import { Redirect } from 'react-router-dom'
 import {withAuthRedirect} from './../../hoc/WithAuthRedirect'
 import { compose } from 'redux';
 import { getUsersSelector,
@@ -27,9 +18,6 @@ import { getUsersSelector,
          getPortionSize
 } from './../../redux/userSelectors'
 class UsersAPIContainer extends React.Component {
-    constructor(props){
-        super(props)  
-    }
     
     componentDidMount(){
         let {currentPage, pageSize} = this.props;
@@ -43,7 +31,7 @@ class UsersAPIContainer extends React.Component {
 
     render = () => {    
             
-        return <Users 
+    return <Users 
             users={this.props.users}
             pageSize={this.props.pageSize}
             portionSize={this.props.portionSize}

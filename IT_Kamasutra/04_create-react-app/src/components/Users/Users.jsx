@@ -12,11 +12,13 @@ let Users = (props) => {
                 setCurrentPage ={props.setCurrentPage}
                 portionSize={props.portionSize}
            />
-            { props.users.map(u => { 
+            { 
+                props.users.map(u => { 
+                    
                     return (
                         <User 
                             user={u}
-                            key={u.id}
+                            userKey={u.id}
                             followingInProgress={props.followingInProgress}
                             follow={props.follow}
                             unfollow={props.unfollow}

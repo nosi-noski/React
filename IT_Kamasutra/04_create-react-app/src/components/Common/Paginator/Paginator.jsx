@@ -39,7 +39,7 @@ let Paginator = ({totalCount, pageSize, currentPage, setCurrentPage, portionSize
                          
                     })
                 }{
-                  portionCount > portionNumber  && 
+                  portionCount > portionNumber && 
                     <button className={classes.button} onClick={ () => {setPortionNumber( portionNumber + 1)} }>
                         <div className={classes.buttonArrow + ' ' + classes.buttonArrowRight}></div>
                     </button>

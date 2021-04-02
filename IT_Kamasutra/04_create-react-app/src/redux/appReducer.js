@@ -1,6 +1,3 @@
-import { authAPI, profileAPI } from '../api/api';
-import { setUserProfile } from './profileReducer'
-import {stopSubmit} from 'redux-form'
 import { getAuthUserThunkCreator } from './authReducer'
 
 const SET_INITIALIZE_SUCCESS = "SET-INITIALIZE-SUCCESS";
