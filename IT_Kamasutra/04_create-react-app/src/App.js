@@ -83,7 +83,7 @@ const AppContainer = () => {
     console.log('process.env.PUBLIC_URL', process.env)
     return (
         
-        <HashRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter>
         {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
             <Provider store={store}>
                 <AppComposed/>
