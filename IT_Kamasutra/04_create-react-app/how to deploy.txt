@@ -1,0 +1,10 @@
+
+1. cd /d/React/IT_Kamasutra/04_create-react-app
+1.1 npm run deploy
+
+2. git add /d/React/IT_Kamasutra/04_create-react-app && git commit -m "Initial 04_create-react-app subtree commit"
+
+3. cd /d/React/  - (You need to run this command from the toplevel of the working tree.)
+
+4. git subtree push --prefix 04_create-react-app origin gh-pages
+
