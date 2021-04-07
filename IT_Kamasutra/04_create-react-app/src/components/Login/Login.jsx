@@ -7,8 +7,8 @@ import { Redirect } from 'react-router-dom'
 const Login = (props) => {
 
     const onSubmit = (formData) => {
-        console.log(formData)
-        debugger
+        //console.log(formData)
+        
         props.login(formData.email, formData.password, formData.rememberMe)
     }
 

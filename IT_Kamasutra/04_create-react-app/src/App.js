@@ -80,8 +80,9 @@ let AppComposed = compose(
 
 
 const AppContainer = () => {
+    console.log('process.env.PUBLIC_URL', process.env)
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <AppComposed/>
             </Provider>
