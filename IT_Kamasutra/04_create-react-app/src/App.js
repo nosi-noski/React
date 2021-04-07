@@ -2,7 +2,7 @@ import './App.css';
 import React, { Suspense } from 'react';
 import {compose} from 'redux';
 import {connect } from 'react-redux'
-import {BrowserRouter, Route, withRouter} from "react-router-dom";
+import {HashRouter, BrowserRouter, Route, withRouter} from "react-router-dom";
 
 import { initializeApp } from './redux/appReducer'
 
@@ -82,11 +82,14 @@ let AppComposed = compose(
 const AppContainer = () => {
     console.log('process.env.PUBLIC_URL', process.env)
     return (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        
+        <HashRouter basename={process.env.PUBLIC_URL}>
+        {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
             <Provider store={store}>
                 <AppComposed/>
             </Provider>
-        </BrowserRouter>
+        {/* </BrowserRouter> */}
+        </HashRouter>
     )
 }
 

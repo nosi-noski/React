@@ -19,6 +19,7 @@ let Users = (props) => {
                         <User 
                             user={u}
                             userKey={u.id}
+                            key={u.id}
                             followingInProgress={props.followingInProgress}
                             follow={props.follow}
                             unfollow={props.unfollow}
