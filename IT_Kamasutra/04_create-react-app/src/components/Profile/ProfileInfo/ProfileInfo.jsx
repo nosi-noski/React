@@ -24,14 +24,21 @@ const ProfileInfo = (props) => {
     
     let photo = ( props.profile && props.profile.photos && props.profile.photos.large ) || undefinedUser;
     
-    
+    const onMainFotoSelected = (e) => {
+        if(e.target.files.length){
+            props.savePhoto(e.target.files[0])
+        }
+        
+    }
+    console.log('props', props)
     return (
         <div className={classes.descriptionBlock}>
-            <div className={classes.image}></div>
+           
             <div className={classes.photo}>
                 <img src={ photo } alt="" />
             </div>
-            
+            <div className={classes.editMode}></div>
+            { props.isOwner && <input type={"file"} onChange={onMainFotoSelected}/>}
             {/* <div className={classes.userName}>ФИО</div> */}
             <h3 style={{margin: 0 + 'px'}}>
                 <div className={classes.userNameVal}>{props.profile.fullName}</div>

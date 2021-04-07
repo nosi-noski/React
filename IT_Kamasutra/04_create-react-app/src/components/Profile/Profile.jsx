@@ -11,7 +11,10 @@ const Profile = (props) => {
         <div>
             <ProfileInfo profile={props.profile} 
                          statusText={props.statusText}
-                         setUserStatusThunkCreator={props.setUserStatusThunkCreator}/> 
+                         setUserStatusThunkCreator={props.setUserStatusThunkCreator}
+                         isOwner={props.isOwner}
+                         savePhoto={props.savePhoto}
+                         /> 
             <MyPostContainer/>
         </div>
     );

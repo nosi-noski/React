@@ -7,6 +7,8 @@ const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 const CHOSE_POST_TEXT = "CHOSE-POST-TEXT";
 const SET_USER_PROFILE = "SET-USER-PROFILE";
 const SET_USER_STATUS = "SET-USER-STATUS";
+const SAVE_PHOTO_SUCCESS = "SAVE-PHOTO-SUCCESS";
+
 
 let initialState = {
     posts : [
@@ -62,6 +64,17 @@ const profileReducer = ( state = initialState, action ) => {
                 statusText: action.statusText
         } 
 
+        case SAVE_PHOTO_SUCCESS: {
+            return {
+                ...state,
+                profile: {
+                    ...state.profile, 
+                    photos: action.photos
+                }
+            }
+        }
+
+
         default :
             return state;
     }
@@ -106,8 +119,18 @@ export const getUserStatus = (statusText)=> {
     }
 };
 
+export const savePhotoSuccess = (photos)=> {
+    
+    return {
+        type: SAVE_PHOTO_SUCCESS,
+        photos: photos
+    }
+};
 
-// Thunks Creators
+
+
+
+// START Thunks Creators
 export const getUserProfile = (userId) => {
     return async (dispatch) => {
         
@@ -115,6 +138,8 @@ export const getUserProfile = (userId) => {
         dispatch( setUserProfile(response.data) );
     }
 };
+
+
 
 
 export const getUserStatusThunkCreator = (userId) => {
@@ -135,5 +160,17 @@ export const setUserStatusThunkCreator = (statusText) => {
         } 
     }
 }
+
+export const savePhotoThunkCreator = file => {
+    return async (dispatch) => {
+        let response = await profileAPI.savePhoto(file);
+        if (response.data.resultCode === 0) {
+            debugger
+           dispatch( savePhotoSuccess(response.data.data.photos) );
+        }
+    }
+}
+
+// END Thunks Creators
 
 export default profileReducer;

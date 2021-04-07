@@ -3,16 +3,19 @@ import Profile from './Profile'
 import * as axios from 'axios'
 import { connect } from 'react-redux';
 import { withRouter }  from 'react-router-dom';
-import { getUserProfile, getUserStatusThunkCreator, setUserStatusThunkCreator } from './../../redux/profileReducer'
+import { 
+    getUserProfile, 
+    getUserStatusThunkCreator, 
+    setUserStatusThunkCreator, 
+    savePhotoThunkCreator 
+} from './../../redux/profileReducer'
 import { profileAPI } from './../../api/api'
 import { Redirect } from 'react-router-dom'
 import { withAuthRedirect } from './../../hoc/WithAuthRedirect'
 import { compose } from 'redux';
 class ProfileContainer extends React.Component {
 
-   
-    componentDidMount(){
-        
+    refreshProfile (){
         let match = this.props.match;
         let userId = match && match.params && match.params.userId ;
         
@@ -23,27 +26,21 @@ class ProfileContainer extends React.Component {
                 this.props.history.push('/login')
             }
         }
-        // --====== 1 Step =======
-        // let users = "https://social-network.samuraijs.com/api/1.0/profile/" + userId;
-        // axios.get(users).then(response => {
-        //     this.props.setUserProfile( response.data );
-        // });
-
-        // --====== 2 Step =======
-        // profileAPI.getProfile(userId)
-        // .then( (response) => {
-        //     this.props.setUserProfile( response.data );
-        // })
-
-        // --====== 3 Step =======
         this.props.getUserProfile(userId);
         this.props.getUserStatusThunkCreator(userId);
-        
+    }
+   
+    componentDidMount() {   
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.match.params.userId !== this.props.match.params.userId ){
+            this.refreshProfile();
+        }
     }
 
     render () { 
-
-
 
         return (
             <div>
@@ -51,7 +48,8 @@ class ProfileContainer extends React.Component {
                          profile={this.props.profile} 
                          status={this.props.statusText}
                          setUserStatusThunkCreator={this.props.setUserStatusThunkCreator}
-
+                         isOwner={ !this.props.match.params.userId }
+                         savePhoto={this.props.savePhotoThunkCreator}
                 />
             </div>
         )
@@ -61,13 +59,21 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
     statusText: state.profilePage.statusText,
-    authorizedUserId: state.auth.userId
+    authorizedUserId: state.auth.userId,
 });
 
 
 
 export default compose(
-    connect( mapStateToProps, {getUserProfile, setUserStatusThunkCreator, getUserStatusThunkCreator} ),
+    connect( 
+        mapStateToProps, 
+        {
+            getUserProfile, 
+            setUserStatusThunkCreator, 
+            getUserStatusThunkCreator,
+            savePhotoThunkCreator
+        } 
+        ),
     withRouter,
     withAuthRedirect
 )(ProfileContainer);
