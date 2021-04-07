@@ -1,9 +1,6 @@
 import React from 'react';
 import Loader from './../components/Common/Loader/Loader'
 
-
-
-
 export const WithSuspense = (Component) => {
    
     return (props) => {
