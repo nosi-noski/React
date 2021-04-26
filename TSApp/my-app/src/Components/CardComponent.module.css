@@ -1,0 +1,48 @@
+.root {
+  minwidth: 150px;
+  width: 250px;
+  height: 250px;
+  margin: 5px;
+}
+
+.bullet {
+  display: inline-block;
+  margin: 0 2px;
+  transform: scale(0.8);
+}
+
+.title {
+  fontsize: 14;
+}
+
+.pos {
+  marginbottom: 12;
+}
+
+.cardContent {
+  height: 60%;
+}
+
+.cardActions {
+  height: 20%;
+}
+
+.cardWhiteColor {
+  background-color: white;
+}
+
+.cardRedColor {
+  background-color: #ff9494;
+}
+
+.cardGreenColor {
+  background-color: #98c58c;
+}
+
+.cardGrayColor {
+  background-color: #b4b4b4;
+}
+
+.cardBrownColor {
+  background-color: #d2b48c;
+}
