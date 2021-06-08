@@ -4,7 +4,11 @@ import React from "react";
 import { useStyles } from "../Styles/MicroserviceStyles";
 import { RouteComponentProps } from "react-router-dom";
 
-type Order = "asc" | "desc";
+// type Order = "asc" | "desc";
+export enum Order {
+  asc = "asc",
+  desc = "desc",
+}
 
 /*
 {
@@ -53,7 +57,7 @@ export interface ITableProps {
 export interface IEnhancedTableProps {
   rows: IMSConfig[];
   heads: IHeadCell[];
-  pagination?: number[];
+  order: Order;
 }
 export interface IRoute {
   title: string;

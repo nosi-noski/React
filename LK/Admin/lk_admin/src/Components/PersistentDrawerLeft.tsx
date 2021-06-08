@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { useState, FC } from "react";
 import clsx from "clsx";
 import { withRouter } from "react-router-dom";
 
@@ -29,6 +29,7 @@ const PersistentDrawerLeft: FC<IPersistentDrawerLeft> = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  console.log("history", history);
   const handleDrawerOpen = () => {
     setOpen(true);
   };

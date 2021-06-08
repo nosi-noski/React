@@ -9,9 +9,9 @@ const App: FC = () => {
   return (
     <BrowserRouter>
       <PersistentDrawerLeft routes={routes} />
-      {routes.map((route) => {
+      {routes.map((route, index) => {
         return (
-          <Route exact={route.exact} path={route.path}>
+          <Route key={index} exact={route.exact} path={route.path}>
             {route.component}
           </Route>
         );

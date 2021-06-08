@@ -1,17 +1,10 @@
 import React from "react";
 import EnhancedTable from "./Table/EnhancedTable";
 import { MSCRows, MSCHeads } from "../../InitialData/MicroserviceConfigs";
+import { Order } from "./../../Interfaces/MicroserviceInterfaces";
 
 const MSList = () => {
-  return (
-    <div>
-      <EnhancedTable
-        pagination={[5, 10, 25, 50]}
-        heads={MSCHeads}
-        rows={MSCRows}
-      />
-    </div>
-  );
+  return <EnhancedTable heads={MSCHeads} rows={MSCRows} order={Order.asc} />;
 };
 
 export default MSList;
