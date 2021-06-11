@@ -1,72 +1,152 @@
 // Microservice Config structure
 
-import React from "react";
-import { useStyles } from "../Styles/MicroserviceStyles";
-import { RouteComponentProps } from "react-router-dom";
+import React from 'react'
+import { useTableStyles } from '../Styles/MicroserviceStyles'
+import { RouteComponentProps } from 'react-router-dom'
 
 // type Order = "asc" | "desc";
 export enum Order {
-  asc = "asc",
-  desc = "desc",
+    Asc = 'asc',
+    Desc = 'desc',
 }
 
 /*
-{
-  path: "/1",
-  label: "Удаленное приложение",
-  url: "https://micromodule-f509c.web.app/remoteEntry.js",
-  scope: "firstModule",
-  module: "./App",
-}
-* */
+    {
+      path: "/1",
+      label: "Удаленное приложение",
+      url: "https://micromodule-f509c.web.app/remoteEntry.js",
+      scope: "firstModule",
+      module: "./App",
+    }
+*/
 
+//-==== Поля сущности ====-
 export interface IMSConfig {
-  path: string;
-  label: string;
-  url: string;
-  scope: string;
-  module: string;
+    id: number
+    path: string
+    label: string
+    url: string
+    scope: string
+    module: string
 }
 
-export interface IHeadCell {
-  disablePadding: boolean;
-  id: keyof IMSConfig;
-  label: string;
-  numeric: boolean;
+// Сущность Роль
+export interface IMSConfigRole {
+    roleId: number
+    roleName: string
+    roleTitle: string
 }
 
+export interface IRoleConfigs {
+    roleId: number
+    msConfigIds: number[]
+}
+
+//================================
+
+//-==== Заголовки таблицы ====-
+export interface IMSConfigHeadCell {
+    disablePadding: boolean
+    id: keyof IMSConfig
+    label: string
+    numeric: boolean
+}
+
+export interface IMSConfigRoleHeadCell {
+    disablePadding: boolean
+    id: keyof IMSConfigRole
+    label: string
+    numeric: boolean
+}
+//============================
+
+//-==== Панель настроек  ====-
 export interface ITableToolbarProps {
-  numSelected: number;
-  title?: string;
+    numSelected: number
+    title?: string
+    addButtonTitle?: string
+}
+//============================
+
+export interface IConfigTableHeadProps {
+    classes: ReturnType<typeof useTableStyles>
+    numSelected: number
+    onRequestSort: (
+        event: React.MouseEvent<unknown>,
+        property: keyof IMSConfig
+    ) => void
+    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void
+    order: Order
+    orderBy: string
+    rowCount: number
+    headCells: IMSConfigHeadCell[]
 }
 
-export interface ITableProps {
-  classes: ReturnType<typeof useStyles>;
-  numSelected: number;
-  onRequestSort: (
-    event: React.MouseEvent<unknown>,
-    property: keyof IMSConfig
-  ) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  order: Order;
-  orderBy: string;
-  rowCount: number;
-  headCells: IHeadCell[];
+export interface IRoleTableHeadProps {
+    classes: ReturnType<typeof useTableStyles>
+    numSelected: number
+    onRequestSort: (
+        event: React.MouseEvent<unknown>,
+        property: keyof IMSConfigRole
+    ) => void
+    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void
+    order: Order
+    orderBy: string
+    rowCount: number
+    headCells: IMSConfigRoleHeadCell[]
 }
 
-export interface IEnhancedTableProps {
-  rows: IMSConfig[];
-  heads: IHeadCell[];
-  order: Order;
+export interface IConfigTableProps {
+    rows: IMSConfig[]
+    heads: IMSConfigHeadCell[]
+    order: Order
 }
+
+export interface IRoleTableProps {
+    rows: IMSConfigRole[]
+    heads: IMSConfigRoleHeadCell[]
+    order: Order
+}
+
 export interface IRoute {
-  title: string;
-  icon: JSX.Element;
-  path: string;
-  exact: boolean;
-  component: JSX.Element;
+    title: string
+    icon: JSX.Element
+    path: string
+    exact: boolean
+    component: JSX.Element
 }
 
 export interface IPersistentDrawerLeft extends RouteComponentProps<any> {
-  routes: IRoute[];
+    routes: IRoute[]
+    navBarOpen: boolean
+    setNavBarOpen: (value: boolean) => void
+}
+
+// Компонент transferList для конфигураций
+export interface IMSConfigTransferList {
+    all: IMSConfig[]
+    selected: IMSConfig[]
+    onSelected: (selectedConfigs: IMSConfig[]) => void
+}
+
+export interface ITransitionsModal {
+    roleId?: number
+    roleName?: string
+    roleTitle?: string
+    isOpen: boolean
+    setIsOpen: (value: boolean) => void
+}
+
+export interface IConfigModalForm {
+    onClose: (value?: IMSConfig | undefined) => void
+}
+
+export interface IRoleModalForm {
+    roleId?: number
+    roleName?: string
+    roleTitle?: string
+    onClose: (
+        value?: IMSConfigRole | undefined,
+        selectedConfigs?: number[]
+    ) => void
 }
