@@ -52,7 +52,7 @@ const ModalForm: FC<IRoleModalForm> = ({
     roleTitle,
     onClose,
 }) => {
-    const { MSConfigs, getSelectedConfigs } = useContext(Context)
+    const { getSelectedConfigs } = useContext(Context)
 
     const classes = useStyles()
     const [values, setValues] = React.useState<IMSConfigRole>({

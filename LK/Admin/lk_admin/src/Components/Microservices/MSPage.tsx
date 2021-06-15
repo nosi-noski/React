@@ -7,7 +7,7 @@ import { ModulesContext } from './../../Context/ModulesContext'
 
 const MSPage: FC = observer(() => {
     const {
-        MSConfigs,
+        // MSConfigs,
         MSCTableHeads,
         addMSConfig,
         deleteMSConfig,
@@ -15,7 +15,7 @@ const MSPage: FC = observer(() => {
     const { getAllModules, isFetching, list } = useContext(ModulesContext)
     useEffect(() => {
         getAllModules()
-    }, [MSConfigs])
+    }, [])
 
     return (
         <ConfigsTable

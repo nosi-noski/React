@@ -21,7 +21,7 @@ const ModalWindow: FC<ITransitionsModal> = ({
     isOpen,
     setIsOpen,
 }) => {
-    const { MSConfigs, addRole } = useContext(StoreContext)
+    const { addRole } = useContext(StoreContext)
     const classes = useModalStyles()
 
     const handleSaveAndClose = (

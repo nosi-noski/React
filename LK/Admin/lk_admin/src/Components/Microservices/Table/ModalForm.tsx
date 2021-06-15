@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const ModalForm: FC<IConfigModalForm> = ({ onClose }) => {
     const classes = useStyles()
     const [values, setValues] = React.useState<IMSConfig>({
-        path: '',
+        // path: '',
         label: '',
         url: '',
         scope: '',
@@ -80,21 +80,21 @@ const ModalForm: FC<IConfigModalForm> = ({ onClose }) => {
                 Новая конфигурация микросервиса
             </Typography>
             <div className={classes.root}>
-                <FormControl
-                    fullWidth
-                    className={classes.margin}
-                    variant="outlined"
-                >
-                    <InputLabel htmlFor="path">Путь</InputLabel>
-                    <OutlinedInput
-                        id="path"
-                        type={'text'}
-                        value={values.path}
-                        placeholder={''}
-                        onChange={handleChange('path')}
-                        labelWidth={70}
-                    />
-                </FormControl>
+                {/*<FormControl*/}
+                {/*    fullWidth*/}
+                {/*    className={classes.margin}*/}
+                {/*    variant="outlined"*/}
+                {/*>*/}
+                {/*    <InputLabel htmlFor="path">Путь</InputLabel>*/}
+                {/*    <OutlinedInput*/}
+                {/*        id="path"*/}
+                {/*        type={'text'}*/}
+                {/*        value={values.path}*/}
+                {/*        placeholder={''}*/}
+                {/*        onChange={handleChange('path')}*/}
+                {/*        labelWidth={70}*/}
+                {/*    />*/}
+                {/*</FormControl>*/}
                 <FormControl
                     fullWidth
                     className={classes.margin}

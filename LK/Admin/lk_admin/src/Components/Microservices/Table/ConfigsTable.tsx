@@ -143,12 +143,12 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
                                             >
                                                 {row.label}
                                             </TableCell>
-                                            <TableCell
-                                                component="th"
-                                                align="left"
-                                            >
-                                                {row.path}
-                                            </TableCell>
+                                            {/*<TableCell*/}
+                                            {/*    component="th"*/}
+                                            {/*    align="left"*/}
+                                            {/*>*/}
+                                            {/*    {row.path}*/}
+                                            {/*</TableCell>*/}
                                             <TableCell
                                                 component="th"
                                                 align="left"

@@ -10,7 +10,7 @@ import {
 export interface IStore {
     MSCTableHeads: IMSConfigHeadCell[]
     MSCRoleTableHeads: IMSConfigRoleHeadCell[]
-    MSConfigs: IMSConfig[]
+    // MSConfigs: IMSConfig[]
     Roles: IMSConfigRole[]
     RoleConfigs: IRoleConfigs[]
 
@@ -35,7 +35,7 @@ class Store implements IStore {
             disablePadding: false,
             label: 'Название',
         },
-        { id: 'path', numeric: false, disablePadding: false, label: 'Путь' },
+        // { id: 'path', numeric: false, disablePadding: false, label: 'Путь' },
         { id: 'url', numeric: false, disablePadding: false, label: 'Ссылка' },
         {
             id: 'scope',
@@ -63,79 +63,6 @@ class Store implements IStore {
             numeric: false,
             disablePadding: false,
             label: 'Идентификатор',
-        },
-    ]
-
-    MSConfigs: IMSConfig[] = [
-        {
-            path: '/1',
-            label: 'Удаленное приложение1',
-            url: 'https://micromodule-f509c.web.app/remoteEntry.js',
-            scope: 'firstModule',
-            module: './App',
-        },
-        {
-            path: '/2',
-            label: 'Удаленное приложение2',
-            url: 'https://micromodule-f5ac.web.app/remoteEntry.js',
-            scope: 'secondModule',
-            module: './News',
-        },
-        {
-            path: '/3',
-            label: 'Удаленное приложение3',
-            url: 'https://micromodule-f5bc.web.app/remoteEntry.js',
-            scope: 'thirdModule',
-            module: './Articles',
-        },
-        {
-            path: '/4',
-            label: 'Удаленное приложение4',
-            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
-            scope: 'fourthModule',
-            module: './Configs',
-        },
-        {
-            path: '/5',
-            label: 'Удаленное приложение5',
-            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
-            scope: 'fifthModule',
-            module: './Configs',
-        },
-        {
-            path: '/6',
-            label: 'Удаленное приложение6',
-            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
-            scope: 'sixthModule',
-            module: './Configs',
-        },
-        {
-            path: '/7',
-            label: 'Удаленное приложение7',
-            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
-            scope: 'seventhModule',
-            module: './Configs',
-        },
-        {
-            path: '/8',
-            label: 'Удаленное приложение8',
-            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
-            scope: 'eighthModule',
-            module: './Configs',
-        },
-        {
-            path: '/9',
-            label: 'Удаленное приложение9',
-            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
-            scope: 'ninthModule',
-            module: './Configs',
-        },
-        {
-            path: '/10',
-            label: 'Удаленное приложение10',
-            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
-            scope: 'tenthModule',
-            module: './Configs',
         },
     ]
 
@@ -171,11 +98,11 @@ class Store implements IStore {
 
         if (!roleConfig) return []
 
-        return this.MSConfigs.filter((config) => {
-            return roleConfig?.msConfigIds.find((msConfigId) => {
-                return msConfigId === config.scope
-            })
-        })
+        // return this.MSConfigs.filter((config) => {
+        //     return roleConfig?.msConfigIds.find((msConfigId) => {
+        //         return msConfigId === config.scope
+        //     })
+        // })
     }
 
     addMSConfig = (value: IMSConfig) => {
@@ -183,15 +110,15 @@ class Store implements IStore {
         // let newMSConfig = {
         //     ...value
         // }
-        this.MSConfigs.push({ ...value })
+        // this.MSConfigs.push({ ...value })
     }
 
     deleteMSConfig = (payload: string[]) => {
-        if (Array.isArray(payload) && payload.length > 0) {
-            this.MSConfigs = this.MSConfigs.filter((config: IMSConfig) => {
-                return !payload.find((scope) => config.scope === scope)
-            })
-        }
+        // if (Array.isArray(payload) && payload.length > 0) {
+        //     this.MSConfigs = this.MSConfigs.filter((config: IMSConfig) => {
+        //         return !payload.find((scope) => config.scope === scope)
+        //     })
+        // }
     }
 
     deleteRole = (payload: number[]) => {
@@ -249,7 +176,7 @@ class Store implements IStore {
             ...value,
             // id: newId,
         }
-        this.MSConfigs.push(newMSConfig)
+        // this.MSConfigs.push(newMSConfig)
     }
 }
 

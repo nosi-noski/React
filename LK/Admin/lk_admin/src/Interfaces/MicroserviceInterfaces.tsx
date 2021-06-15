@@ -22,7 +22,7 @@ export enum Order {
 
 //-==== Поля сущности ====-
 export interface IMSConfig {
-    path: string
+    // path: string
     label: string
     url: string
     scope: string
