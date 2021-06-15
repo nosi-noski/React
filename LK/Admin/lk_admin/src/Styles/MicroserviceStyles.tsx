@@ -92,6 +92,12 @@ export const useCommonStyles = makeStyles((theme: Theme) =>
             // flexGrow: 1,
             // padding: theme.spacing(3),
         },
+        loader: {
+            display: 'flex',
+            justifyContent: 'center',
+            height: '50vh',
+            alignItems: 'center',
+        },
     })
 )
 

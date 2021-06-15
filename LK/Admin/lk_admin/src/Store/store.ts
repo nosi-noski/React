@@ -31,11 +31,10 @@ class Store implements IStore {
     MSCTableHeads: IMSConfigHeadCell[] = [
         {
             id: 'label',
-            numeric: true,
+            numeric: false,
             disablePadding: false,
             label: 'Название',
         },
-        // { id: 'path', numeric: false, disablePadding: false, label: 'Путь' },
         { id: 'url', numeric: false, disablePadding: false, label: 'Ссылка' },
         {
             id: 'scope',
@@ -77,11 +76,6 @@ class Store implements IStore {
         { roleId: 1, msConfigIds: ['eighthModule', 'tenthModule'] },
         { roleId: 2, msConfigIds: ['seventhModule'] },
     ]
-
-    // getNewMSConfigId = () => {
-    //     let length = this.MSConfigs.length
-    //     return length > 0 ? this.MSConfigs[length - 1].id + 1 : 1
-    // }
 
     getNewRoleId = () => {
         let length = this.Roles.length
