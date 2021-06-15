@@ -9,6 +9,7 @@ import HomePage from './Components/HomePage'
 import BallotIcon from '@material-ui/icons/Ballot'
 import MSPage from './Components/Microservices/MSPage'
 import RolesPage from './Components/MicroserviceRole/RolesPage'
+import MainPage from './Components/MainPage'
 
 const App: FC = () => {
     const [navBarOpen, setNavBarOpen] = useState(false)
@@ -18,21 +19,21 @@ const App: FC = () => {
             path: '/',
             icon: <HomeIcon />,
             exact: true,
-            component: <HomePage navBarOpen={navBarOpen} />,
+            component: <HomePage />,
         },
         {
             title: 'Конфигурации микросервисов',
             path: '/msconfigs',
             icon: <BallotIcon />,
             exact: false,
-            component: <MSPage navBarOpen={navBarOpen} />,
+            component: <MSPage />,
         },
         {
             title: 'Роли',
             path: '/roles',
             icon: <BallotIcon />,
             exact: false,
-            component: <RolesPage navBarOpen={navBarOpen} />,
+            component: <RolesPage />,
         },
     ]
     return (
@@ -45,7 +46,10 @@ const App: FC = () => {
             {routes.map((route, index) => {
                 return (
                     <Route key={index} exact={route.exact} path={route.path}>
-                        {route.component}
+                        <MainPage
+                            leftBarOpen={navBarOpen}
+                            children={route.component}
+                        />
                     </Route>
                 )
             })}

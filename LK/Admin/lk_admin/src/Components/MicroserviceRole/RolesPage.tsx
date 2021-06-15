@@ -1,34 +1,25 @@
-import React, { FC, useContext } from 'react'
-import {
-    useCommonStyles,
-    useDrawerStyles,
-} from '../../Styles/MicroserviceStyles'
-
+import React, { FC, useContext, useEffect } from 'react'
 import { Order } from './../../Interfaces/MicroserviceInterfaces'
 import Context from './../../Store/Context'
 import RolesTable from './Table/RolesTable'
-import clsx from 'clsx'
+import { observer } from 'mobx-react'
 
-interface IMSRolesPage {
-    navBarOpen: boolean
-}
-
-const RolesPage: FC<IMSRolesPage> = ({ navBarOpen }) => {
-    const classes = { ...useCommonStyles(), ...useDrawerStyles() }
-    const { MSCRoleTableHeads, Roles } = useContext(Context)
-    return (
-        <div
-            className={clsx(classes.content, {
-                [classes.contentShift]: navBarOpen,
-            })}
-        >
-            <RolesTable
-                heads={MSCRoleTableHeads}
-                rows={Roles}
-                order={Order.Asc}
-            />
-        </div>
+const RolesPage: FC = observer(() => {
+    const { Roles, MSCRoleTableHeads, addRole, deleteRole } = useContext(
+        Context
     )
-}
+
+    useEffect(() => {}, [Roles])
+
+    return (
+        <RolesTable
+            heads={MSCRoleTableHeads}
+            rows={Roles}
+            order={Order.Asc}
+            onAdd={addRole}
+            onDelete={deleteRole}
+        />
+    )
+})
 
 export default RolesPage

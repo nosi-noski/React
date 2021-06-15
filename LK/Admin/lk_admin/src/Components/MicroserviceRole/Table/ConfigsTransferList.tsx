@@ -11,12 +11,12 @@ import Paper from '@material-ui/core/Paper'
 import {
     useCommonStyles,
     useTransferListStyles,
-} from './../../Styles/MicroserviceStyles'
+} from '../../../Styles/MicroserviceStyles'
 import clsx from 'clsx'
 import {
     IMSConfigTransferList,
     IMSConfig,
-} from '../../Interfaces/MicroserviceInterfaces'
+} from '../../../Interfaces/MicroserviceInterfaces'
 
 function not(a: IMSConfig[], b: IMSConfig[]) {
     return a.filter((n) => !b.some((n2) => n.label === n2.label))
@@ -26,7 +26,7 @@ function intersection(a: IMSConfig[], b: IMSConfig[]) {
     return a.filter((n) => b.some((n2) => n.label === n2.label))
 }
 
-const MicroserviceConfigProfile: FC<IMSConfigTransferList> = ({
+const ConfigsTransferList: FC<IMSConfigTransferList> = ({
     onSelected,
     all,
     selected,
@@ -171,4 +171,4 @@ const MicroserviceConfigProfile: FC<IMSConfigTransferList> = ({
         </Grid>
     )
 }
-export default MicroserviceConfigProfile
+export default ConfigsTransferList

@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-    createStyles,
-    lighten,
-    makeStyles,
-    Theme,
-} from '@material-ui/core/styles'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
 export const useToolbarStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -20,7 +15,8 @@ export const useToolbarStyles = makeStyles((theme: Theme) =>
                   }
                 : {
                       color: theme.palette.text.primary,
-                      backgroundColor: theme.palette.secondary.dark,
+                      // backgroundColor: theme.palette.secondary.dark,
+                      backgroundColor: '#ffd79f',
                   },
         title: {
             flex: '1 1 100%',
@@ -53,6 +49,12 @@ export const useTableStyles = makeStyles((theme: Theme) =>
         },
         linkTableCell: {
             cursor: 'pointer',
+        },
+        tableRowSelected: {
+            backgroundColor: 'rgba(250, 183, 49, 0.28) !important',
+        },
+        tableCellCheckBoxSelected: {
+            color: '#fab731 !important',
         },
     })
 )

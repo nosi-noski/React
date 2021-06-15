@@ -22,7 +22,6 @@ export enum Order {
 
 //-==== Поля сущности ====-
 export interface IMSConfig {
-    id: number
     path: string
     label: string
     url: string
@@ -39,7 +38,7 @@ export interface IMSConfigRole {
 
 export interface IRoleConfigs {
     roleId: number
-    msConfigIds: number[]
+    msConfigIds: string[]
 }
 
 //================================
@@ -61,10 +60,20 @@ export interface IMSConfigRoleHeadCell {
 //============================
 
 //-==== Панель настроек  ====-
-export interface ITableToolbarProps {
-    numSelected: number
+export interface IConfigTableToolbarProps {
+    selected: string[]
+    setSelected: (payload: any) => void
     title?: string
     addButtonTitle?: string
+    onDelete?: (payload: any) => void
+}
+
+export interface IRoleTableToolbarProps {
+    selected: number[]
+    setSelected: (payload: any) => void
+    title?: string
+    addButtonTitle?: string
+    onDelete?: (payload: any) => void
 }
 //============================
 
@@ -100,12 +109,17 @@ export interface IConfigTableProps {
     rows: IMSConfig[]
     heads: IMSConfigHeadCell[]
     order: Order
+    onAdd?: (payload: any) => void
+    onDelete?: (payload: any) => void
+    isFetching: boolean
 }
 
 export interface IRoleTableProps {
     rows: IMSConfigRole[]
     heads: IMSConfigRoleHeadCell[]
     order: Order
+    onAdd?: (payload: any) => void
+    onDelete?: (payload: any) => void
 }
 
 export interface IRoute {
@@ -122,7 +136,6 @@ export interface IPersistentDrawerLeft extends RouteComponentProps<any> {
     setNavBarOpen: (value: boolean) => void
 }
 
-// Компонент transferList для конфигураций
 export interface IMSConfigTransferList {
     all: IMSConfig[]
     selected: IMSConfig[]
@@ -149,4 +162,9 @@ export interface IRoleModalForm {
         value?: IMSConfigRole | undefined,
         selectedConfigs?: number[]
     ) => void
+}
+
+export interface IMainPage {
+    leftBarOpen?: boolean
+    children?: JSX.Element
 }

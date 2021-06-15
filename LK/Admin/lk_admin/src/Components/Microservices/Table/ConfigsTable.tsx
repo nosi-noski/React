@@ -16,14 +16,11 @@ import {
 } from '../../../Interfaces/MicroserviceInterfaces'
 import ConfigsTableToolbar from './ConfigsTableToolbar'
 import ConfigsTableHead from './ConfigsTableHead'
-import { Order } from './../../../Interfaces/MicroserviceInterfaces'
+import { Order } from '../../../Interfaces/MicroserviceInterfaces'
 
 const ConfigsTable: FC<IConfigTableProps> = observer(
-    ({ rows, heads, order }) => {
-        // console.log('EnhancedTable')
-        // console.log('rows', rows)
+    ({ rows, heads, order, onAdd, onDelete, isFetching }) => {
         const classes = useTableStyles()
-        const [tableRows, setTableRows] = React.useState(rows)
         const [rowsOrder, setRowsOrder] = React.useState<Order>(order)
         const [orderBy, setOrderBy] = React.useState<keyof IMSConfig>('label')
         const [selected, setSelected] = React.useState<string[]>([])
@@ -43,7 +40,7 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
             event: React.ChangeEvent<HTMLInputElement>
         ) => {
             if (event.target.checked) {
-                const newSelected = tableRows.map((n) => n.label)
+                const newSelected = rows.map((n) => n.scope)
                 setSelected(newSelected)
                 return
             }
@@ -52,14 +49,14 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
 
         const handleClick = (
             event: React.MouseEvent<unknown>,
-            label: string
+            scope: string
         ) => {
-            const selectedIndex = selected.indexOf(label)
+            const selectedIndex = selected.indexOf(scope)
             let newSelected: string[] = []
 
             switch (true) {
                 case selectedIndex === -1:
-                    newSelected = newSelected.concat(selected, label)
+                    newSelected = newSelected.concat(selected, scope)
                     break
                 case selectedIndex === 0:
                     newSelected = newSelected.concat(selected.slice(1))
@@ -78,13 +75,15 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
             setSelected(newSelected)
         }
 
-        const isSelected = (label: string) => selected.indexOf(label) !== -1
+        const isSelected = (scope: string) => selected.indexOf(scope) !== -1
 
         return (
             <div className={classes.root}>
                 <Paper className={classes.paper}>
                     <ConfigsTableToolbar
-                        numSelected={selected.length}
+                        selected={selected}
+                        setSelected={setSelected}
+                        onDelete={onDelete}
                         addButtonTitle={'Добавить конфигурацию микросервиса'}
                     />
                     <TableContainer>
@@ -101,23 +100,23 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
                                 orderBy={orderBy}
                                 onSelectAllClick={handleSelectAllClick}
                                 onRequestSort={handleRequestSort}
-                                rowCount={tableRows.length}
+                                rowCount={rows.length}
                                 headCells={heads}
                             />
                             <TableBody>
                                 {stableSort(
-                                    tableRows,
+                                    rows,
                                     getComparator(rowsOrder, orderBy)
-                                ).map((row, index) => {
-                                    const isItemSelected = isSelected(row.label)
-                                    const labelId = `checkbox-${row.id}`
-                                    const key = row.id
+                                ).map((row) => {
+                                    const isItemSelected = isSelected(row.scope)
+                                    const labelId = `checkbox-${row.scope}`
+                                    const key = row.scope
 
                                     return (
                                         <TableRow
                                             hover
                                             onClick={(event) =>
-                                                handleClick(event, row.label)
+                                                handleClick(event, row.scope)
                                             }
                                             role="checkbox"
                                             aria-checked={isItemSelected}
@@ -134,10 +133,10 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
                                                 />
                                             </TableCell>
                                             <TableCell
+                                                component="th"
                                                 className={
                                                     classes.linkTableCell
                                                 }
-                                                component="th"
                                                 id={labelId}
                                                 scope="row"
                                                 padding="none"

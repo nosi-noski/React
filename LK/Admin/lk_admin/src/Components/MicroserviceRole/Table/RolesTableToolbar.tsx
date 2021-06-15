@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react'
-import { ITableToolbarProps } from '../../../Interfaces/MicroserviceInterfaces'
+import { IRoleTableToolbarProps } from '../../../Interfaces/MicroserviceInterfaces'
 import clsx from 'clsx'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -11,11 +11,24 @@ import AddIcon from '@material-ui/icons/Add'
 import { useToolbarStyles } from '../../../Styles/MicroserviceStyles'
 import Modalindow from './ModalWindow'
 
-const RolesTableToolbar: FC<ITableToolbarProps> = (props) => {
+const RolesTableToolbar: FC<IRoleTableToolbarProps> = ({
+    title,
+    addButtonTitle,
+    selected,
+    setSelected,
+    onDelete,
+}) => {
     const classes = useToolbarStyles()
-    const { numSelected, title, addButtonTitle } = props
+    const numSelected = selected.length
     const addButtonTitleDefault = addButtonTitle || 'Добавить'
     const [showForm, setShowForm] = useState(false)
+
+    const onDeleteHandler = (event: React.MouseEvent) => {
+        if (typeof onDelete === 'function') {
+            onDelete(selected)
+            setSelected([])
+        }
+    }
     return (
         <>
             <Toolbar
@@ -42,7 +55,7 @@ const RolesTableToolbar: FC<ITableToolbarProps> = (props) => {
                         variant="subtitle1"
                         component="div"
                     >
-                        {numSelected} selected
+                        Выделено записей: {numSelected}
                     </Typography>
                 ) : (
                     <Typography
@@ -55,7 +68,7 @@ const RolesTableToolbar: FC<ITableToolbarProps> = (props) => {
                     </Typography>
                 )}
                 {numSelected > 0 ? (
-                    <Tooltip title="Delete">
+                    <Tooltip title="Удалить" onClick={onDeleteHandler}>
                         <IconButton aria-label="delete">
                             <DeleteIcon />
                         </IconButton>

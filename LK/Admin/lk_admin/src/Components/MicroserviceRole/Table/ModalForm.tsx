@@ -7,11 +7,10 @@ import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
 import {
-    IMSConfig,
     IMSConfigRole,
     IRoleModalForm,
 } from './../../../Interfaces/MicroserviceInterfaces'
-import MicroserviceConfigProfile from '../MicroserviceConfigProfile'
+import ConfigsTransferList from './ConfigsTransferList'
 import Context from './../../../Store/Context'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -62,11 +61,11 @@ const ModalForm: FC<IRoleModalForm> = ({
         roleTitle: roleTitle || '',
     })
 
-    const selected: IMSConfig[] = getSelectedConfigs(roleId)
+    const selected: IMSConfigRole[] = getSelectedConfigs(roleId)
 
     const [selectedConfigs, setSelectedConfigs] = useState<number[]>([
         ...selected.map((config) => {
-            return config.id
+            return config.roleId
         }),
     ])
 
@@ -76,10 +75,10 @@ const ModalForm: FC<IRoleModalForm> = ({
         setValues({ ...values, [prop]: event.target.value })
     }
 
-    const handleSelectConfigs = (configs: IMSConfig[]) => {
+    const handleSelectConfigs = (configs: IMSConfigRole[]) => {
         setSelectedConfigs(
             configs.map((config) => {
-                return config.id
+                return config.roleId
             })
         )
         //console.log('selectedConfigs', selectedConfigs)
@@ -135,11 +134,11 @@ const ModalForm: FC<IRoleModalForm> = ({
                     className={classes.margin}
                     variant="outlined"
                 >
-                    <MicroserviceConfigProfile
-                        onSelected={handleSelectConfigs}
-                        all={MSConfigs}
-                        selected={selected}
-                    />
+                    {/*<ConfigsTransferList*/}
+                    {/*    onSelected={handleSelectConfigs}*/}
+                    {/*    all={MSConfigs}*/}
+                    {/*    selected={selected}*/}
+                    {/*/>*/}
                 </FormControl>
                 <FormControl
                     fullWidth

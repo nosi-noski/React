@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const ModalForm: FC<IConfigModalForm> = ({ onClose }) => {
     const classes = useStyles()
     const [values, setValues] = React.useState<IMSConfig>({
-        id: 0,
         path: '',
         label: '',
         url: '',

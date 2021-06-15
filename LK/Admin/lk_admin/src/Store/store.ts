@@ -13,11 +13,13 @@ export interface IStore {
     MSConfigs: IMSConfig[]
     Roles: IMSConfigRole[]
     RoleConfigs: IRoleConfigs[]
-    getNewMSConfigId: any
+
     getNewRoleId: any
     getSelectedConfigs: any
     addMSConfig: any
     addRole: any
+    deleteMSConfig: any
+    deleteRole: any
     addRoleConfigs: any
 }
 
@@ -29,8 +31,8 @@ class Store implements IStore {
     MSCTableHeads: IMSConfigHeadCell[] = [
         {
             id: 'label',
-            numeric: false,
-            disablePadding: true,
+            numeric: true,
+            disablePadding: false,
             label: 'Название',
         },
         { id: 'path', numeric: false, disablePadding: false, label: 'Путь' },
@@ -51,22 +53,21 @@ class Store implements IStore {
 
     MSCRoleTableHeads: IMSConfigRoleHeadCell[] = [
         {
-            id: 'roleName',
-            numeric: false,
-            disablePadding: true,
-            label: 'Идентификатор',
-        },
-        {
             id: 'roleTitle',
             numeric: false,
             disablePadding: false,
             label: 'Название роли',
         },
+        {
+            id: 'roleName',
+            numeric: false,
+            disablePadding: false,
+            label: 'Идентификатор',
+        },
     ]
 
     MSConfigs: IMSConfig[] = [
         {
-            id: 1,
             path: '/1',
             label: 'Удаленное приложение1',
             url: 'https://micromodule-f509c.web.app/remoteEntry.js',
@@ -74,7 +75,6 @@ class Store implements IStore {
             module: './App',
         },
         {
-            id: 2,
             path: '/2',
             label: 'Удаленное приложение2',
             url: 'https://micromodule-f5ac.web.app/remoteEntry.js',
@@ -82,7 +82,6 @@ class Store implements IStore {
             module: './News',
         },
         {
-            id: 3,
             path: '/3',
             label: 'Удаленное приложение3',
             url: 'https://micromodule-f5bc.web.app/remoteEntry.js',
@@ -90,11 +89,52 @@ class Store implements IStore {
             module: './Articles',
         },
         {
-            id: 4,
             path: '/4',
             label: 'Удаленное приложение4',
             url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
             scope: 'fourthModule',
+            module: './Configs',
+        },
+        {
+            path: '/5',
+            label: 'Удаленное приложение5',
+            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
+            scope: 'fifthModule',
+            module: './Configs',
+        },
+        {
+            path: '/6',
+            label: 'Удаленное приложение6',
+            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
+            scope: 'sixthModule',
+            module: './Configs',
+        },
+        {
+            path: '/7',
+            label: 'Удаленное приложение7',
+            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
+            scope: 'seventhModule',
+            module: './Configs',
+        },
+        {
+            path: '/8',
+            label: 'Удаленное приложение8',
+            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
+            scope: 'eighthModule',
+            module: './Configs',
+        },
+        {
+            path: '/9',
+            label: 'Удаленное приложение9',
+            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
+            scope: 'ninthModule',
+            module: './Configs',
+        },
+        {
+            path: '/10',
+            label: 'Удаленное приложение10',
+            url: 'https://micromodule-f5cc.web.app/remoteEntry.js',
+            scope: 'tenthModule',
             module: './Configs',
         },
     ]
@@ -107,14 +147,14 @@ class Store implements IStore {
     ]
 
     RoleConfigs: IRoleConfigs[] = [
-        { roleId: 1, msConfigIds: [1, 2] },
-        { roleId: 2, msConfigIds: [4] },
+        { roleId: 1, msConfigIds: ['eighthModule', 'tenthModule'] },
+        { roleId: 2, msConfigIds: ['seventhModule'] },
     ]
 
-    getNewMSConfigId = () => {
-        let length = this.MSConfigs.length
-        return length > 0 ? this.MSConfigs[length - 1].id + 1 : 1
-    }
+    // getNewMSConfigId = () => {
+    //     let length = this.MSConfigs.length
+    //     return length > 0 ? this.MSConfigs[length - 1].id + 1 : 1
+    // }
 
     getNewRoleId = () => {
         let length = this.Roles.length
@@ -133,27 +173,52 @@ class Store implements IStore {
 
         return this.MSConfigs.filter((config) => {
             return roleConfig?.msConfigIds.find((msConfigId) => {
-                return msConfigId === config.id
+                return msConfigId === config.scope
             })
         })
     }
 
     addMSConfig = (value: IMSConfig) => {
-        let newId = this.getNewMSConfigId()
-        let newMSConfig = {
-            ...value,
-            id: newId,
-        }
-        this.MSConfigs.push(newMSConfig)
+        // let newId = this.getNewMSConfigId()
+        // let newMSConfig = {
+        //     ...value
+        // }
+        this.MSConfigs.push({ ...value })
     }
 
-    addRole = (value: IMSConfigRole, configs: number[]) => {
+    deleteMSConfig = (payload: string[]) => {
+        if (Array.isArray(payload) && payload.length > 0) {
+            this.MSConfigs = this.MSConfigs.filter((config: IMSConfig) => {
+                return !payload.find((scope) => config.scope === scope)
+            })
+        }
+    }
+
+    deleteRole = (payload: number[]) => {
+        if (Array.isArray(payload) && payload.length > 0) {
+            this.Roles = this.Roles.filter((config: IMSConfigRole) => {
+                return !payload.find((roleId) => config.roleId === roleId)
+            })
+
+            this.RoleConfigs = this.RoleConfigs.filter(
+                (roleConfig: IRoleConfigs) => {
+                    return !payload.find(
+                        (roleId) => roleConfig.roleId === roleId
+                    )
+                }
+            )
+        }
+    }
+
+    addRole = (value: IMSConfigRole, configs: string[]) => {
         if (value && value.roleId) {
+            // Отдельно дабляем в this.Roles
             let roleIndex = this.Roles.findIndex(
                 (role) => role.roleId === value.roleId
             )
             this.Roles[roleIndex] = { ...value }
 
+            // Отдельно дабляем в this.RoleConfigs (связь один ко многим)
             let roleConfigIndex = this.RoleConfigs.findIndex(
                 (role) => role.roleId === value.roleId
             )
@@ -166,13 +231,6 @@ class Store implements IStore {
                     msConfigIds: [...configs],
                 })
             }
-
-            // this.RoleConfigs.map( (roleConfig) => {
-            // if(roleConfig.roleId === value.roleId) {
-            //
-            //     roleConfig.msConfigIds = [...configs]
-            // }
-            // })
         } else if (value && !value.roleId) {
             let newId = this.getNewRoleId()
             let newRole = {
@@ -186,10 +244,10 @@ class Store implements IStore {
     }
 
     addRoleConfigs = (value: IMSConfig) => {
-        let newId = this.getNewMSConfigId()
+        // let newId = this.getNewMSConfigId()
         let newMSConfig = {
             ...value,
-            id: newId,
+            // id: newId,
         }
         this.MSConfigs.push(newMSConfig)
     }
