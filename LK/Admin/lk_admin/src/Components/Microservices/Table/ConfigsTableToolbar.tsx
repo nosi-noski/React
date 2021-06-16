@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add'
 import { useToolbarStyles } from '../../../Styles/MicroserviceStyles'
 import Modal from './Modal'
 
-const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
+export const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
     selected,
     setSelected,
     title,
@@ -85,5 +85,3 @@ const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
         </>
     )
 }
-
-export default ConfigsTableToolbar

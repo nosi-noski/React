@@ -10,7 +10,6 @@ import {
 export interface IStore {
     MSCTableHeads: IMSConfigHeadCell[]
     MSCRoleTableHeads: IMSConfigRoleHeadCell[]
-    // MSConfigs: IMSConfig[]
     Roles: IMSConfigRole[]
     RoleConfigs: IRoleConfigs[]
 

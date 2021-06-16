@@ -56,6 +56,12 @@ export const useTableStyles = makeStyles((theme: Theme) =>
         tableCellCheckBoxSelected: {
             color: '#fab731 !important',
         },
+        tableCellCheckBox: {
+            color: 'green',
+            '&$checked': {
+                color: 'green',
+            },
+        },
     })
 )
 
@@ -95,7 +101,13 @@ export const useCommonStyles = makeStyles((theme: Theme) =>
         loader: {
             display: 'flex',
             justifyContent: 'center',
-            height: '50vh',
+            padding: 50,
+            alignItems: 'center',
+        },
+        emptyTableFooter: {
+            display: 'flex',
+            justifyContent: 'center',
+            padding: 100,
             alignItems: 'center',
         },
     })

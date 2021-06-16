@@ -112,6 +112,7 @@ export interface IConfigTableProps {
     onAdd?: (payload: any) => void
     onDelete?: (payload: any) => void
     isFetching: boolean
+    emptyListTitle?: string
 }
 
 export interface IRoleTableProps {

@@ -7,12 +7,7 @@ import { observer } from 'mobx-react'
 import { ModulesContext } from './../../Context/ModulesContext'
 import { useCommonStyles } from './../../Styles/MicroserviceStyles'
 const MSPage: FC = observer(() => {
-    const {
-        // MSConfigs,
-        MSCTableHeads,
-        addMSConfig,
-        deleteMSConfig,
-    } = useContext(Context)
+    const { MSCTableHeads, addMSConfig, deleteMSConfig } = useContext(Context)
 
     const { getAllModules, isFetching, list } = useContext(ModulesContext)
 
@@ -20,14 +15,6 @@ const MSPage: FC = observer(() => {
     useEffect(() => {
         getAllModules()
     }, [])
-
-    if (isFetching) {
-        return (
-            <div className={classes.loader}>
-                <CircularProgress />
-            </div>
-        )
-    }
 
     return (
         <ConfigsTable
@@ -37,6 +24,7 @@ const MSPage: FC = observer(() => {
             onAdd={addMSConfig}
             onDelete={deleteMSConfig}
             isFetching={isFetching}
+            emptyListTitle={'Список пуст'}
         />
     )
 })

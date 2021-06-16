@@ -1,11 +1,16 @@
 import React, { FC, useEffect } from 'react'
-import Table from '@material-ui/core/Table'
-import TableContainer from '@material-ui/core/TableContainer'
-import Paper from '@material-ui/core/Paper'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
-import Checkbox from '@material-ui/core/Checkbox'
+import {
+    Paper,
+    Table,
+    TableContainer,
+    TableBody,
+    TableRow,
+    TableCell,
+    Checkbox,
+} from '@material-ui/core'
+import { TableLoader } from './../../Common/TableLoader'
+import { TitleListIsEmpty } from './../../Common/TitleListIsEmpty'
+
 import { useTableStyles } from '../../../Styles/MicroserviceStyles'
 import { getComparator, stableSort } from '../../../Common/CommonFunctions'
 import { observer } from 'mobx-react'
@@ -14,12 +19,13 @@ import {
     IMSConfig,
     IConfigTableProps,
 } from '../../../Interfaces/MicroserviceInterfaces'
-import ConfigsTableToolbar from './ConfigsTableToolbar'
-import ConfigsTableHead from './ConfigsTableHead'
+import { ConfigsTableToolbar } from './ConfigsTableToolbar'
+import { ConfigsTableHead } from './ConfigsTableHead'
 import { Order } from '../../../Interfaces/MicroserviceInterfaces'
+import clsx from 'clsx'
 
 const ConfigsTable: FC<IConfigTableProps> = observer(
-    ({ rows, heads, order, onAdd, onDelete, isFetching }) => {
+    ({ rows, heads, order, onAdd, onDelete, isFetching, emptyListTitle }) => {
         const classes = useTableStyles()
         const [rowsOrder, setRowsOrder] = React.useState<Order>(order)
         const [orderBy, setOrderBy] = React.useState<keyof IMSConfig>('label')
@@ -47,10 +53,20 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
             setSelected([])
         }
 
-        const handleClick = (
+        const rowHandleClick = (
+            event: React.MouseEvent<unknown>,
+            row: IMSConfig
+        ) => {
+            //TODO: handler modal window
+            console.log('row clicked')
+        }
+
+        const checkboxHandleClick = (
             event: React.MouseEvent<unknown>,
             scope: string
         ) => {
+            event.stopPropagation()
+
             const selectedIndex = selected.indexOf(scope)
             let newSelected: string[] = []
 
@@ -71,7 +87,6 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
                     )
                     break
             }
-
             setSelected(newSelected)
         }
 
@@ -104,65 +119,81 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
                                 headCells={heads}
                             />
                             <TableBody>
-                                {stableSort(
-                                    rows,
-                                    getComparator(rowsOrder, orderBy)
-                                ).map((row) => {
-                                    const isItemSelected = isSelected(row.scope)
-                                    const labelId = `checkbox-${row.scope}`
-                                    const key = row.scope
+                                {!isFetching &&
+                                    stableSort(
+                                        rows,
+                                        getComparator(rowsOrder, orderBy)
+                                    ).map((row) => {
+                                        const isItemSelected = isSelected(
+                                            row.scope
+                                        )
+                                        const labelId = `checkbox-${row.scope}`
+                                        const key = row.scope
 
-                                    return (
-                                        <TableRow
-                                            hover
-                                            onClick={(event) =>
-                                                handleClick(event, row.scope)
-                                            }
-                                            role="checkbox"
-                                            aria-checked={isItemSelected}
-                                            tabIndex={-1}
-                                            key={key}
-                                            selected={isItemSelected}
-                                        >
-                                            <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    checked={isItemSelected}
-                                                    inputProps={{
-                                                        'aria-labelledby': labelId,
-                                                    }}
-                                                />
-                                            </TableCell>
-                                            <TableCell
-                                                component="th"
-                                                align="left"
-                                                id={labelId}
+                                        return (
+                                            <TableRow
+                                                hover
+                                                onClick={(event) =>
+                                                    rowHandleClick(event, row)
+                                                }
+                                                role="checkbox"
+                                                aria-checked={isItemSelected}
+                                                tabIndex={-1}
+                                                key={key}
+                                                selected={isItemSelected}
+                                                className={clsx({
+                                                    [classes.tableRowSelected]: isItemSelected,
+                                                })}
                                             >
-                                                {row.label}
-                                            </TableCell>
-                                            <TableCell
-                                                component="th"
-                                                align="left"
-                                            >
-                                                {row.url}
-                                            </TableCell>
-                                            <TableCell
-                                                component="th"
-                                                align="left"
-                                            >
-                                                {row.scope}
-                                            </TableCell>
-                                            <TableCell
-                                                component="th"
-                                                align="left"
-                                            >
-                                                {row.module}
-                                            </TableCell>
-                                        </TableRow>
-                                    )
-                                })}
+                                                <TableCell padding="checkbox">
+                                                    <Checkbox
+                                                        className={
+                                                            classes.tableCellCheckBox
+                                                        }
+                                                        checked={isItemSelected}
+                                                        inputProps={{
+                                                            'aria-labelledby': labelId,
+                                                        }}
+                                                        onClick={(event) =>
+                                                            checkboxHandleClick(
+                                                                event,
+                                                                row.scope
+                                                            )
+                                                        }
+                                                    />
+                                                </TableCell>
+                                                {Object.keys(row).map((key) => {
+                                                    if (
+                                                        !!heads.find(
+                                                            (head) =>
+                                                                head.id === key
+                                                        )
+                                                    ) {
+                                                        return (
+                                                            <TableCell
+                                                                key={key}
+                                                                component="th"
+                                                                align="left"
+                                                            >
+                                                                {
+                                                                    row[
+                                                                        key as keyof IMSConfig
+                                                                    ]
+                                                                }
+                                                            </TableCell>
+                                                        )
+                                                    }
+                                                })}
+                                            </TableRow>
+                                        )
+                                    })}
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    {isFetching && <TableLoader />}
+                    {!isFetching && rows?.length === 0 && (
+                        <TitleListIsEmpty title={emptyListTitle} />
+                    )}
                 </Paper>
             </div>
         )

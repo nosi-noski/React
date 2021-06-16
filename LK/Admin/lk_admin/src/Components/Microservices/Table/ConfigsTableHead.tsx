@@ -9,7 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import TableHead from '@material-ui/core/TableHead'
 
-const ConfigsTableHead: FC<IConfigTableHeadProps> = (props) => {
+export const ConfigsTableHead: FC<IConfigTableHeadProps> = (props) => {
     const {
         headCells,
         classes,
@@ -66,5 +66,3 @@ const ConfigsTableHead: FC<IConfigTableHeadProps> = (props) => {
         </TableHead>
     )
 }
-
-export default ConfigsTableHead
