@@ -3,6 +3,8 @@ import { IMSConfig } from './../Interfaces/MicroserviceInterfaces'
 
 export interface IModulesAPIClient {
     getAll: () => Promise<IMSConfig[]>
+    createModule: (payload: IMSConfig) => void
+    updateModule: (payload: IMSConfig) => void
 }
 
 class ModulesAPIClient implements IModulesAPIClient {
@@ -16,6 +18,11 @@ class ModulesAPIClient implements IModulesAPIClient {
     createModule = (payload: IMSConfig) => {
         let preparedRef = `modules/` + payload.scope
         this.DBConnector.postData(preparedRef, payload)
+    }
+
+    updateModule = (payload: IMSConfig) => {
+        let preparedRef = `modules/` + payload.scope
+        this.DBConnector.putData(preparedRef, payload)
     }
 }
 

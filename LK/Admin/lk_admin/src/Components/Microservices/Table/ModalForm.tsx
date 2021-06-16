@@ -11,6 +11,8 @@ import {
     IConfigModalForm,
 } from './../../../Interfaces/MicroserviceInterfaces'
 
+import { ModulesContext } from './../../../Context/ModulesContext'
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
@@ -35,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
         withoutLabel: {
             marginTop: theme.spacing(3),
         },
+
         buttonsWrapper: {
             display: 'flex',
             alignItems: 'flex-end',
@@ -44,19 +47,22 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-// interface IModalForm {
-//     onClose: (value?:IMSConfig|undefined) => void;
-// }
-
-const ModalForm: FC<IConfigModalForm> = ({ onClose }) => {
+export const ModalModuleForm: FC<IConfigModalForm> = ({
+    onCreate,
+    onUpdate,
+    onReject,
+}) => {
     const classes = useStyles()
-    const [values, setValues] = React.useState<IMSConfig>({
-        // path: '',
-        label: '',
-        url: '',
-        scope: '',
-        module: '',
-    })
+    const { moduleItem } = useContext(ModulesContext)
+
+    const [values, setValues] = React.useState<IMSConfig>(
+        moduleItem || {
+            label: '',
+            url: '',
+            scope: '',
+            module: '',
+        }
+    )
 
     const handleChange = (prop: keyof IMSConfig) => (
         event: React.ChangeEvent<HTMLInputElement>
@@ -64,14 +70,16 @@ const ModalForm: FC<IConfigModalForm> = ({ onClose }) => {
         setValues({ ...values, [prop]: event.target.value })
     }
 
-    const onSubmit = () => {
-        //console.log('ОК', values);
-        onClose(values)
+    const handleSubmit = () => {
+        if (moduleItem) {
+            onUpdate(values)
+        } else {
+            onCreate(values)
+        }
     }
 
-    const onCanceled = () => {
-        //console.log('Cancel', values);
-        onClose()
+    const handleRejected = () => {
+        onReject()
     }
 
     return (
@@ -80,21 +88,6 @@ const ModalForm: FC<IConfigModalForm> = ({ onClose }) => {
                 Новая конфигурация микросервиса
             </Typography>
             <div className={classes.root}>
-                {/*<FormControl*/}
-                {/*    fullWidth*/}
-                {/*    className={classes.margin}*/}
-                {/*    variant="outlined"*/}
-                {/*>*/}
-                {/*    <InputLabel htmlFor="path">Путь</InputLabel>*/}
-                {/*    <OutlinedInput*/}
-                {/*        id="path"*/}
-                {/*        type={'text'}*/}
-                {/*        value={values.path}*/}
-                {/*        placeholder={''}*/}
-                {/*        onChange={handleChange('path')}*/}
-                {/*        labelWidth={70}*/}
-                {/*    />*/}
-                {/*</FormControl>*/}
                 <FormControl
                     fullWidth
                     className={classes.margin}
@@ -157,12 +150,10 @@ const ModalForm: FC<IConfigModalForm> = ({ onClose }) => {
                     className={clsx(classes.margin, classes.buttonsWrapper)}
                     variant="outlined"
                 >
-                    <Button onClick={onSubmit}>Сохранить</Button>
-                    <Button onClick={onCanceled}>Отмена</Button>
+                    <Button onClick={handleSubmit}>Сохранить</Button>
+                    <Button onClick={handleRejected}>Отмена</Button>
                 </FormControl>
             </div>
         </div>
     )
 }
-
-export default ModalForm

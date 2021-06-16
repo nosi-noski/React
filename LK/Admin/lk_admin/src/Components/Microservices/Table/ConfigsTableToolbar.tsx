@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useContext, useState } from 'react'
 import { IConfigTableToolbarProps } from '../../../Interfaces/MicroserviceInterfaces'
 import clsx from 'clsx'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -9,7 +9,10 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import AddIcon from '@material-ui/icons/Add'
 import { useToolbarStyles } from '../../../Styles/MicroserviceStyles'
-import Modal from './Modal'
+import { ModalWindow } from './ModalWindow'
+import { ModalModuleForm } from './ModalForm'
+import { ModulesContext } from './../../../Context/ModulesContext'
+import { IMSConfig } from './../../../Interfaces/MicroserviceInterfaces'
 
 export const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
     selected,
@@ -17,11 +20,16 @@ export const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
     title,
     addButtonTitle,
     onDelete,
+    showForm,
+    setShowForm,
 }) => {
     const classes = useToolbarStyles()
+    const { createModule, updateModule, getAllModules } = useContext(
+        ModulesContext
+    )
+
     const numSelected = selected.length
     const addButtonTitleDefault = addButtonTitle || 'Добавить'
-    const [showForm, setShowForm] = useState(false)
 
     const onDeleteHandler = (event: React.MouseEvent) => {
         if (typeof onDelete === 'function') {
@@ -29,6 +37,26 @@ export const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
             setSelected([])
         }
     }
+
+    const handleAfterAction = (p: Promise<void>) => {
+        p.then(() => {
+            setShowForm(false)
+            getAllModules()
+        }).catch((reason) => {
+            console.error(reason)
+        })
+    }
+    const handleCreateModule = (payload: IMSConfig) => {
+        handleAfterAction(createModule(payload))
+    }
+    const handleUpdateModule = (payload: IMSConfig) => {
+        handleAfterAction(updateModule(payload))
+    }
+
+    const handleReject = () => {
+        setShowForm(false)
+    }
+
     return (
         <>
             <Toolbar
@@ -81,7 +109,14 @@ export const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
                     </Tooltip>
                 )}
             </Toolbar>
-            <Modal isOpen={showForm} setIsOpen={setShowForm} />
+
+            <ModalWindow isOpen={showForm} setIsOpen={setShowForm}>
+                <ModalModuleForm
+                    onCreate={handleCreateModule}
+                    onUpdate={handleUpdateModule}
+                    onReject={handleReject}
+                />
+            </ModalWindow>
         </>
     )
 }

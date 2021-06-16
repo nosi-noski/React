@@ -66,6 +66,8 @@ export interface IConfigTableToolbarProps {
     title?: string
     addButtonTitle?: string
     onDelete?: (payload: any) => void
+    setShowForm: (value: boolean) => void
+    showForm: boolean
 }
 
 export interface IRoleTableToolbarProps {
@@ -110,6 +112,7 @@ export interface IConfigTableProps {
     heads: IMSConfigHeadCell[]
     order: Order
     onAdd?: (payload: any) => void
+    onEdit?: (payload: any) => void
     onDelete?: (payload: any) => void
     isFetching: boolean
     emptyListTitle?: string
@@ -152,7 +155,9 @@ export interface ITransitionsModal {
 }
 
 export interface IConfigModalForm {
-    onClose: (value?: IMSConfig | undefined) => void
+    onCreate: (value: IMSConfig) => void
+    onUpdate: (value: IMSConfig) => void
+    onReject: () => void
 }
 
 export interface IRoleModalForm {

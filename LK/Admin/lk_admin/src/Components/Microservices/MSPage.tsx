@@ -9,7 +9,14 @@ import { useCommonStyles } from './../../Styles/MicroserviceStyles'
 const MSPage: FC = observer(() => {
     const { MSCTableHeads, addMSConfig, deleteMSConfig } = useContext(Context)
 
-    const { getAllModules, isFetching, list } = useContext(ModulesContext)
+    const {
+        getAllModules,
+        isFetching,
+        list,
+        createModule,
+        updateModule,
+        moduleItem,
+    } = useContext(ModulesContext)
 
     const classes = useCommonStyles()
     useEffect(() => {
@@ -21,7 +28,8 @@ const MSPage: FC = observer(() => {
             heads={MSCTableHeads}
             rows={list}
             order={Order.Asc}
-            onAdd={addMSConfig}
+            onAdd={createModule}
+            onEdit={updateModule}
             onDelete={deleteMSConfig}
             isFetching={isFetching}
             emptyListTitle={'Список пуст'}

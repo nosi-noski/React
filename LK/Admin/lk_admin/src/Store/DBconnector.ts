@@ -3,6 +3,7 @@ import firebase from 'firebase'
 export interface IDBConnector {
     getData: (ref: string) => Promise<any>
     postData: (ref: string, payload: any) => void
+    putData: (ref: string, payload: any) => void
 }
 
 class DBConnector implements IDBConnector {
@@ -25,6 +26,10 @@ class DBConnector implements IDBConnector {
 
     postData = async (ref: string, payload: any) => {
         await this.database.ref(ref).set(payload)
+    }
+
+    putData = async (ref: string, payload: any) => {
+        await this.database.ref(ref).update(payload)
     }
 }
 

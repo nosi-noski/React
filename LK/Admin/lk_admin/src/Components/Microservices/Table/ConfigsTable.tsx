@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import {
     Paper,
     Table,
@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import { TableLoader } from './../../Common/TableLoader'
 import { TitleListIsEmpty } from './../../Common/TitleListIsEmpty'
-
+import { ModulesContext } from './../../../Context/ModulesContext'
 import { useTableStyles } from '../../../Styles/MicroserviceStyles'
 import { getComparator, stableSort } from '../../../Common/CommonFunctions'
 import { observer } from 'mobx-react'
@@ -25,11 +25,22 @@ import { Order } from '../../../Interfaces/MicroserviceInterfaces'
 import clsx from 'clsx'
 
 const ConfigsTable: FC<IConfigTableProps> = observer(
-    ({ rows, heads, order, onAdd, onDelete, isFetching, emptyListTitle }) => {
+    ({
+        rows,
+        heads,
+        order,
+        onAdd,
+        onEdit,
+        onDelete,
+        isFetching,
+        emptyListTitle,
+    }) => {
         const classes = useTableStyles()
+        const { setModuleItem } = useContext(ModulesContext)
         const [rowsOrder, setRowsOrder] = React.useState<Order>(order)
         const [orderBy, setOrderBy] = React.useState<keyof IMSConfig>('label')
         const [selected, setSelected] = React.useState<string[]>([])
+        const [showForm, setShowForm] = useState(false)
 
         useEffect(() => {}, [rows])
 
@@ -55,10 +66,10 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
 
         const rowHandleClick = (
             event: React.MouseEvent<unknown>,
-            row: IMSConfig
+            payload: IMSConfig
         ) => {
-            //TODO: handler modal window
-            console.log('row clicked')
+            setModuleItem(payload)
+            setShowForm(true)
         }
 
         const checkboxHandleClick = (
@@ -99,6 +110,8 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
                         selected={selected}
                         setSelected={setSelected}
                         onDelete={onDelete}
+                        showForm={showForm}
+                        setShowForm={setShowForm}
                         addButtonTitle={'Добавить конфигурацию микросервиса'}
                     />
                     <TableContainer>
