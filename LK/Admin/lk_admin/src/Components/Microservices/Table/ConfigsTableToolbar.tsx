@@ -1,18 +1,22 @@
-import React, { FC, useContext, useState } from 'react'
-import { IConfigTableToolbarProps } from '../../../Interfaces/MicroserviceInterfaces'
+import React, { FC, useContext } from 'react'
 import clsx from 'clsx'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
-import DeleteIcon from '@material-ui/icons/Delete'
-import FilterListIcon from '@material-ui/icons/FilterList'
-import AddIcon from '@material-ui/icons/Add'
-import { useToolbarStyles } from '../../../Styles/MicroserviceStyles'
-import { ModalWindow } from './ModalWindow'
-import { ModalModuleForm } from './ModalForm'
+
+import { Toolbar, Typography, IconButton, Tooltip } from '@material-ui/core'
+import {
+    Add as AddIcon,
+    Delete as DeleteIcon,
+    FilterList as FilterListIcon,
+} from '@material-ui/icons'
+
+import {
+    IConfigTableToolbarProps,
+    IMSConfig,
+} from '../../../Interfaces/MicroserviceInterfaces'
 import { ModulesContext } from './../../../Context/ModulesContext'
-import { IMSConfig } from './../../../Interfaces/MicroserviceInterfaces'
+import { useToolbarStyles } from '../../../Styles/MicroserviceStyles'
+
+import { ModalWindow } from './ModalWindow'
+import { ModalModuleForm } from './ModalModuleForm'
 
 export const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
     selected,
@@ -24,21 +28,17 @@ export const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
     setShowForm,
 }) => {
     const classes = useToolbarStyles()
-    const { createModule, updateModule, getAllModules } = useContext(
-        ModulesContext
-    )
+    const {
+        createModule,
+        updateModule,
+        getAllModules,
+        removeModule,
+    } = useContext(ModulesContext)
 
     const numSelected = selected.length
     const addButtonTitleDefault = addButtonTitle || 'Добавить'
 
-    const onDeleteHandler = (event: React.MouseEvent) => {
-        if (typeof onDelete === 'function') {
-            onDelete(selected)
-            setSelected([])
-        }
-    }
-
-    const handleAfterAction = (p: Promise<void>) => {
+    const handleAfterAction = (p: Promise<any>) => {
         p.then(() => {
             setShowForm(false)
             getAllModules()
@@ -51,6 +51,18 @@ export const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
     }
     const handleUpdateModule = (payload: IMSConfig) => {
         handleAfterAction(updateModule(payload))
+    }
+
+    const onDeleteHandler = (event: React.MouseEvent) => {
+        let promises = selected.map((scope) => {
+            return removeModule(scope)
+        })
+
+        handleAfterAction(
+            Promise.all(promises).then((value) => {
+                setSelected([])
+            })
+        )
     }
 
     const handleReject = () => {
@@ -112,6 +124,8 @@ export const ConfigsTableToolbar: FC<IConfigTableToolbarProps> = ({
 
             <ModalWindow isOpen={showForm} setIsOpen={setShowForm}>
                 <ModalModuleForm
+                    isOpen={showForm}
+                    setIsOpen={setShowForm}
                     onCreate={handleCreateModule}
                     onUpdate={handleUpdateModule}
                     onReject={handleReject}

@@ -4,6 +4,7 @@ export interface IDBConnector {
     getData: (ref: string) => Promise<any>
     postData: (ref: string, payload: any) => void
     putData: (ref: string, payload: any) => void
+    removeData: (ref: string) => void
 }
 
 class DBConnector implements IDBConnector {
@@ -16,11 +17,9 @@ class DBConnector implements IDBConnector {
 
     getData = async (ref: string) => {
         let data
-
         await this.database.ref(ref).once('value', (snapshot) => {
             data = snapshot.val()
         })
-
         return data
     }
 
@@ -30,6 +29,10 @@ class DBConnector implements IDBConnector {
 
     putData = async (ref: string, payload: any) => {
         await this.database.ref(ref).update(payload)
+    }
+
+    removeData = async (ref: string) => {
+        await this.database.ref(ref).remove()
     }
 }
 

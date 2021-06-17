@@ -5,6 +5,7 @@ export interface IModulesAPIClient {
     getAll: () => Promise<IMSConfig[]>
     createModule: (payload: IMSConfig) => void
     updateModule: (payload: IMSConfig) => void
+    removeModule: (id: string) => void
 }
 
 class ModulesAPIClient implements IModulesAPIClient {
@@ -23,6 +24,10 @@ class ModulesAPIClient implements IModulesAPIClient {
     updateModule = (payload: IMSConfig) => {
         let preparedRef = `modules/` + payload.scope
         this.DBConnector.putData(preparedRef, payload)
+    }
+
+    removeModule = (id: string) => {
+        this.DBConnector.removeData(`modules/${id}`)
     }
 }
 

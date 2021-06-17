@@ -34,7 +34,12 @@ class Store implements IStore {
             disablePadding: false,
             label: 'Название',
         },
-        { id: 'url', numeric: false, disablePadding: false, label: 'Ссылка' },
+        {
+            id: 'module',
+            numeric: false,
+            disablePadding: false,
+            label: 'Модуль',
+        },
         {
             id: 'scope',
             numeric: false,
@@ -42,10 +47,10 @@ class Store implements IStore {
             label: 'Область',
         },
         {
-            id: 'module',
+            id: 'url',
             numeric: false,
             disablePadding: false,
-            label: 'Модуль',
+            label: 'URL-адрес',
         },
     ]
 

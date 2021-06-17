@@ -1,13 +1,13 @@
 import React, { FC, useContext, useEffect } from 'react'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import ConfigsTable from './Table/ConfigsTable'
-import { Order } from './../../Interfaces/MicroserviceInterfaces'
+
+import { ConfigTable } from './Table/ConfigTable'
+import { Order } from '../../Interfaces/MicroserviceInterfaces'
 import Context from './../../Store/Context'
 import { observer } from 'mobx-react'
-import { ModulesContext } from './../../Context/ModulesContext'
-import { useCommonStyles } from './../../Styles/MicroserviceStyles'
-const MSPage: FC = observer(() => {
-    const { MSCTableHeads, addMSConfig, deleteMSConfig } = useContext(Context)
+import { ModulesContext } from '../../Context/ModulesContext'
+
+export const ConfigPage: FC = observer(() => {
+    const { MSCTableHeads, deleteMSConfig } = useContext(Context)
 
     const {
         getAllModules,
@@ -15,26 +15,23 @@ const MSPage: FC = observer(() => {
         list,
         createModule,
         updateModule,
-        moduleItem,
+        removeModule,
     } = useContext(ModulesContext)
 
-    const classes = useCommonStyles()
     useEffect(() => {
         getAllModules()
     }, [])
 
     return (
-        <ConfigsTable
+        <ConfigTable
             heads={MSCTableHeads}
             rows={list}
             order={Order.Asc}
             onAdd={createModule}
             onEdit={updateModule}
-            onDelete={deleteMSConfig}
+            onDelete={removeModule}
             isFetching={isFetching}
             emptyListTitle={'Список пуст'}
         />
     )
 })
-
-export default MSPage

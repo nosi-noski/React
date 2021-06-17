@@ -1,13 +1,8 @@
-import React, { FC, useContext, useEffect, useState } from 'react'
-import Modal from '@material-ui/core/Modal'
-import Backdrop from '@material-ui/core/Backdrop'
-import Fade from '@material-ui/core/Fade'
-import {
-    ITransitionsModal,
-    IMSConfig,
-} from './../../../Interfaces/MicroserviceInterfaces'
+import React, { FC } from 'react'
+import { Modal, Backdrop, Fade } from '@material-ui/core'
+import { ITransitionsModal } from '../../../Interfaces/MicroserviceInterfaces'
+import { useModalStyles } from '../../../Styles/MicroserviceStyles'
 
-import { useModalStyles } from './../../../Styles/MicroserviceStyles'
 export const ModalWindow: FC<ITransitionsModal> = ({
     isOpen,
     setIsOpen,

@@ -65,7 +65,7 @@ export interface IConfigTableToolbarProps {
     setSelected: (payload: any) => void
     title?: string
     addButtonTitle?: string
-    onDelete?: (payload: any) => void
+    onDelete: (payload: any) => void
     setShowForm: (value: boolean) => void
     showForm: boolean
 }
@@ -113,7 +113,7 @@ export interface IConfigTableProps {
     order: Order
     onAdd?: (payload: any) => void
     onEdit?: (payload: any) => void
-    onDelete?: (payload: any) => void
+    onDelete: (payload: any) => void
     isFetching: boolean
     emptyListTitle?: string
 }
@@ -155,6 +155,8 @@ export interface ITransitionsModal {
 }
 
 export interface IConfigModalForm {
+    isOpen: boolean
+    setIsOpen: (isOpen: boolean) => void
     onCreate: (value: IMSConfig) => void
     onUpdate: (value: IMSConfig) => void
     onReject: () => void

@@ -7,7 +7,7 @@ import PersistentDrawerLeft from './Components/PersistentDrawerLeft'
 import HomeIcon from '@material-ui/icons/Home'
 import HomePage from './Components/HomePage'
 import BallotIcon from '@material-ui/icons/Ballot'
-import MSPage from './Components/Microservices/MSPage'
+import { ConfigPage } from './Components/Microservices/ConfigPage'
 import RolesPage from './Components/MicroserviceRole/RolesPage'
 import MainPage from './Components/MainPage'
 
@@ -23,10 +23,10 @@ const App: FC = () => {
         },
         {
             title: 'Конфигурации микросервисов',
-            path: '/msconfigs',
+            path: '/configs',
             icon: <BallotIcon />,
             exact: false,
-            component: <MSPage />,
+            component: <ConfigPage />,
         },
         {
             title: 'Роли',

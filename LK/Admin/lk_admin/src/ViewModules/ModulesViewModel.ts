@@ -9,13 +9,18 @@ export interface IModulesViewModel {
     createModule: (payload: IMSConfig) => Promise<void>
     updateModule: (payload: IMSConfig) => Promise<void>
     moduleItem?: IMSConfig
-    setModuleItem: (payload: IMSConfig) => void
+    moduleScopes: string[]
+    setModuleItem: (payload?: IMSConfig) => void
+    removeModule: (payload: string) => Promise<void>
+    removeModules: (id: string[]) => Promise<void>
+    existedModuleScopes: string[]
 }
 
 class ModulesViewModel implements IModulesViewModel {
     list: IMSConfig[]
     isFetching: boolean
     moduleItem?: IMSConfig
+    moduleScopes: string[]
 
     constructor(protected APIClient: IModulesAPIClient) {
         makeAutoObservable(this)
@@ -23,6 +28,7 @@ class ModulesViewModel implements IModulesViewModel {
         this.list = []
         this.isFetching = false
         this.moduleItem = undefined
+        this.moduleScopes = []
     }
 
     getAllModules = async () => {
@@ -43,8 +49,27 @@ class ModulesViewModel implements IModulesViewModel {
         this.isFetching = false
     }
 
-    setModuleItem = (payload: IMSConfig) => {
+    setModuleItem = (payload?: IMSConfig) => {
         this.moduleItem = payload
+    }
+
+    get existedModuleScopes() {
+        return this.list.map((config) => config.scope)
+    }
+
+    removeModule = async (id: string) => {
+        this.isFetching = true
+        await this.APIClient.removeModule(id)
+        this.isFetching = false
+    }
+
+    removeModules = async (ids: string[]) => {
+        this.isFetching = true
+        let promises = ids.map((id) => {
+            return this.removeModule(id)
+        })
+        await Promise.all(promises)
+        this.isFetching = false
     }
 }
 

@@ -24,7 +24,7 @@ import { ConfigsTableHead } from './ConfigsTableHead'
 import { Order } from '../../../Interfaces/MicroserviceInterfaces'
 import clsx from 'clsx'
 
-const ConfigsTable: FC<IConfigTableProps> = observer(
+export const ConfigTable: FC<IConfigTableProps> = observer(
     ({
         rows,
         heads,
@@ -212,5 +212,3 @@ const ConfigsTable: FC<IConfigTableProps> = observer(
         )
     }
 )
-
-export default ConfigsTable
